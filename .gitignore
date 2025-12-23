@@ -1,0 +1,55 @@
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+
+# Context/reference materials (not part of submission)
+context/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project outputs (large files)
+outputs/
+*.png
+*.jpg
+*.jpeg
+
+# Test PDFs (optional - uncomment if you don't want to track)
+# test*.pdf
+
+# Logs
+*.log
+logs/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Distribution
+dist/
+build/
+*.egg-info/
+
+# Coverage
+htmlcov/
+.coverage
+.pytest_cache/
