@@ -35,7 +35,7 @@ Examples:
         """,
     )
 
-    parser.add_argument("pdf_files", nargs="+", help="PDF files to process")
+    parser.add_argument("pdf_files", nargs="*", help="PDF files to process")
 
     parser.add_argument(
         "-o", "--output", default="outputs", help="Output directory (default: outputs)"
@@ -224,6 +224,9 @@ def main():
     if args.validate_only:
         validate_outputs(args.output)
     else:
+        if not args.pdf_files:
+            logger.error("No PDF files specified for extraction")
+            sys.exit(1)
         # Run extraction
         asyncio.run(
             run_extraction(

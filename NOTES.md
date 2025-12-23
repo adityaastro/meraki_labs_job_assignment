@@ -117,9 +117,4 @@ If more time were available:
 
 1. **[ ] Page batching**: Send 2-3 pages together for better context
 2. **[ ] Confidence scoring**: Add confidence scores to extracted fields
-3. **[ ] Figure-question linking**: Better associate images with specific questions
-4. **[ ] Answer extraction mode**: Separate mode to extract answer keys
 5. **[ ] Caching layer**: Cache API responses for identical pages
-6. **[ ] Fine-tuned prompts**: Per-document-type prompt optimization
-7. **[ ] WebSocket support**: Bi-directional real-time communication
-8. **[ ] Ground truth comparison**: Automated comparison with manually labeled data

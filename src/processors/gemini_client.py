@@ -1,6 +1,6 @@
 """
-Gemini 3 Flash client via OpenRouter API.
-Handles vision-based question extraction from PDF page images.
+Gemini client via OpenRouter API.
+Handles native PDF processing and question extraction.
 Tracks token usage and costs.
 """
 
@@ -50,7 +50,115 @@ class UsageStats:
         )
 
 
-# System prompt for question extraction
+# System prompt for full PDF extraction (native PDF processing)
+PDF_EXTRACTION_SYSTEM_PROMPT = """You are an expert at extracting structured questions from educational PDF documents.
+
+Your task is to analyze the ENTIRE PDF document and extract ALL questions in a structured JSON format.
+
+=== CRITICAL REQUIREMENTS ===
+
+1. EXTRACT ALL QUESTIONS FROM EVERY PAGE
+   - Do NOT skip any pages
+   - Do NOT skip any questions
+   - Go through the document systematically page by page
+
+2. USE UNIQUE QUESTION IDs WITH SECTION PREFIXES
+   - For Section I (MCQs): "MCQ_1", "MCQ_2", ..., "MCQ_20"
+   - For Section II: "SEC_II_1", "SEC_II_2", ...
+   - For Section III: "SEC_III_1", "SEC_III_2", ...
+   - For sub-questions: "SEC_III_1_i", "SEC_III_1_ii", etc.
+   - NEVER reuse the same ID
+
+3. PRESERVE DOCUMENT STRUCTURE
+   - Identify section headers (e.g., "I. MCQ's", "II. Solve as directed", "III. Solve the following")
+   - Include section information in each question
+   - Preserve original numbering exactly as shown
+
+4. PRESERVE MATHEMATICAL NOTATION
+   - Use LaTeX for all math: $\\Delta ABC$, $\\angle B = 50^\\circ$, $\\frac{{a}}{{b}}$
+   - Subscripts/superscripts: $A_n$, $x^2$, $4AD^2$
+   - Greek letters: $\\pi$, $\\theta$, $\\alpha$
+   - Symbols: $\\cong$ (congruent), $\\parallel$ (parallel), $\\perp$ (perpendicular)
+
+5. FOR MCQ QUESTIONS
+   - List ALL options with labels (a, b, c, d or A, B, C, D)
+   - If answer is shown (often in a column), set is_correct=true for that option
+   - Preserve the answer exactly as shown
+
+6. FOR MULTI-PART QUESTIONS
+   - Create parent with type="multi_part"
+   - Include all parts in sub_questions array
+   - Parts may be (i), (ii), (iii) or (a), (b), (c)
+
+7. FOR FIGURES/IMAGES
+   - Note presence: "[Figure shown]" or "[See Figure X]"
+   - Reference by figure number if labeled in document
+   - {image_reference_instructions}
+
+=== QUESTION TYPES ===
+- "mcq": Multiple choice with options
+- "short_answer": Brief response
+- "long_answer": Extended response
+- "multi_part": Has sub-questions
+- "fill_in_blank": Complete sentence/equation
+- "true_false": True/False
+- "numerical": Calculate a number
+- "proof": Mathematical proof required
+- "other": Doesn't fit other categories
+
+=== OUTPUT FORMAT ===
+
+Return a JSON object:
+{{
+  "total_pages": <integer>,
+  "sections": [
+    {{
+      "name": "Section I - MCQs",
+      "question_count": 20
+    }}
+  ],
+  "questions": [
+    {{
+      "id": "MCQ_1",
+      "section": "I",
+      "number": "1",
+      "type": "mcq",
+      "content": {{
+        "text": "Question text with $LaTeX$ notation",
+        "latex": null,
+        "images": [{{"filename": "figure_1", "caption": "Description"}}],
+        "table": null
+      }},
+      "options": [
+        {{"label": "A", "text": "Option text", "is_correct": false}},
+        {{"label": "B", "text": "Option text", "is_correct": true}}
+      ],
+      "sub_questions": null,
+      "answer": "(B)",
+      "page_number": 1,
+      "marks": null
+    }}
+  ],
+  "metadata_hints": {{
+    "title": "Document title",
+    "subject": "Subject area",
+    "grade": "Grade level",
+    "institution": "School/Institution name"
+  }}
+}}
+
+=== FINAL CHECKLIST ===
+Before returning, verify:
+- [ ] All pages processed
+- [ ] All questions from each section included
+- [ ] All question IDs are unique
+- [ ] All MCQ options included with correct answer marked
+- [ ] All sub-questions captured for multi-part questions
+- [ ] Mathematical notation in LaTeX format
+
+Extract ALL questions now."""
+
+# Legacy system prompt for page-by-page image extraction
 EXTRACTION_SYSTEM_PROMPT = """You are an expert at extracting structured questions from educational documents.
 
 Your task is to analyze an image of a PDF page and extract all questions in a structured JSON format.
@@ -178,6 +286,19 @@ class GeminiClient:
 
         return f"data:{mime_type};base64,{image_data}"
 
+    def _encode_pdf(self, pdf_path: str) -> str:
+        """Encode a PDF file to base64 data URL for native PDF processing."""
+        path = Path(pdf_path)
+
+        if not path.exists():
+            raise FileNotFoundError(f"PDF not found: {pdf_path}")
+
+        # Read and encode
+        with open(path, "rb") as f:
+            pdf_data = base64.b64encode(f.read()).decode("utf-8")
+
+        return f"data:application/pdf;base64,{pdf_data}"
+
     async def get_generation_cost(self, generation_id: str) -> Optional[Dict[str, Any]]:
         """
         Query OpenRouter for detailed generation stats including cost.
@@ -202,6 +323,144 @@ class GeminiClient:
             except Exception as e:
                 logger.warning(f"Failed to get generation stats: {e}")
                 return None
+
+    async def extract_questions_from_pdf(
+        self,
+        pdf_path: str,
+        extracted_images: Optional[List[Dict[str, Any]]] = None,
+        total_pages: Optional[int] = None,
+    ) -> tuple[Dict[str, Any], UsageStats]:
+        """
+        Extract questions from an entire PDF using native PDF processing.
+
+        This sends the PDF directly to OpenRouter which passes it natively to
+        Gemini for processing, giving the model full document context.
+
+        Args:
+            pdf_path: Path to the PDF file
+            extracted_images: List of extracted image metadata (filenames, pages)
+            total_pages: Total number of pages in the PDF
+
+        Returns:
+            Tuple of (parsed extraction result, usage stats)
+        """
+        # Encode PDF
+        pdf_data_url = self._encode_pdf(pdf_path)
+        pdf_name = Path(pdf_path).name
+
+        # Build image reference instructions for the prompt
+        if extracted_images:
+            image_list = [img.get("filename", "") for img in extracted_images]
+            image_info = f"The following figures have been extracted from this PDF: {image_list}. When referencing figures, use these exact filenames."
+        else:
+            image_info = "Reference figures by their label in the document (e.g., 'Figure 1', 'Fig. 5')."
+
+        # Build the system prompt with image information
+        system_prompt = PDF_EXTRACTION_SYSTEM_PROMPT.format(
+            image_reference_instructions=image_info
+        )
+
+        # Build user message with PDF
+        # OpenRouter accepts PDFs as image_url type with base64 data URL
+        page_info = f" ({total_pages} pages)" if total_pages else ""
+        user_content = [
+            {
+                "type": "text",
+                "text": f"Extract ALL questions from this PDF document: {pdf_name}{page_info}. Process every page systematically.",
+            },
+            {
+                "type": "image_url",
+                "image_url": {
+                    "url": pdf_data_url,
+                },
+            },
+        ]
+
+        # Build request payload with native PDF processing
+        payload = {
+            "model": self.model,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_content},
+            ],
+            "temperature": 0.1,  # Low temperature for consistent extraction
+            "max_tokens": 16384,  # Increased for full document extraction
+            "response_format": {"type": "json_object"},
+        }
+
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+            "HTTP-Referer": "https://github.com/pdf-questions-extractor",
+            "X-Title": "PDF Questions Extractor",
+        }
+
+        # Create usage stats for this extraction
+        usage_stats = UsageStats()
+
+        logger.info(f"Sending PDF to OpenRouter for native processing: {pdf_name}")
+
+        # Make API request with extended timeout for full PDF processing
+        async with httpx.AsyncClient(timeout=self.timeout * 2) as client:
+            try:
+                response = await client.post(
+                    f"{self.base_url}/chat/completions", json=payload, headers=headers
+                )
+                response.raise_for_status()
+
+                result = response.json()
+
+                # Track usage stats
+                generation_id = result.get("id")
+                usage = result.get("usage", {})
+                if usage:
+                    usage_stats.add(usage, generation_id)
+                    self.usage_stats.add(usage, generation_id)
+                    logger.info(
+                        f"PDF extraction tokens: "
+                        f"{usage.get('prompt_tokens', 0):,} prompt + "
+                        f"{usage.get('completion_tokens', 0):,} completion = "
+                        f"{usage.get('total_tokens', 0):,} total"
+                    )
+
+                # Extract content from response
+                if "choices" in result and len(result["choices"]) > 0:
+                    content = result["choices"][0]["message"]["content"]
+
+                    # Parse JSON from response
+                    try:
+                        parsed = json.loads(content)
+                        parsed["_usage"] = usage
+                        parsed["_generation_id"] = generation_id
+                        logger.info(
+                            f"Extracted {len(parsed.get('questions', []))} questions from PDF"
+                        )
+                        return parsed, usage_stats
+                    except json.JSONDecodeError as e:
+                        logger.error(f"Failed to parse JSON response: {e}")
+                        logger.debug(f"Raw content: {content[:1000]}")
+                        return {
+                            "questions": [],
+                            "error": f"JSON parse error: {str(e)}",
+                        }, usage_stats
+                else:
+                    logger.error(f"Unexpected response structure: {result}")
+                    return {
+                        "questions": [],
+                        "error": "No choices in response",
+                    }, usage_stats
+
+            except httpx.HTTPStatusError as e:
+                logger.error(
+                    f"HTTP error: {e.response.status_code} - {e.response.text}"
+                )
+                raise
+            except httpx.TimeoutException as e:
+                logger.error(f"Request timeout for PDF extraction: {e}")
+                raise
+            except Exception as e:
+                logger.error(f"API request failed: {e}")
+                raise
 
     async def extract_questions_from_image(
         self, image_path: str, page_number: int, additional_context: str = ""
