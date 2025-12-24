@@ -53,14 +53,15 @@ class CircuitBreaker:
         self.state = "CLOSED"
 
     def can_call(self) -> bool:
+        import time
         if self.state == "CLOSED":
             return True
-        
-        now = asyncio.get_event_loop().time()
+
+        now = time.monotonic()  # Better for timing
         if now - self.last_failure_time > self.recovery_timeout:
             self.state = "HALF_OPEN"
             return True
-            
+
         return False
 
 def with_resilience(

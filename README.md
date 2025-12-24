@@ -60,6 +60,30 @@ curl -N http://localhost:8000/extract/stream \
   -d '{"pdf_path": "/path/to/test1.pdf"}'
 ```
 
+**Option C: Docker**
+```bash
+# Configure API key
+cp .env.example .env
+# Edit .env: OPENROUTER_API_KEY=your_key_here
+
+# Build and run with Docker Compose
+docker-compose up --build
+
+# Or build and run manually
+docker build -t pdf-extractor .
+docker run -p 8000:8000 --env-file .env -v $(pwd)/outputs:/app/outputs pdf-extractor
+
+# API is now available at http://localhost:8000
+curl http://localhost:8000/health
+
+# Extract a PDF (mount your PDF directory)
+docker run --env-file .env \
+  -v $(pwd)/outputs:/app/outputs \
+  -v $(pwd)/tests:/app/tests:ro \
+  pdf-extractor \
+  python -m src.cli /app/tests/test1.pdf -o /app/outputs/
+```
+
 ## How It Works
 
 ```
@@ -198,7 +222,8 @@ Total time: 43.38s
 │   ├── api/server.py           # FastAPI + SSE streaming
 │   ├── core/
 │   │   ├── config.py           # Configuration
-│   │   └── schemas.py          # Pydantic models
+│   │   |── schemas.py          # Pydantic models
+│   |   └── schema.json         # JSON Schema
 │   ├── extractors/
 │   │   ├── pdf_converter.py    # PDF → Images (fallback)
 │   │   └── image_extractor.py  # Embedded images
@@ -208,8 +233,7 @@ Total time: 43.38s
 │   ├── pipeline.py             # Orchestration
 │   └── cli.py                  # CLI interface
 ├── outputs/                    # Generated outputs
-│   └── schema.json             # JSON Schema
-├── tests/                      # Test PDFs
+├── tests/                      # Unit Tests/Test PDFs
 ├── run_eval.sh                 # Batch script
 ├── README.md                   # This file
 ├── NOTES.md                    # Technical notes
@@ -241,3 +265,4 @@ Total time: 43.38s
 - httpx (Async HTTP)
 - Pydantic (Data validation)
 - OpenRouter API (Gemini)
+- Docker (optional, for containerized deployment)

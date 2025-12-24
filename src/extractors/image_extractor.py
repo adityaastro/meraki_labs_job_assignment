@@ -126,7 +126,7 @@ class ImageExtractor:
 
         return results
 
-    def _get_image_bbox(self, page, xref: int) -> Dict[str, float] | None:
+    def _get_image_bbox(self, page: fitz.Page, xref: int) -> Dict[str, float] | None:
         """
         Try to get the bounding box of an image on a page.
 
