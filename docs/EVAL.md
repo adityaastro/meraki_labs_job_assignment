@@ -4,6 +4,8 @@
 
 This document describes how to evaluate the PDF Questions Extractor system, including automated metrics, manual verification procedures, and quality assessment frameworks.
 
+The system uses **native PDF processing** via OpenRouter, sending entire PDFs directly to Gemini for extraction with full document context. This approach significantly improves accuracy compared to page-by-page processing.
+
 ---
 
 ## 1. Automated Evaluation
@@ -29,11 +31,11 @@ bash run_eval.sh test*.pdf outputs/
 ```
 
 **Targets:**
-| Metric | Target | How to Verify |
-|--------|--------|---------------|
-| Runtime (10-page PDF) | ≤180s | CLI output shows time per PDF |
-| Concurrent PDFs | ≥5 | Total time < sum of individual times |
-| Memory usage | <2GB | Monitor with `htop` during batch run |
+| Metric                 | Target | How to Verify                         |
+|------------------------|--------|---------------------------------------|
+| Runtime (10-page PDF)  | ≤180s  | CLI output shows time per PDF        |
+| Concurrent PDFs        | ≥5     | Total time < sum of individual times  |
+| Memory usage           | <2GB   | Monitor with `htop` during batch run |
 
 ### 1.3 API Endpoint Testing
 
@@ -62,16 +64,16 @@ curl -N http://localhost:8000/extract/stream \
 
 ### 2.1 Checklist per PDF
 
-| Check | Description | Pass Criteria |
-|-------|-------------|---------------|
-| Question Count | Compare extracted vs. actual | ≥90% questions detected |
-| Numbering | Original numbering preserved | Exact match (1., a., i.) |
-| MCQ Options | All options captured | 100% options with labels |
-| MCQ Answers | Correct answer marked | Correct if shown in source |
-| LaTeX | Mathematical notation | Readable, parseable LaTeX |
-| Tables | Structure preserved | Headers + rows correct |
-| Images | Referenced correctly | Filename exists in assets/ |
-| Multi-part | Hierarchy preserved | Correct parent-child nesting |
+| Check          | Description                 | Pass Criteria              |
+|----------------|-----------------------------|----------------------------|
+| Question Count | Compare extracted vs. actual| ≥90% questions detected    |
+| Numbering      | Original numbering preserved| Exact match (1., a., i.)   |
+| MCQ Options    | All options captured        | 100% options with labels   |
+| MCQ Answers    | Correct answer marked       | Correct if shown in source |
+| LaTeX          | Mathematical notation       | Readable, parseable LaTeX  |
+| Tables         | Structure preserved         | Headers + rows correct     |
+| Images         | Referenced correctly        | Filename exists in assets/ |
+| Multi-part     | Hierarchy preserved         | Correct parent-child nesting|
 
 ### 2.2 Sample Verification Process
 
@@ -112,7 +114,7 @@ for f in Path("outputs").rglob("*_questions.json"):
     data = json.load(open(f))
     usage = data.get("usage", {})
     questions = len(data.get("questions", []))
-    
+
     print(f"{f.name}: {questions} questions, {usage.get('total_tokens', 0):,} tokens")
     total_tokens += usage.get("total_tokens", 0)
     total_questions += questions
@@ -127,13 +129,41 @@ print(f"Tokens per question: {total_tokens / total_questions:.0f}")
 
 ### 4.1 Content Types (covered by test PDFs)
 
-| PDF | Focus | Key Tests |
-|-----|-------|-----------|
-| test1.pdf | Sequences & Series | Multi-part questions, LaTeX formulas |
-| test2.pdf | Precalculus | Tables, sigma notation, recursive sequences |
-| test3.pdf | Geometry | MCQs with figures, answer keys |
-| test4.pdf | Surface Areas | MCQs, formulas mixed with options |
-| test5.pdf | Practice Test | Mixed types, varying layouts |
+| PDF       | Focus                | Key Tests                                | Expected Questions |
+|-----------|----------------------|------------------------------------------|--------------------|
+| test1.pdf | Sequences & Series   | Multi-part questions, LaTeX formulas     | 13                 |
+| test2.pdf | Precalculus          | Tables, sigma notation, recursive seq    | 15                 |
+| test3.pdf | Geometry (Triangles) | MCQs with figures, answer keys, 3 sections| **42**             |
+| test4.pdf | Surface Areas        | MCQs, formulas mixed with options        | 30                 |
+| test5.pdf | Practice Test        | Mixed types, varying layouts             | 63                 |
+
+### 4.2 Native PDF Processing Verification
+
+Compare native PDF vs page-by-page extraction:
+
+```bash
+# Run native extraction (default)
+python -m src.cli tests/test3.pdf -o outputs/test3_native/
+
+# Check results
+python -c "
+import json
+d = json.load(open('outputs/test3_native/test3/test3_questions.json'))
+print(f'Total questions: {len(d[\"questions\"])}')
+mcqs = [q for q in d['questions'] if q['id'].startswith('MCQ')]
+print(f'MCQs: {len(mcqs)}')
+sec2 = [q for q in d['questions'] if 'SEC_II' in q['id']]
+print(f'Section II: {len(sec2)}')
+sec3 = [q for q in d['questions'] if 'SEC_III' in q['id']]
+print(f'Section III: {len(sec3)}')
+"
+```
+
+**Expected output:**
+- Total questions: 42
+- MCQs: 20 (all MCQ_1 through MCQ_20)
+- Section II: 6
+- Section III: 16
 
 ### 4.2 Edge Cases
 
@@ -268,11 +298,11 @@ for f in Path('outputs').rglob('*_questions.json'):
 
 ## Summary
 
-| Evaluation Area | Method | Automation |
-|----------------|--------|------------|
-| Schema validation | JSON Schema | ✓ Automated |
-| Performance | CLI timing | ✓ Automated |
-| Content accuracy | Manual review | Partially |
-| API endpoints | curl tests | ✓ Automated |
-| SSE streaming | Event sequence | ✓ Automated |
-| Token usage | Output analysis | ✓ Automated |
+| Evaluation Area   | Method           | Automation  |
+|-------------------|------------------|-------------|
+| Schema validation | JSON Schema      | ✓ Automated |
+| Performance       | CLI timing       | ✓ Automated |
+| Content accuracy  | Manual review    | Partially   |
+| API endpoints     | curl tests       | ✓ Automated |
+| SSE streaming     | Event sequence   | ✓ Automated |
+| Token usage       | Output analysis  | ✓ Automated |

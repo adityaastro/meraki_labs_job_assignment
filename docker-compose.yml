@@ -1,0 +1,16 @@
+services:
+  extractor:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./outputs:/app/outputs
+      - ./tests:/app/tests:ro
+    env_file:
+      - .env
+    restart: unless-stopped
+
+networks:
+  default:
+    name: pdf-extractor-network
+

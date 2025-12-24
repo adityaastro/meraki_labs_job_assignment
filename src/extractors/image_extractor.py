@@ -5,9 +5,10 @@ Extracts embedded images and figures from PDF documents.
 
 import fitz  # PyMuPDF
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 import logging
 import hashlib
+from src.core.config import config
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +19,7 @@ class ImageExtractor:
     Saves images to disk and returns metadata for JSON referencing.
     """
 
-    def __init__(self, min_size: int = 50):
+    def __init__(self, min_size: Optional[int] = None):
         """
         Initialize the image extractor.
 
@@ -26,7 +27,7 @@ class ImageExtractor:
             min_size: Minimum dimension (width or height) to extract.
                      Filters out tiny images like bullets/icons.
         """
-        self.min_size = min_size
+        self.min_size = min_size or config.MIN_IMAGE_SIZE
         self._seen_hashes = set()  # Track duplicates
 
     def extract_images(
@@ -158,7 +159,7 @@ class ImageExtractor:
 
 
 def extract_images_from_pdf(
-    pdf_path: str, output_dir: str, prefix: str = "img", min_size: int = 50
+    pdf_path: str, output_dir: str, prefix: str = "img", min_size: Optional[int] = None
 ) -> List[Dict[str, Any]]:
     """
     Convenience function to extract images from a PDF.

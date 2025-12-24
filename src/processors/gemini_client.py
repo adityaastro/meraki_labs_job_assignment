@@ -13,8 +13,13 @@ from typing import Optional, List, Dict, Any
 from dataclasses import dataclass, field
 
 from src.core.config import config
+from src.core.cost_tracker import CostTracker
+from src.core.resilience import with_resilience, CircuitBreaker
 
 logger = logging.getLogger(__name__)
+
+# Global circuit breaker for Gemini API
+gemini_cb = CircuitBreaker(failure_threshold=5, recovery_timeout=60.0)
 
 
 @dataclass
@@ -24,13 +29,22 @@ class UsageStats:
     prompt_tokens: int = 0
     completion_tokens: int = 0
     total_tokens: int = 0
+    estimated_cost: float = 0.0
     generation_ids: List[str] = field(default_factory=list)
+    _cost_tracker: CostTracker = field(default_factory=CostTracker, repr=False)
 
     def add(self, usage: Dict[str, Any], generation_id: Optional[str] = None):
         """Add usage from an API response."""
-        self.prompt_tokens += usage.get("prompt_tokens", 0)
-        self.completion_tokens += usage.get("completion_tokens", 0)
+        p_tokens = usage.get("prompt_tokens", 0)
+        c_tokens = usage.get("completion_tokens", 0)
+        
+        self.prompt_tokens += p_tokens
+        self.completion_tokens += c_tokens
         self.total_tokens += usage.get("total_tokens", 0)
+        
+        # Track estimated cost
+        self.estimated_cost += self._cost_tracker.add_usage(p_tokens, c_tokens)
+        
         if generation_id:
             self.generation_ids.append(generation_id)
 
@@ -40,6 +54,7 @@ class UsageStats:
             "prompt_tokens": self.prompt_tokens,
             "completion_tokens": self.completion_tokens,
             "total_tokens": self.total_tokens,
+            "estimated_cost_usd": round(self.estimated_cost, 6),
             "generation_ids": self.generation_ids,
         }
 
@@ -238,8 +253,8 @@ class GeminiClient:
     def __init__(
         self,
         api_key: Optional[str] = None,
-        model: str = "google/gemini-3-flash-preview",
-        timeout: int = 120,
+        model: Optional[str] = None,
+        timeout: Optional[int] = None,
     ):
         """
         Initialize the Gemini client.
@@ -250,9 +265,9 @@ class GeminiClient:
             timeout: Request timeout in seconds
         """
         self.api_key = api_key or config.OPENROUTER_API_KEY
-        self.model = model
+        self.model = model or config.MODEL_NAME
         self.base_url = config.OPENROUTER_BASE_URL
-        self.timeout = timeout
+        self.timeout = timeout or config.REQUEST_TIMEOUT
 
         # Initialize usage tracking
         self.usage_stats = UsageStats()
@@ -324,6 +339,7 @@ class GeminiClient:
                 logger.warning(f"Failed to get generation stats: {e}")
                 return None
 
+    @with_resilience(circuit_breaker=gemini_cb)
     async def extract_questions_from_pdf(
         self,
         pdf_path: str,
@@ -377,14 +393,15 @@ class GeminiClient:
         ]
 
         # Build request payload with native PDF processing
+        # Large PDFs with many questions (60+) need high token limits
         payload = {
             "model": self.model,
             "messages": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_content},
             ],
-            "temperature": 0.1,  # Low temperature for consistent extraction
-            "max_tokens": 16384,  # Increased for full document extraction
+            "temperature": config.MODEL_TEMPERATURE,
+            "max_tokens": config.MODEL_MAX_TOKENS,
             "response_format": {"type": "json_object"},
         }
 
@@ -462,6 +479,7 @@ class GeminiClient:
                 logger.error(f"API request failed: {e}")
                 raise
 
+    @with_resilience(circuit_breaker=gemini_cb)
     async def extract_questions_from_image(
         self, image_path: str, page_number: int, additional_context: str = ""
     ) -> Dict[str, Any]:
@@ -495,8 +513,8 @@ class GeminiClient:
                 {"role": "system", "content": EXTRACTION_SYSTEM_PROMPT},
                 {"role": "user", "content": user_content},
             ],
-            "temperature": 0.1,  # Low temperature for consistent extraction
-            "max_tokens": 8192,
+            "temperature": config.MODEL_TEMPERATURE,
+            "max_tokens": config.MODEL_MAX_TOKENS,
             "response_format": {"type": "json_object"},
         }
 

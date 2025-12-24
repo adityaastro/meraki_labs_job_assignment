@@ -173,7 +173,7 @@ async def extract_questions_stream(request: ExtractRequest):
 
             # Initialize components
             pdf_converter = PDFConverter(dpi=config.IMAGE_DPI)
-            image_extractor = ImageExtractor(min_size=50)
+            image_extractor = ImageExtractor()
             gemini_client = GeminiClient()
             question_parser = QuestionParser()
 
@@ -185,15 +185,9 @@ async def extract_questions_stream(request: ExtractRequest):
             pages_dir = pdf_output_dir / "pages"
             pages_dir.mkdir(exist_ok=True)
 
-            # Step 1: Convert PDF to images
-            yield f"data: {json.dumps({'status': 'processing', 'step': 'pdf_to_images', 'message': 'Converting PDF to images...'})}\n\n"
-
-            page_images = pdf_converter.convert_to_images(
-                str(pdf_path), str(pages_dir), max_pages=config.MAX_PAGES_PER_PDF
-            )
-            total_pages = len(page_images)
-
-            yield f"data: {json.dumps({'status': 'processing', 'step': 'pdf_to_images', 'message': f'Converted {total_pages} pages', 'pages': total_pages})}\n\n"
+            # Step 1: Get page count
+            total_pages = pdf_converter.get_page_count(str(pdf_path))
+            yield f"data: {json.dumps({'status': 'processing', 'step': 'info', 'message': f'PDF has {total_pages} pages'})}\n\n"
 
             # Step 2: Extract embedded images
             yield f"data: {json.dumps({'status': 'processing', 'step': 'extract_images', 'message': 'Extracting embedded images...'})}\n\n"
@@ -204,43 +198,63 @@ async def extract_questions_stream(request: ExtractRequest):
 
             yield f"data: {json.dumps({'status': 'processing', 'step': 'extract_images', 'message': f'Extracted {len(extracted_images)} images', 'images': len(extracted_images)})}\n\n"
 
-            # Step 3: Process pages with Gemini (stream per-page progress)
-            yield f"data: {json.dumps({'status': 'processing', 'step': 'gemini_extraction', 'message': 'Starting AI extraction...'})}\n\n"
+            # Step 3: Extract questions (choose mode)
+            if total_pages <= config.MAX_PAGES_FOR_NATIVE:
+                # NATIVE PDF MODE
+                yield f"data: {json.dumps({'status': 'processing', 'step': 'native_pdf', 'message': 'Sending entire PDF to Gemini (Native Mode)...'})}\n\n"
+                
+                result, usage_stats = await gemini_client.extract_questions_from_pdf(
+                    str(pdf_path),
+                    extracted_images=extracted_images,
+                    total_pages=total_pages
+                )
+                batch_usage = usage_stats
+            else:
+                # FALLBACK PAGE-BY-PAGE MODE
+                yield f"data: {json.dumps({'status': 'processing', 'step': 'fallback_mode', 'message': f'PDF too large (>{config.MAX_PAGES_FOR_NATIVE} pages), using fallback mode...'})}\n\n"
+                
+                # Convert to images
+                yield f"data: {json.dumps({'status': 'processing', 'step': 'pdf_to_images', 'message': 'Converting PDF to images...'})}\n\n"
+                page_images = pdf_converter.convert_to_images(
+                    str(pdf_path), str(pages_dir), max_pages=config.MAX_PAGES_PER_PDF
+                )
+                
+                image_paths = [img_path for _, img_path in page_images]
+                page_results = []
+                batch_usage = UsageStats()
 
-            image_paths = [img_path for _, img_path in page_images]
-            page_results = []
-            batch_usage = UsageStats()
+                for i, image_path in enumerate(image_paths):
+                    page_num = i + 1
+                    yield f"data: {json.dumps({'status': 'processing', 'step': 'gemini_extraction', 'page': page_num, 'total_pages': len(image_paths), 'message': f'Processing page {page_num}/{len(image_paths)}...'})}\n\n"
 
-            for i, image_path in enumerate(image_paths):
-                page_num = i + 1
+                    try:
+                        page_result = await gemini_client.extract_questions_from_image(
+                            image_path, page_num
+                        )
+                        page_results.append(page_result)
 
-                yield f"data: {json.dumps({'status': 'processing', 'step': 'gemini_extraction', 'page': page_num, 'total_pages': total_pages, 'message': f'Processing page {page_num}/{total_pages}...'})}\n\n"
+                        if "_usage" in page_result:
+                            batch_usage.add(page_result["_usage"], page_result.get("_generation_id"))
 
-                try:
-                    result = await gemini_client.extract_questions_from_image(
-                        image_path, page_num
-                    )
-                    page_results.append(result)
+                        questions_on_page = len(page_result.get("questions", []))
+                        yield f"data: {json.dumps({'status': 'processing', 'step': 'gemini_extraction', 'page': page_num, 'total_pages': len(image_paths), 'questions_found': questions_on_page, 'message': f'Page {page_num} complete: {questions_on_page} questions'})}\n\n"
+                    except Exception as e:
+                        yield f"data: {json.dumps({'status': 'processing', 'step': 'gemini_extraction', 'page': page_num, 'error': str(e), 'message': f'Page {page_num} failed: {str(e)}'})}\n\n"
+                        page_results.append({"page_number": page_num, "questions": [], "error": str(e)})
 
-                    # Track usage
-                    if "_usage" in result:
-                        batch_usage.add(result["_usage"], result.get("_generation_id"))
+                result = {
+                    "total_pages": total_pages,
+                    "questions": [q for pr in page_results for q in pr.get("questions", [])],
+                    "metadata_hints": next((pr.get("metadata_hints", {}) for pr in page_results if pr.get("metadata_hints")), {}),
+                    "_from_fallback": True
+                }
 
-                    questions_on_page = len(result.get("questions", []))
-                    yield f"data: {json.dumps({'status': 'processing', 'step': 'gemini_extraction', 'page': page_num, 'total_pages': total_pages, 'questions_found': questions_on_page, 'message': f'Page {page_num} complete: {questions_on_page} questions'})}\n\n"
-
-                except Exception as e:
-                    yield f"data: {json.dumps({'status': 'processing', 'step': 'gemini_extraction', 'page': page_num, 'error': str(e), 'message': f'Page {page_num} failed: {str(e)}'})}\n\n"
-                    page_results.append(
-                        {"page_number": page_num, "questions": [], "error": str(e)}
-                    )
-
-            # Step 4: Merge and post-process
-            yield f"data: {json.dumps({'status': 'processing', 'step': 'merge', 'message': 'Merging results...'})}\n\n"
-
+            # Step 4: Post-process
+            yield f"data: {json.dumps({'status': 'processing', 'step': 'post_process', 'message': 'Post-processing results...'})}\n\n"
+            
             processing_time = time.time() - start_time
-            document = question_parser.merge_page_results(
-                page_results=page_results,
+            document = question_parser.process_extraction_result(
+                result=result,
                 source_pdf=pdf_path.name,
                 total_pages=total_pages,
                 processing_time=processing_time,

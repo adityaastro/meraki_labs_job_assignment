@@ -1,0 +1,550 @@
+{
+  "$defs": {
+    "BoundingBox": {
+      "description": "Bounding box for image location in source PDF.",
+      "properties": {
+        "x": {
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "type": "number"
+        },
+        "width": {
+          "title": "Width",
+          "type": "number"
+        },
+        "height": {
+          "title": "Height",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "title": "BoundingBox",
+      "type": "object"
+    },
+    "DocumentMetadata": {
+      "description": "Metadata extracted from the PDF document.",
+      "properties": {
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Document title",
+          "title": "Title"
+        },
+        "subject": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Subject area (e.g., Mathematics, Physics)",
+          "title": "Subject"
+        },
+        "grade": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Grade/class level",
+          "title": "Grade"
+        },
+        "total_pages": {
+          "description": "Total number of pages in PDF",
+          "title": "Total Pages",
+          "type": "integer"
+        },
+        "extraction_timestamp": {
+          "format": "date-time",
+          "title": "Extraction Timestamp",
+          "type": "string"
+        },
+        "processing_time_seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Time taken to process",
+          "title": "Processing Time Seconds"
+        }
+      },
+      "required": [
+        "total_pages"
+      ],
+      "title": "DocumentMetadata",
+      "type": "object"
+    },
+    "ImageRef": {
+      "description": "Reference to an extracted image file.",
+      "properties": {
+        "filename": {
+          "description": "Filename of the extracted image in assets directory",
+          "title": "Filename",
+          "type": "string"
+        },
+        "caption": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Image caption if present",
+          "title": "Caption"
+        },
+        "bbox": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BoundingBox"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Bounding box in source PDF"
+        }
+      },
+      "required": [
+        "filename"
+      ],
+      "title": "ImageRef",
+      "type": "object"
+    },
+    "MCQOption": {
+      "description": "Multiple choice question option.",
+      "properties": {
+        "label": {
+          "description": "Option label (a, b, c, d or A, B, C, D)",
+          "title": "Label",
+          "type": "string"
+        },
+        "text": {
+          "description": "Option text content",
+          "title": "Text",
+          "type": "string"
+        },
+        "is_correct": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Whether this is the correct answer",
+          "title": "Is Correct"
+        }
+      },
+      "required": [
+        "label",
+        "text"
+      ],
+      "title": "MCQOption",
+      "type": "object"
+    },
+    "Question": {
+      "description": "Represents an extracted question from a PDF.\nSupports nested sub-questions for multi-part questions.",
+      "properties": {
+        "id": {
+          "description": "Unique question ID (e.g., MCQ_1, SEC_II_1, SEC_III_1_i)",
+          "title": "Id",
+          "type": "string"
+        },
+        "number": {
+          "description": "Original numbering as shown in PDF (e.g., '1.', '(a)', 'Question 5')",
+          "title": "Number",
+          "type": "string"
+        },
+        "type": {
+          "description": "Question type classification",
+          "enum": [
+            "mcq",
+            "short_answer",
+            "long_answer",
+            "multi_part",
+            "fill_in_blank",
+            "true_false",
+            "matching",
+            "numerical",
+            "proof",
+            "other"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "content": {
+          "$ref": "#/$defs/QuestionContent",
+          "description": "Question content"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/MCQOption"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "MCQ options if applicable",
+          "title": "Options"
+        },
+        "sub_questions": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/Question"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Nested sub-questions",
+          "title": "Sub Questions"
+        },
+        "answer": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Answer if provided in source",
+          "title": "Answer"
+        },
+        "page_number": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Source page number (1-indexed)",
+          "title": "Page Number"
+        },
+        "marks": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Marks/points if specified",
+          "title": "Marks"
+        }
+      },
+      "required": [
+        "id",
+        "number",
+        "type",
+        "content"
+      ],
+      "title": "Question",
+      "type": "object"
+    },
+    "QuestionContent": {
+      "description": "Content of a question including text, LaTeX, images, and tables.",
+      "properties": {
+        "text": {
+          "description": "Question text (may include LaTeX markers)",
+          "title": "Text",
+          "type": "string"
+        },
+        "latex": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Extracted LaTeX expressions",
+          "title": "Latex"
+        },
+        "images": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/ImageRef"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Referenced images",
+          "title": "Images"
+        },
+        "table": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TableData"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Embedded table data"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "QuestionContent",
+      "type": "object"
+    },
+    "TableData": {
+      "description": "Structured table data.",
+      "properties": {
+        "headers": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Table header row",
+          "title": "Headers"
+        },
+        "rows": {
+          "description": "Table data rows",
+          "items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Rows",
+          "type": "array"
+        }
+      },
+      "title": "TableData",
+      "type": "object"
+    },
+    "UsageData": {
+      "description": "Token usage statistics from the API.",
+      "properties": {
+        "prompt_tokens": {
+          "description": "Number of input/prompt tokens",
+          "title": "Prompt Tokens",
+          "type": "integer"
+        },
+        "completion_tokens": {
+          "description": "Number of output/completion tokens",
+          "title": "Completion Tokens",
+          "type": "integer"
+        },
+        "total_tokens": {
+          "description": "Total tokens (prompt + completion)",
+          "title": "Total Tokens",
+          "type": "integer"
+        },
+        "generation_ids": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "OpenRouter generation IDs for cost lookup",
+          "title": "Generation Ids"
+        }
+      },
+      "required": [
+        "prompt_tokens",
+        "completion_tokens",
+        "total_tokens"
+      ],
+      "title": "UsageData",
+      "type": "object"
+    }
+  },
+  "description": "Complete extracted document with all questions.\nThis is the root model for the output JSON.",
+  "example": {
+    "metadata": {
+      "extraction_timestamp": "2024-12-24T12:00:00Z",
+      "grade": "IX CBSE",
+      "processing_time_seconds": 50.0,
+      "subject": "Mathematics",
+      "title": "Triangles",
+      "total_pages": 7
+    },
+    "questions": [
+      {
+        "answer": "(C)",
+        "content": {
+          "images": [
+            {
+              "caption": "Triangle diagram",
+              "filename": "test3_001.png"
+            }
+          ],
+          "text": "Which of the following is not a criterion for congruence of triangles?"
+        },
+        "id": "MCQ_1",
+        "number": "1",
+        "options": [
+          {
+            "is_correct": false,
+            "label": "A",
+            "text": "SAS"
+          },
+          {
+            "is_correct": false,
+            "label": "B",
+            "text": "ASA"
+          },
+          {
+            "is_correct": true,
+            "label": "C",
+            "text": "SSA"
+          },
+          {
+            "is_correct": false,
+            "label": "D",
+            "text": "SSS"
+          }
+        ],
+        "page_number": 1,
+        "type": "mcq"
+      },
+      {
+        "content": {
+          "text": "In Figure 11, ABCD is a square and \u25b3DEC is an equilateral triangle. Prove that:"
+        },
+        "id": "SEC_III_13",
+        "number": "13",
+        "sub_questions": [
+          {
+            "content": {
+              "text": "\u25b3ADE \u2245 \u25b3BCE"
+            },
+            "id": "SEC_III_13_i",
+            "number": "(i)",
+            "type": "proof"
+          },
+          {
+            "content": {
+              "text": "AE = BE"
+            },
+            "id": "SEC_III_13_ii",
+            "number": "(ii)",
+            "type": "proof"
+          }
+        ],
+        "type": "multi_part"
+      }
+    ],
+    "source_pdf": "test3.pdf",
+    "usage": {
+      "completion_tokens": 9498,
+      "generation_ids": [
+        "gen-abc123"
+      ],
+      "prompt_tokens": 5000,
+      "total_tokens": 14498
+    }
+  },
+  "properties": {
+    "source_pdf": {
+      "description": "Original PDF filename",
+      "title": "Source Pdf",
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/$defs/DocumentMetadata",
+      "description": "Document metadata"
+    },
+    "questions": {
+      "description": "Extracted questions",
+      "items": {
+        "$ref": "#/$defs/Question"
+      },
+      "title": "Questions",
+      "type": "array"
+    },
+    "usage": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/UsageData"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Token usage statistics from extraction"
+    }
+  },
+  "required": [
+    "source_pdf",
+    "metadata"
+  ],
+  "title": "ExtractedDocument",
+  "type": "object"
+}

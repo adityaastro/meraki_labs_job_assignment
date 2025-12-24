@@ -174,10 +174,24 @@ class QuestionParser:
         numbers = re.findall(r'\d+', ref_filename)
         if numbers:
             num = numbers[0]
-            if num in image_mapping:
-                return image_mapping[num]
-            if f"figure_{num}" in image_mapping:
-                return image_mapping[f"figure_{num}"]
+            # Try various patterns with the extracted number
+            patterns_to_try = [
+                num,  # Just the number
+                f"figure_{num}",
+                f"fig_{num}",
+                f"image_{num}",
+                f"fig {num}",  # Space instead of underscore
+                f"figure {num}",
+            ]
+            
+            for pattern in patterns_to_try:
+                if pattern in image_mapping:
+                    return image_mapping[pattern]
+            
+            # Also try lowercase versions of patterns
+            for pattern in patterns_to_try:
+                if pattern.lower() in image_mapping:
+                    return image_mapping[pattern.lower()]
 
         # No match found, return original
         logger.debug(f"Could not resolve image reference: {ref_filename}")

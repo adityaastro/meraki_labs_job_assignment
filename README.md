@@ -1,14 +1,16 @@
 # PDF Questions Extractor
 
-A robust pipeline for extracting structured questions from educational PDF documents using AI vision models (Gemini 3 Flash).
+A robust pipeline for extracting structured questions from educational PDF documents using AI vision models (Gemini) with native PDF processing.
 
 ## Features
 
-- **Vision-First Approach**: Converts PDF pages to images and uses Gemini 3 Flash for accurate extraction
+- **Native PDF Processing**: Sends entire PDF directly to Gemini for full document context
 - **Structured Output**: Questions extracted as structured JSON with MCQs, multi-part hierarchies, tables, images, and LaTeX
+- **Section-Aware Extraction**: Unique IDs with section prefixes (MCQ_*, SEC_II_*, SEC_III_*)
+- **Image Linking**: Extracted images automatically linked to questions by actual filename
 - **Parallel Processing**: Process ≥5 PDFs concurrently
 - **REST API**: FastAPI server with `/extract` and `/extract/stream` (SSE) endpoints
-- **Real-time Progress**: Server-Sent Events for live progress updates
+- **Automatic Fallback**: Page-by-page processing for large PDFs (>30 pages)
 - **Token Tracking**: Accurate per-PDF token usage and cost estimation
 
 ## Quick Start
@@ -33,13 +35,13 @@ cp .env.example .env
 **Option A: CLI (Recommended)**
 ```bash
 # Single PDF
-python -m src.cli test1.pdf -o outputs/
+python -m src.cli tests/test1.pdf -o outputs/
 
 # Multiple PDFs (parallel)
-python -m src.cli test*.pdf -o outputs/
+python -m src.cli tests/*.pdf -o outputs/
 
 # Or use batch script
-bash run_eval.sh test*.pdf outputs/
+bash run_eval.sh tests/*.pdf outputs/
 ```
 
 **Option B: API Server**
@@ -57,6 +59,29 @@ curl -N http://localhost:8000/extract/stream \
   -H "Content-Type: application/json" \
   -d '{"pdf_path": "/path/to/test1.pdf"}'
 ```
+
+## How It Works
+
+```
+PDF File
+   │
+   ├──► Extract Embedded Images (PyMuPDF)
+   │         └──► Save to assets/ folder
+   │
+   └──► Send PDF Natively (OpenRouter API)
+             │
+             └──► Gemini processes entire document
+                       │
+                       └──► Structured JSON output
+                                 │
+                                 └──► Post-process & validate
+```
+
+**Native PDF Processing Benefits:**
+- Full document context (model sees all pages at once)
+- Better section understanding (MCQs, Proofs, etc.)
+- No page-by-page context loss
+- Accurate question numbering across sections
 
 ## API Reference
 
@@ -82,50 +107,68 @@ curl -N http://localhost:8000/extract/stream \
 **Output (Server-Sent Events):**
 ```
 data: {"status": "started", "pdf": "test1.pdf"}
-data: {"status": "processing", "step": "pdf_to_images", "message": "Converted 8 pages"}
-data: {"status": "processing", "step": "gemini_extraction", "page": 1, "total_pages": 8}
-data: {"status": "processing", "step": "gemini_extraction", "page": 2, "total_pages": 8}
-...
-data: {"status": "complete", "questions_extracted": 15, "usage": {"prompt_tokens": 38086, ...}}
+data: {"status": "processing", "step": "extract_images", "message": "Extracted 24 images"}
+data: {"status": "processing", "step": "native_pdf", "message": "Sending PDF to Gemini..."}
+data: {"status": "complete", "questions_extracted": 42, "usage": {"prompt_tokens": 5000, ...}}
 ```
 
 ## Output Format
 
 ```
 outputs/
-└── test1/
-    ├── test1_questions.json   # Structured questions + usage stats
-    ├── assets/                 # Extracted images
-    └── pages/                  # Page images (optional)
+└── test3/
+    ├── test3_questions.json   # Structured questions + usage stats
+    ├── assets/                # Extracted images (test3_001.png, etc.)
+    └── pages/                 # Page images (fallback mode only)
 ```
 
 ### JSON Structure
 
 ```json
 {
-  "source_pdf": "test1.pdf",
+  "source_pdf": "test3.pdf",
   "metadata": {
-    "title": "Unit 1: Sequences and Series",
-    "subject": "Mathematics",
-    "total_pages": 8,
+    "title": "Triangles",
+    "subject": "MATHEMATICS",
+    "grade": "IX CBSE",
+    "total_pages": 7,
     "processing_time_seconds": 50.2
   },
   "questions": [
     {
-      "id": "Q1",
-      "number": "1.",
-      "type": "multi_part",
-      "content": {"text": "..."},
-      "sub_questions": [...]
+      "id": "MCQ_1",
+      "number": "1",
+      "type": "mcq",
+      "content": {
+        "text": "Which of the following is not a criterion for congruence of triangles?",
+        "images": [{"filename": "test3_001.png", "caption": "..."}]
+      },
+      "options": [
+        {"label": "A", "text": "SAS", "is_correct": false},
+        {"label": "B", "text": "ASA", "is_correct": false},
+        {"label": "C", "text": "SSA", "is_correct": true},
+        {"label": "D", "text": "SSS", "is_correct": false}
+      ],
+      "answer": "(C)",
+      "page_number": 1
     }
   ],
   "usage": {
-    "prompt_tokens": 38086,
-    "completion_tokens": 19104,
-    "total_tokens": 57190
+    "prompt_tokens": 5000,
+    "completion_tokens": 9498,
+    "total_tokens": 14498
   }
 }
 ```
+
+### Question ID Naming Convention
+
+| Section | ID Pattern | Example |
+|---------|------------|---------|
+| Section I (MCQs) | `MCQ_N` | MCQ_1, MCQ_2, ..., MCQ_20 |
+| Section II | `SEC_II_N` | SEC_II_1, SEC_II_2, ... |
+| Section III | `SEC_III_N` | SEC_III_1, SEC_III_2, ... |
+| Sub-questions | `SEC_III_N_i` | SEC_III_1_i, SEC_III_1_ii |
 
 ## CLI Output Example
 
@@ -133,19 +176,17 @@ outputs/
 ============================================================
 EXTRACTION SUMMARY
 ============================================================
-✓ test1.pdf
-  Output: outputs/test1/test1_questions.json
-  Time: 50.20s
-  Questions: 10
-  Tokens: 38,086 prompt + 19,104 completion = 57,190 total
-✓ test2.pdf
-  ...
+✓ test3.pdf
+  Output: outputs/test3/test3_questions.json
+  Time: 43.38s
+  Questions: 42
+  Tokens: 5,002 prompt + 9,525 completion = 14,527 total
 ============================================================
-Total: 5 PDFs | Success: 5 | Errors: 0
-Total questions extracted: 151
-Total tokens: 204,857 prompt + 106,217 completion = 311,074 total
-Estimated cost: $0.062973
-Total time: 162.14s
+Total: 1 PDFs | Success: 1 | Errors: 0
+Total questions extracted: 42
+Total tokens: 5,002 prompt + 9,525 completion = 14,527 total
+Estimated cost: $0.031076
+Total time: 43.38s
 ============================================================
 ```
 
@@ -159,16 +200,17 @@ Total time: 162.14s
 │   │   ├── config.py           # Configuration
 │   │   └── schemas.py          # Pydantic models
 │   ├── extractors/
-│   │   ├── pdf_converter.py    # PDF → Images
+│   │   ├── pdf_converter.py    # PDF → Images (fallback)
 │   │   └── image_extractor.py  # Embedded images
 │   ├── processors/
-│   │   ├── gemini_client.py    # OpenRouter API
+│   │   ├── gemini_client.py    # OpenRouter API (native PDF)
 │   │   └── question_parser.py  # Post-processing
 │   ├── pipeline.py             # Orchestration
 │   └── cli.py                  # CLI interface
 ├── outputs/                    # Generated outputs
+│   └── schema.json             # JSON Schema
+├── tests/                      # Test PDFs
 ├── run_eval.sh                 # Batch script
-├── TEST_SCENARIOS.md           # Test cases
 ├── README.md                   # This file
 ├── NOTES.md                    # Technical notes
 └── EVAL.md                     # Evaluation design
@@ -178,9 +220,18 @@ Total time: 162.14s
 
 | Metric | Target | Achieved |
 |--------|--------|----------|
-| Runtime (10-page PDF) | ≤3 min | ~50-60s |
+| Runtime (7-page PDF) | ≤3 min | ~43s |
 | Concurrent PDFs | ≥5 | ✓ 5 |
-| Cost per PDF | - | ~$0.01 |
+| Cost per PDF | - | ~$0.01-0.06 |
+| Questions extracted | - | 42 (vs 33 with old method) |
+
+## Configuration
+
+| Environment Variable | Default | Description |
+|---------------------|---------|-------------|
+| `OPENROUTER_API_KEY` | Required | Your OpenRouter API key |
+| `MAX_PAGES_FOR_NATIVE` | 30 | Max pages for native PDF processing |
+| `MAX_PAGES_PER_PDF` | 50 | Max pages to process (safety limit) |
 
 ## Dependencies
 
@@ -189,4 +240,4 @@ Total time: 162.14s
 - FastAPI + Uvicorn (API server)
 - httpx (Async HTTP)
 - Pydantic (Data validation)
-- OpenRouter API (Gemini 3 Flash)
+- OpenRouter API (Gemini)

@@ -20,9 +20,6 @@ from src.processors.question_parser import QuestionParser
 
 logger = logging.getLogger(__name__)
 
-# Maximum pages for native PDF processing (to avoid token limits)
-MAX_PAGES_FOR_NATIVE = 20
-
 
 class ExtractionPipeline:
     """
@@ -111,7 +108,7 @@ class ExtractionPipeline:
             logger.info(f"Extracted {len(extracted_images)} embedded images")
 
             # Step 3: Choose processing method based on page count
-            if self.use_native_pdf and total_pages <= MAX_PAGES_FOR_NATIVE:
+            if self.use_native_pdf and total_pages <= config.MAX_PAGES_FOR_NATIVE:
                 # Use native PDF processing for full document context
                 result, usage_stats = await self._process_native_pdf(
                     pdf_path, extracted_images, total_pages
@@ -119,7 +116,7 @@ class ExtractionPipeline:
             else:
                 # Fall back to page-by-page processing for large documents
                 logger.info(
-                    f"PDF has {total_pages} pages (>{MAX_PAGES_FOR_NATIVE}), "
+                    f"PDF has {total_pages} pages (>{config.MAX_PAGES_FOR_NATIVE}), "
                     "using chunked processing"
                 )
                 result, usage_stats = await self._process_pages_fallback(

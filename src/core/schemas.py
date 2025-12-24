@@ -82,7 +82,7 @@ class Question(BaseModel):
     Supports nested sub-questions for multi-part questions.
     """
 
-    id: str = Field(..., description="Unique question ID (e.g., Q1, Q1a, Q1a_i)")
+    id: str = Field(..., description="Unique question ID (e.g., MCQ_1, SEC_II_1, SEC_III_1_i)")
     number: str = Field(
         ...,
         description="Original numbering as shown in PDF (e.g., '1.', '(a)', 'Question 5')",
@@ -157,37 +157,58 @@ class ExtractedDocument(BaseModel):
     class Config:
         json_schema_extra = {
             "example": {
-                "source_pdf": "test1.pdf",
+                "source_pdf": "test3.pdf",
                 "metadata": {
-                    "title": "Unit 1: Sequences and Series Review",
+                    "title": "Triangles",
                     "subject": "Mathematics",
-                    "grade": "Precalculus",
-                    "total_pages": 8,
-                    "extraction_timestamp": "2024-12-23T12:00:00Z",
-                    "processing_time_seconds": 45.2,
+                    "grade": "IX CBSE",
+                    "total_pages": 7,
+                    "extraction_timestamp": "2024-12-24T12:00:00Z",
+                    "processing_time_seconds": 50.0,
                 },
                 "questions": [
                     {
-                        "id": "Q1",
-                        "number": "1.",
+                        "id": "MCQ_1",
+                        "number": "1",
+                        "type": "mcq",
+                        "content": {
+                            "text": "Which of the following is not a criterion for congruence of triangles?",
+                            "images": [{"filename": "test3_001.png", "caption": "Triangle diagram"}]
+                        },
+                        "options": [
+                            {"label": "A", "text": "SAS", "is_correct": False},
+                            {"label": "B", "text": "ASA", "is_correct": False},
+                            {"label": "C", "text": "SSA", "is_correct": True},
+                            {"label": "D", "text": "SSS", "is_correct": False},
+                        ],
+                        "answer": "(C)",
+                        "page_number": 1,
+                    },
+                    {
+                        "id": "SEC_III_13",
+                        "number": "13",
                         "type": "multi_part",
-                        "content": {"text": "Short answer"},
+                        "content": {"text": "In Figure 11, ABCD is a square and △DEC is an equilateral triangle. Prove that:"},
                         "sub_questions": [
                             {
-                                "id": "Q1a",
-                                "number": "a.",
-                                "type": "short_answer",
-                                "content": {
-                                    "text": "If for some arithmetic sequence A₃ = 7 and A₄ = 4, find A₁₁."
-                                },
-                            }
+                                "id": "SEC_III_13_i",
+                                "number": "(i)",
+                                "type": "proof",
+                                "content": {"text": "△ADE ≅ △BCE"},
+                            },
+                            {
+                                "id": "SEC_III_13_ii",
+                                "number": "(ii)",
+                                "type": "proof",
+                                "content": {"text": "AE = BE"},
+                            },
                         ],
                     }
                 ],
                 "usage": {
-                    "prompt_tokens": 38086,
-                    "completion_tokens": 19104,
-                    "total_tokens": 57190,
+                    "prompt_tokens": 5000,
+                    "completion_tokens": 9498,
+                    "total_tokens": 14498,
                     "generation_ids": ["gen-abc123"],
                 },
             }

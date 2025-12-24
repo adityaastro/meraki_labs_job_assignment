@@ -24,7 +24,7 @@ curl http://localhost:8000/schema
 ```bash
 curl -X POST http://localhost:8000/extract \
   -H "Content-Type: application/json" \
-  -d '{"pdf_path": "/Users/adityapethkar/Downloads/Meraki Labs Trial Assignment/test1.pdf"}'
+  -d '{"pdf_path": "tests/test1.pdf"}'
 ```
 
 **Expected:** `{"status": "ok", "output_json_path": "...", "assets_dir": "..."}`
@@ -33,7 +33,7 @@ curl -X POST http://localhost:8000/extract \
 ```bash
 curl -X POST http://localhost:8000/extract \
   -H "Content-Type: application/json" \
-  -d '{"pdf_path": "/Users/adityapethkar/Downloads/Meraki Labs Trial Assignment/file.pdf"}'
+  -d '{"pdf_path": "tests/nonexistent.pdf"}'
 ```
 
 **Expected:** `{"status": "error", "error": "PDF file not found..."}`
@@ -42,7 +42,7 @@ curl -X POST http://localhost:8000/extract \
 ```bash
 curl -X POST http://localhost:8000/extract/batch \
   -H "Content-Type: application/json" \
-  -d '["/Users/adityapethkar/Downloads/Meraki Labs Trial Assignment/test1.pdf", "/Users/adityapethkar/Downloads/Meraki Labs Trial Assignment/test2.pdf"]'
+  -d '["tests/test1.pdf", "tests/test2.pdf"]'
 ```
 
 **Expected:** Array of results for each PDF.

@@ -129,11 +129,14 @@ async def run_extraction(
                 completion_tokens = usage.get("completion_tokens", 0)
                 total_prompt_tokens += prompt_tokens
                 total_completion_tokens += completion_tokens
+                
+                cost = usage.get("estimated_cost_usd", 0)
 
                 print(f"  Questions: {questions_count}")
                 print(
                     f"  Tokens: {prompt_tokens:,} prompt + {completion_tokens:,} completion = {prompt_tokens + completion_tokens:,} total"
                 )
+                print(f"  Estimated Cost: ${cost:.6f}")
             except Exception:
                 pass
         else:
@@ -150,9 +153,9 @@ async def run_extraction(
         f"Total tokens: {total_prompt_tokens:,} prompt + {total_completion_tokens:,} completion = {total_prompt_tokens + total_completion_tokens:,} total"
     )
 
-    # Estimate cost (Gemini 3 Flash pricing: $0.10/1M input, $0.40/1M output)
-    estimated_cost = (total_prompt_tokens * 0.10 / 1_000_000) + (
-        total_completion_tokens * 0.40 / 1_000_000
+    # Estimate cost
+    estimated_cost = (total_prompt_tokens * config.MODEL_COST_INPUT_1M / 1_000_000) + (
+        total_completion_tokens * config.MODEL_COST_OUTPUT_1M / 1_000_000
     )
     print(f"Estimated cost: ${estimated_cost:.6f}")
 
