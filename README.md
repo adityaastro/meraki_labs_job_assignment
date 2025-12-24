@@ -10,7 +10,7 @@ A robust pipeline for extracting structured questions from educational PDF docum
 - **Image Linking**: Extracted images automatically linked to questions by actual filename
 - **Parallel Processing**: Process ≥5 PDFs concurrently
 - **REST API**: FastAPI server with `/extract` and `/extract/stream` (SSE) endpoints
-- **Automatic Fallback**: Page-by-page processing for large PDFs (>30 pages)
+- **Chunked Processing**: Automated chunked processing for scale on large PDFs (>30 pages)
 - **Token Tracking**: Accurate per-PDF token usage and cost estimation
 
 ## Quick Start
@@ -32,7 +32,7 @@ cp .env.example .env
 
 ### 2. Run Extraction
 
-**Option A: CLI**
+**Option A: CLI (Recommended)**
 ```bash
 # Single PDF
 python -m src.cli tests/test1.pdf -o outputs/
@@ -60,7 +60,7 @@ curl -N http://localhost:8000/extract/stream \
   -d '{"pdf_path": "/path/to/test1.pdf"}'
 ```
 
-**Option C: Docker (Recommended)**
+**Option C: Docker**
 ```bash
 # Configure API key
 cp .env.example .env
@@ -143,7 +143,7 @@ outputs/
 └── test3/
     ├── test3_questions.json   # Structured questions + usage stats
     ├── assets/                # Extracted images (test3_001.png, etc.)
-    └── pages/                 # Page images (fallback mode only)
+    └── pages/                 # Page images (chunked mode only)
 ```
 
 ### JSON Structure
@@ -225,7 +225,7 @@ Total time: 43.38s
 │   │   ├── schemas.py          # Pydantic models
 │   │   └── schema.json         # JSON Schema
 │   ├── extractors/
-│   │   ├── pdf_converter.py    # PDF → Images (fallback)
+│   │   ├── pdf_converter.py    # PDF → Images (chunked)
 │   │   └── image_extractor.py  # Embedded images
 │   ├── processors/
 │   │   ├── gemini_client.py    # OpenRouter API (native PDF)
@@ -251,7 +251,7 @@ Total time: 43.38s
 | Runtime (7-page PDF) | ≤3 min | ~43s |
 | Concurrent PDFs | ≥5 | ✓ 5 |
 | Cost per PDF | - | ~$0.01-0.06 |
-| Questions extracted | - | 42 (vs 33 with old method) |
+| Questions extracted | - | 42 |
 
 ## Configuration
 
