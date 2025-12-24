@@ -1,0 +1,1326 @@
+{
+  "source_pdf": "test3.pdf",
+  "metadata": {
+    "title": "Triangles Assessment",
+    "subject": "Mathematics",
+    "grade": "IX CBSE",
+    "total_pages": 7,
+    "extraction_timestamp": "2025-12-24T11:06:04.954958",
+    "processing_time_seconds": 43.38379216194153
+  },
+  "questions": [
+    {
+      "id": "MCQ_1",
+      "number": "1",
+      "type": "mcq",
+      "content": {
+        "text": "Which of the following is not a criterion for congruence of triangles?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "SAS",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "ASA",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "SSA",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "SSS",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(C)",
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "MCQ_2",
+      "number": "2",
+      "type": "mcq",
+      "content": {
+        "text": "If $AB = QR$, $BC = PR$ and $CA = PQ$, then",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\Delta ABC \\cong \\Delta PQR$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$\\Delta CBA \\cong \\Delta PRQ$",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "$\\Delta BAC \\cong \\Delta RPQ$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$\\Delta PQR \\cong \\Delta BCA$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(B)",
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "MCQ_3",
+      "number": "3",
+      "type": "mcq",
+      "content": {
+        "text": "In $\\Delta ABC$, $AB = AC$ and $\\angle B = 50^\\circ$. Then $\\angle C$ is equal to",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$40^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$50^\\circ$",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "$80^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$130^\\circ$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(B)",
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "MCQ_4",
+      "number": "4",
+      "type": "mcq",
+      "content": {
+        "text": "In $\\Delta ABC$, $BC = AB$ and $\\angle B = 80^\\circ$. Then $\\angle A$ is equal to",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$80^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$40^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$50^\\circ$",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "$100^\\circ$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(C)",
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "MCQ_5",
+      "number": "5",
+      "type": "mcq",
+      "content": {
+        "text": "In $\\Delta PQR$, $\\angle R = \\angle P$ and $QR = 4\\text{ cm}$ and $PR = 5\\text{ cm}$. Then the length of $PQ$ is",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$4\\text{ cm}$",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "$5\\text{ cm}$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$2\\text{ cm}$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$2.5\\text{ cm}$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(A)",
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "MCQ_6",
+      "number": "6",
+      "type": "mcq",
+      "content": {
+        "text": "It is given that $\\Delta ABC \\cong \\Delta FDE$ and $AB = 5\\text{ cm}$, $\\angle B = 40^\\circ$ and $\\angle A = 80^\\circ$. Then which of the following is true?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$DF = 5\\text{ cm}, \\angle F = 60^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$DF = 5\\text{ cm}, \\angle E = 60^\\circ$",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "$DE = 5\\text{ cm}, \\angle E = 60^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$DE = 5\\text{ cm}, \\angle D = 40^\\circ$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(B)",
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "MCQ_7",
+      "number": "7",
+      "type": "mcq",
+      "content": {
+        "text": "In triangles $ABC$ and $PQR$, $AB = AC$, $\\angle C = \\angle P$ and $\\angle B = \\angle Q$. The two triangles are",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "isosceles but not congruent",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "isosceles and congruent",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "congruent but not isosceles",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "neither congruent nor isosceles",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(A)",
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "MCQ_8",
+      "number": "8",
+      "type": "mcq",
+      "content": {
+        "text": "In triangles $ABC$ and $DEF$, $AB = FD$ and $\\angle A = \\angle D$. The two triangles will be congruent by SAS axiom if",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$BC = EF$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$AC = DE$",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "$AC = EF$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$BC = DE$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(B)",
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "MCQ_9",
+      "number": "9",
+      "type": "mcq",
+      "content": {
+        "text": "Side $QR$ of a $\\Delta PQR$ has been produced to the point $S$. If $\\angle PRS = 115^\\circ$ and $\\angle P = 45^\\circ$, then $\\angle Q$ is equal to,",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_001.png",
+            "caption": "Triangle PQR with exterior angle PRS",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "a",
+          "text": "$70^\\circ$",
+          "is_correct": true
+        },
+        {
+          "label": "b",
+          "text": "$105^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "c",
+          "text": "$51^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "d",
+          "text": "$80^\\circ$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(a)",
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "MCQ_10",
+      "number": "10",
+      "type": "mcq",
+      "content": {
+        "text": "In an equilateral triangle $ABC$, if $AD$ is an altitude then $4AD^2$ is equal to",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "a",
+          "text": "$2BD^2$",
+          "is_correct": false
+        },
+        {
+          "label": "b",
+          "text": "$BC^2$",
+          "is_correct": false
+        },
+        {
+          "label": "c",
+          "text": "$3AB^2$",
+          "is_correct": true
+        },
+        {
+          "label": "d",
+          "text": "$2DC^2$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(c)",
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MCQ_11",
+      "number": "11",
+      "type": "mcq",
+      "content": {
+        "text": "$PS$ is the bisector of $\\angle P$ and $PQ = PR$. Then $\\Delta PRS$ and $\\Delta PQS$ are congruent by the criterion",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_002.png",
+            "caption": "Triangle PQR with bisector PS",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "a",
+          "text": "AAA",
+          "is_correct": false
+        },
+        {
+          "label": "b",
+          "text": "SAS",
+          "is_correct": true
+        },
+        {
+          "label": "c",
+          "text": "ASA",
+          "is_correct": false
+        },
+        {
+          "label": "d",
+          "text": "both (b) and (c)",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(b)",
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MCQ_12",
+      "number": "12",
+      "type": "mcq",
+      "content": {
+        "text": "3 times the measure of an angle is 14 less than the measure of its complement. What is the measure of the angle?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "a",
+          "text": "$19^\\circ$",
+          "is_correct": true
+        },
+        {
+          "label": "b",
+          "text": "$57^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "c",
+          "text": "$71^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "d",
+          "text": "$76^\\circ$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(a)",
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MCQ_13",
+      "number": "13",
+      "type": "mcq",
+      "content": {
+        "text": "Two angles are congruent and complementary. What is the measure of each angle?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "a",
+          "text": "$180^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "b",
+          "text": "$90^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "c",
+          "text": "$45^\\circ$",
+          "is_correct": true
+        },
+        {
+          "label": "d",
+          "text": "$360^\\circ$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(c)",
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MCQ_14",
+      "number": "14",
+      "type": "mcq",
+      "content": {
+        "text": "The measure of the supplement of an angle is 12 more than twice the measure of the angle. What is the measure of the angle?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "a",
+          "text": "124",
+          "is_correct": true
+        },
+        {
+          "label": "b",
+          "text": "48",
+          "is_correct": false
+        },
+        {
+          "label": "c",
+          "text": "56",
+          "is_correct": false
+        },
+        {
+          "label": "d",
+          "text": "24",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(a)",
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MCQ_15",
+      "number": "15",
+      "type": "mcq",
+      "content": {
+        "text": "In triangle $ABC$, if $BC = 3$ and $AC = 4$, then what is the length of segment $CD$?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "a",
+          "text": "3",
+          "is_correct": false
+        },
+        {
+          "label": "b",
+          "text": "15/4",
+          "is_correct": false
+        },
+        {
+          "label": "c",
+          "text": "5",
+          "is_correct": false
+        },
+        {
+          "label": "d",
+          "text": "16/3",
+          "is_correct": true
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(d)",
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MCQ_16",
+      "number": "16",
+      "type": "mcq",
+      "content": {
+        "text": "In triangle $ABC$, angle $A=90^\\circ$, angle $B=30^\\circ$, $BC=8\\text{cm}$. Find the length of side $AB$ and $AC$?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "a",
+          "text": "4, 6.93",
+          "is_correct": true
+        },
+        {
+          "label": "b",
+          "text": "5, 5.964",
+          "is_correct": false
+        },
+        {
+          "label": "c",
+          "text": "7, 4.675",
+          "is_correct": false
+        },
+        {
+          "label": "d",
+          "text": "8, 3.876",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(a)",
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MCQ_17",
+      "number": "17",
+      "type": "mcq",
+      "content": {
+        "text": "In $\\Delta ABC$ is an isosceles triangle and $\\angle B = 65^\\circ$, find $x$.",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "a",
+          "text": "$60^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "b",
+          "text": "$70^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "c",
+          "text": "$50^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "d",
+          "text": "none of these",
+          "is_correct": true
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(d)",
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MCQ_18",
+      "number": "18",
+      "type": "mcq",
+      "content": {
+        "text": "In a triangle, one angle is of $90^\\circ$. Then\n(i) The other two angles are of $45^\\circ$ each\n(ii) In remaining two angles, one angle is $90^\\circ$ and other is $45^\\circ$\n(iii) Remaining two angles are complementary\nIn the given option(s) which is true?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "a",
+          "text": "(i) only",
+          "is_correct": true
+        },
+        {
+          "label": "b",
+          "text": "(ii) only",
+          "is_correct": false
+        },
+        {
+          "label": "c",
+          "text": "(iii) only",
+          "is_correct": false
+        },
+        {
+          "label": "d",
+          "text": "(i) and (ii)",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(a)",
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MCQ_19",
+      "number": "19",
+      "type": "mcq",
+      "content": {
+        "text": "If in an isosceles triangle, each of the base angles is $40^\\circ$, then the triangle is",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "a",
+          "text": "Right-angled triangle",
+          "is_correct": false
+        },
+        {
+          "label": "b",
+          "text": "Acute angled triangle",
+          "is_correct": false
+        },
+        {
+          "label": "c",
+          "text": "Obtuse angled triangle",
+          "is_correct": true
+        },
+        {
+          "label": "d",
+          "text": "Isosceles right-angled triangle",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(c)",
+      "page_number": 3,
+      "marks": null
+    },
+    {
+      "id": "MCQ_20",
+      "number": "20",
+      "type": "mcq",
+      "content": {
+        "text": "In Fig., $BC = CA$ and $\\angle A = 40$. Then, $\\angle ACD$ is equal to",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_009.png",
+            "caption": "Triangle ABC with exterior angle ACD",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "a",
+          "text": "$40^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "b",
+          "text": "$80^\\circ$",
+          "is_correct": true
+        },
+        {
+          "label": "c",
+          "text": "$120^\\circ$",
+          "is_correct": false
+        },
+        {
+          "label": "d",
+          "text": "$60^\\circ$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "(b)",
+      "page_number": 3,
+      "marks": null
+    },
+    {
+      "id": "SEC_II_1",
+      "number": "1",
+      "type": "proof",
+      "content": {
+        "text": "Prove that angles opposite to equal sides of an isosceles triangle are equal.",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 3,
+      "marks": null
+    },
+    {
+      "id": "SEC_II_2",
+      "number": "2",
+      "type": "proof",
+      "content": {
+        "text": "In the given figure, $AD$ is bisector of $\\angle BAC$ and $\\angle CPD = \\angle BPD$. Prove that $\\Delta CAP \\cong \\Delta BAP$.",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_012.png",
+            "caption": "Figure for question 2",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 3,
+      "marks": null
+    },
+    {
+      "id": "SEC_II_3",
+      "number": "3",
+      "type": "proof",
+      "content": {
+        "text": "In $\\Delta ABC$, $BD$ and $CE$ are two altitudes such that $BD = CE$. Prove that $\\Delta ABC$ is isosceles.",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 3,
+      "marks": null
+    },
+    {
+      "id": "SEC_II_4",
+      "number": "4",
+      "type": "proof",
+      "content": {
+        "text": "In the fig. 10, $D$ and $E$ are points on the base $BC$ of a $\\Delta ABC$ such that $AD = AE$ and $\\angle BAD = \\angle CAE$. Prove that $AB = AC$.",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_013.png",
+            "caption": "Fig. 10",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 3,
+      "marks": null
+    },
+    {
+      "id": "SEC_II_5",
+      "number": "5",
+      "type": "numerical",
+      "content": {
+        "text": "The exterior angles, obtained on producing the base of a triangle both way are $104^\\circ$ and $136^\\circ$. Find all the angles of the triangle.",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": "$\\angle ACB = 76^\\circ, \\angle BAC = 60^\\circ, \\angle ABC = 44^\\circ$",
+      "page_number": 3,
+      "marks": null
+    },
+    {
+      "id": "SEC_II_6",
+      "number": "6",
+      "type": "proof",
+      "content": {
+        "text": "In the figure, $l \\parallel m$ and $M$ is the mid-point of $AB$. Prove that $M$ is also the mid-point of $CD$.",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_014.png",
+            "caption": "Figure for question 6",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 4,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_1",
+      "number": "1",
+      "type": "proof",
+      "content": {
+        "text": "In a triangle $ABC$, $E$ and $F$ respectively are mid-points of equal sides $AB$ and $AC$ of $\\Delta ABC$. Show that $BF = CE$.",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 4,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_2",
+      "number": "2",
+      "type": "proof",
+      "content": {
+        "text": "$AD$ is an altitude of an isosceles $\\Delta ABC$ in which $AB = AC$. Show that $AD$ bisects $BC$.",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 4,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_3",
+      "number": "3",
+      "type": "proof",
+      "content": {
+        "text": "$AD$ is an altitude of an isosceles triangle $ABC$ in which $AB = AC$. Show that $AD$ is also the median of the triangle.",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 4,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_4",
+      "number": "4",
+      "type": "proof",
+      "content": {
+        "text": "In fig. 5, If $\\angle ABD = \\angle ACE$ and $AB = AC$. Prove that $\\Delta ABD \\cong \\Delta ACE$.",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_015.png",
+            "caption": "Fig. 5",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 4,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_5",
+      "number": "5",
+      "type": "proof",
+      "content": {
+        "text": "In figure 6, $\\Delta LMN$ is an isosceles triangle with $LM = LN$, and $LP$ bisects $\\angle NLQ$. Prove that $LP \\parallel MN$.",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_016.png",
+            "caption": "Figure 6",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 5,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_6",
+      "number": "6",
+      "type": "proof",
+      "content": {
+        "text": "In the fig. 9, the sides $AB$ and $AC$ of $\\Delta ABC$ are produced to points $E$ and $D$ respectively. If bisectors $BO$ and $CO$ of $\\angle CBE$ and $\\angle BCD$ respectively meet at point $O$, then prove that $\\angle BOC = 90^\\circ - \\frac{1}{2}\\angle BAC$.",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_017.jpeg",
+            "caption": "Fig. 9",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 5,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_7",
+      "number": "7",
+      "type": "proof",
+      "content": {
+        "text": "In Fig. it is given that $AB = CF$, $EF = BD$ and $\\angle AFE = \\angle DBC$. Prove that $\\Delta AFE \\cong \\Delta CBD$.",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_018.jpeg",
+            "caption": "Figure for question 7",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 5,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_8",
+      "number": "8",
+      "type": "proof",
+      "content": {
+        "text": "In a $\\Delta ABC$, the internal bisectors of $\\angle B$ and $\\angle C$ meet at $P$ and the external bisectors of $\\angle B$ and $\\angle C$ meet at $Q$. Prove that $\\angle BPC + \\angle BQC = 180^\\circ$.",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_019.jpeg",
+            "caption": "Figure for question 8",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 5,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_9",
+      "number": "9",
+      "type": "proof",
+      "content": {
+        "text": "In Fig. it is given that $AB = CF$, $EF = BD$ and $\\angle AFE = \\angle DBC$. Prove that $\\Delta AFE \\cong \\Delta CBD$.",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_020.jpeg",
+            "caption": "Figure for question 9",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 6,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_10",
+      "number": "10",
+      "type": "proof",
+      "content": {
+        "text": "If two isosceles triangles have a common base, the line joining their vertices bisects them at right angles.",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_021.png",
+            "caption": "Figure for question 10",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 6,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_11",
+      "number": "11",
+      "type": "proof",
+      "content": {
+        "text": "In the given figure, triangles $PQC$ and $PRC$ are such that $QC = PR$ and $PQ = CR$. Prove that $\\angle PCQ = \\angle CPR$.",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_022.png",
+            "caption": "Figure for question 11",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 6,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_12",
+      "number": "12",
+      "type": "proof",
+      "content": {
+        "text": "In the given figure, $AB = AD$, $AC = AE$ and $\\angle BAD = \\angle EAC$, then prove that $BC = DE$.",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_023.png",
+            "caption": "Figure for question 12",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 6,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_13",
+      "number": "13",
+      "type": "multi_part",
+      "content": {
+        "text": "In Figure 11, $ABCD$ is a square and $\\Delta DEC$ is an equilateral triangle. Prove that :",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_024.png",
+            "caption": "Figure 11",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": [
+        {
+          "id": "SEC_III_13_i",
+          "number": "(i)",
+          "type": "proof",
+          "content": {
+            "text": "$\\Delta ADE \\cong \\Delta BCE$",
+            "latex": null,
+            "images": null,
+            "table": null
+          },
+          "options": null,
+          "sub_questions": null,
+          "answer": null,
+          "page_number": 6,
+          "marks": null
+        },
+        {
+          "id": "SEC_III_13_ii",
+          "number": "(ii)",
+          "type": "proof",
+          "content": {
+            "text": "$AE = BE$",
+            "latex": null,
+            "images": null,
+            "table": null
+          },
+          "options": null,
+          "sub_questions": null,
+          "answer": null,
+          "page_number": 6,
+          "marks": null
+        },
+        {
+          "id": "SEC_III_13_iii",
+          "number": "(iii)",
+          "type": "proof",
+          "content": {
+            "text": "$\\angle DAE = 15^\\circ$",
+            "latex": null,
+            "images": null,
+            "table": null
+          },
+          "options": null,
+          "sub_questions": null,
+          "answer": null,
+          "page_number": 6,
+          "marks": null
+        }
+      ],
+      "answer": null,
+      "page_number": 6,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_14",
+      "number": "14",
+      "type": "proof",
+      "content": {
+        "text": "In figure 10, if $AB = AC$ and $DB = DC$ then prove that $\\angle ABD = \\angle ACD$.",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_013.png",
+            "caption": "Figure 10",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 7,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_15",
+      "number": "15",
+      "type": "multi_part",
+      "content": {
+        "text": "In figure 11, $PQRS$ is a square and $SRT$ is an equilateral triangle. Prove that :",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_024.png",
+            "caption": "Figure 11",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": [
+        {
+          "id": "SEC_III_15_i",
+          "number": "(i)",
+          "type": "proof",
+          "content": {
+            "text": "$\\angle PST = \\angle QRT$",
+            "latex": null,
+            "images": null,
+            "table": null
+          },
+          "options": null,
+          "sub_questions": null,
+          "answer": null,
+          "page_number": 7,
+          "marks": null
+        },
+        {
+          "id": "SEC_III_15_ii",
+          "number": "(ii)",
+          "type": "proof",
+          "content": {
+            "text": "$PT = QT$",
+            "latex": null,
+            "images": null,
+            "table": null
+          },
+          "options": null,
+          "sub_questions": null,
+          "answer": null,
+          "page_number": 7,
+          "marks": null
+        },
+        {
+          "id": "SEC_III_15_iii",
+          "number": "(iii)",
+          "type": "proof",
+          "content": {
+            "text": "$\\angle QTR = 15^\\circ$",
+            "latex": null,
+            "images": null,
+            "table": null
+          },
+          "options": null,
+          "sub_questions": null,
+          "answer": null,
+          "page_number": 7,
+          "marks": null
+        }
+      ],
+      "answer": null,
+      "page_number": 7,
+      "marks": null
+    },
+    {
+      "id": "SEC_III_16",
+      "number": "16",
+      "type": "proof",
+      "content": {
+        "text": "In figure 9, $ABC$ is a triangle with $\\angle BAC = 90^\\circ$ and $AL \\perp BC$. Prove that $\\angle CAL = \\angle ABC$.",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test3_017.jpeg",
+            "caption": "Figure 9",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 7,
+      "marks": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 5002,
+    "completion_tokens": 9525,
+    "total_tokens": 14527,
+    "estimated_cost_usd": 0.031076,
+    "generation_ids": [
+      "gen-1766574323-0HqIpma2xmPYRNqtRY7P"
+    ]
+  }
+}

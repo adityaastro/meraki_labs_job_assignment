@@ -1,0 +1,2836 @@
+{
+  "source_pdf": "test5.pdf",
+  "metadata": {
+    "title": "MATHEMATICS PRACTICE TEST",
+    "subject": "Mathematics",
+    "grade": "Year 8/9",
+    "total_pages": 16,
+    "extraction_timestamp": "2025-12-24T11:06:50.099997",
+    "processing_time_seconds": 88.29400491714478
+  },
+  "questions": [
+    {
+      "id": "PRAC_1",
+      "number": "1",
+      "type": "mcq",
+      "content": {
+        "text": "$5 + 2 =$",
+        "latex": "$5 + 2 =$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "5",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "6",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "7",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "8",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "C",
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "PRAC_2",
+      "number": "2",
+      "type": "mcq",
+      "content": {
+        "text": "Which is the largest number?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "403",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "4600",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "406",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "4060",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "B",
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "PRAC_3",
+      "number": "3",
+      "type": "mcq",
+      "content": {
+        "text": "What value does the circled number in the number above represent?",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_001.png",
+            "caption": "Number 4879 with 7 circled",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "4879",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "700",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "70",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "7",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "C",
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "MCQ_1",
+      "number": "1",
+      "type": "mcq",
+      "content": {
+        "text": "$-10 + -3 - -4 + 5$",
+        "latex": "$-10 + -3 - -4 + 5$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "2",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "-12",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "-4",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "16",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "C",
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MCQ_2",
+      "number": "2",
+      "type": "mcq",
+      "content": {
+        "text": "$-96 \\div -6 \\div 8 =$",
+        "latex": "$-96 \\div -6 \\div 8 =$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "2",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "12",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "-12",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "-2",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "A",
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MCQ_3",
+      "number": "3",
+      "type": "mcq",
+      "content": {
+        "text": "Jo bought a used car for $6000 and paid 15% deposit. How much did he still have to pay?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$900",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$5000",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$4500",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$5100",
+          "is_correct": true
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "D",
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MCQ_4",
+      "number": "4",
+      "type": "mcq",
+      "content": {
+        "text": "$5 \\times -2 - (8 - 12) + 16 \\div -8 =$",
+        "latex": "$5 \\times -2 - (8 - 12) + 16 \\div -8 =$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "6",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "-8",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "-16",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "-6",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "B",
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MCQ_5",
+      "number": "5",
+      "type": "mcq",
+      "content": {
+        "text": "What is 8% of $600?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$580",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$480",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$48",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "$58",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "C",
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MCQ_6",
+      "number": "6",
+      "type": "mcq",
+      "content": {
+        "text": "Which is the longest distance?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "3500cm",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "65.5m",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "75000mm",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "15.5m",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "0.1km",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "E",
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MCQ_7",
+      "number": "7",
+      "type": "mcq",
+      "content": {
+        "text": "The perimeter of the shape is",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_003.png",
+            "caption": "L-shaped polygon with dimensions 12cm, 25cm, and 10cm",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "47cm",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "72cm",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "69cm",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "94cm",
+          "is_correct": true
+        },
+        {
+          "label": "E",
+          "text": "Not enough information to find perimeter",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "D",
+      "page_number": 3,
+      "marks": null
+    },
+    {
+      "id": "MCQ_8",
+      "number": "8",
+      "type": "mcq",
+      "content": {
+        "text": "If the length of the shorter arc $\\overline{AB}$ is 22cm and C is the centre of the circle then the circumference of the circle is:",
+        "latex": "$\\overline{AB}$",
+        "images": [
+          {
+            "filename": "test5_003.png",
+            "caption": "Circle with sector ACB and angle 45 degrees",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "990cm",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "67cm",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "176cm",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "88cm",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "C",
+      "page_number": 3,
+      "marks": null
+    },
+    {
+      "id": "MCQ_9",
+      "number": "9",
+      "type": "mcq",
+      "content": {
+        "text": "If 2 fligs make a flog and 3 flogs make a flug, how many fligs in 12 flugs?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "72",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "17",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "36",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "34",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "A",
+      "page_number": 3,
+      "marks": null
+    },
+    {
+      "id": "MCQ_10",
+      "number": "10",
+      "type": "mcq",
+      "content": {
+        "text": "If $2 \\frac{1}{3} : 4 \\frac{1}{3}$ then $7 : \\square =$",
+        "latex": "$2 \\frac{1}{3} : 4 \\frac{1}{3}$ then $7 : \\square =$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "12",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "13",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "$8 \\frac{2}{3}$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$6 \\frac{1}{3}$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "B",
+      "page_number": 4,
+      "marks": null
+    },
+    {
+      "id": "MCQ_11",
+      "number": "11",
+      "type": "mcq",
+      "content": {
+        "text": "Concrete is made by mixing screenings cement and sand in the ratio 3:1:15. How much sand would be needed to make 125 tonnes of concrete?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "27 tonnes",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "33.75 tonnes",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "45 tonnes",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "75 tonnes",
+          "is_correct": true
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "D",
+      "page_number": 4,
+      "marks": null
+    },
+    {
+      "id": "MCQ_12",
+      "number": "12",
+      "type": "mcq",
+      "content": {
+        "text": "Find $a^\\circ$ in the triangle shown.",
+        "latex": "$a^\\circ$",
+        "images": [
+          {
+            "filename": "test5_004.png",
+            "caption": "Triangle with angles $a^\\circ$, $87^\\circ$, and exterior angle $127^\\circ$",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "53",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "40",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "93",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "146",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "B",
+      "page_number": 4,
+      "marks": null
+    },
+    {
+      "id": "MCQ_13",
+      "number": "13",
+      "type": "mcq",
+      "content": {
+        "text": "$x^\\circ =$",
+        "latex": "$x^\\circ =$",
+        "images": [
+          {
+            "filename": "test5_004.png",
+            "caption": "Parallel lines intersected by transversals showing angles $56^\\circ$ and $x^\\circ$",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "124",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "304",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "54",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "66",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "A",
+      "page_number": 4,
+      "marks": null
+    },
+    {
+      "id": "MCQ_14",
+      "number": "14",
+      "type": "mcq",
+      "content": {
+        "text": "How many students studied for more than 8 hours in the week?",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_005.png",
+            "caption": "Bar graph of Hours of Study vs Frequency",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "22",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "29",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "42",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "50",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": true
+        }
+      ],
+      "sub_questions": null,
+      "answer": "E",
+      "page_number": 5,
+      "marks": null
+    },
+    {
+      "id": "MCQ_15",
+      "number": "15",
+      "type": "mcq",
+      "content": {
+        "text": "How many students studied for 6 hours or less per week?",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_005.png",
+            "caption": "Bar graph of Hours of Study vs Frequency",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "9",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "18",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "15",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "12",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "C",
+      "page_number": 5,
+      "marks": null
+    },
+    {
+      "id": "MCQ_16",
+      "number": "16",
+      "type": "mcq",
+      "content": {
+        "text": "Two six sided dice are thrown together. What is the probability that a total of 10 is thrown?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$1/6$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$1/12$",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "$1/2$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$5/6$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "B",
+      "page_number": 5,
+      "marks": null
+    },
+    {
+      "id": "MCQ_17",
+      "number": "17",
+      "type": "mcq",
+      "content": {
+        "text": "The gradient of the line is",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_005.png",
+            "caption": "Line passing through (-1, 3) and (5, -1)",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$3/2$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$2/3$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$-2/3$",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "$-3/2$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "C",
+      "page_number": 5,
+      "marks": null
+    },
+    {
+      "id": "MCQ_18",
+      "number": "18",
+      "type": "mcq",
+      "content": {
+        "text": "The y intercept of the graph could only be:",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_006.png",
+            "caption": "Linear graph with negative y-intercept and positive x-intercept",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "(4,0)",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "(0,-3)",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "(-4,0)",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "(-3,0)",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "(0,3)",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "B",
+      "page_number": 6,
+      "marks": null
+    },
+    {
+      "id": "MCQ_19",
+      "number": "19",
+      "type": "mcq",
+      "content": {
+        "text": "Which inequation shows the following statement? x is 6 or less and more than -5",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$-5 < x \\le 6$",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "$-5 > x \\le 6$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$-5 \\le x \\le 6$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$-5 < x < 6$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "$-5 \\le x < 6$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "A",
+      "page_number": 6,
+      "marks": null
+    },
+    {
+      "id": "MCQ_20",
+      "number": "20",
+      "type": "mcq",
+      "content": {
+        "text": "Expand and simplify: $-6(2x - 3) - 11$",
+        "latex": "$-6(2x - 3) - 11$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$-12x - 29$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$7 - 12x$",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "$12x - 7$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$7 + 12x$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "B",
+      "page_number": 6,
+      "marks": null
+    },
+    {
+      "id": "MCQ_21",
+      "number": "21",
+      "type": "mcq",
+      "content": {
+        "text": "Which option would make this solid?",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_007.png",
+            "caption": "3D triangular prism and four possible nets",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "Net A",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "Net B",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Net C",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Net D",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of the nets would make the solid",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "A",
+      "page_number": 7,
+      "marks": null
+    },
+    {
+      "id": "MCQ_22",
+      "number": "22",
+      "type": "mcq",
+      "content": {
+        "text": "The diagram shows a small rectangular field. If Linda runs from A to B to D to C to A, how far does she run?",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_007.png",
+            "caption": "Rectangle ABCD with sides 40m and 30m",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "120m",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "160m",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "140m",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "150m",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": true
+        }
+      ],
+      "sub_questions": null,
+      "answer": "E",
+      "page_number": 7,
+      "marks": null
+    },
+    {
+      "id": "MCQ_23",
+      "number": "23",
+      "type": "mcq",
+      "content": {
+        "text": "Simplify the surd $3\\sqrt{56}$ completely",
+        "latex": "$3\\sqrt{56}$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$12\\sqrt{14}$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$5\\sqrt{14}$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$6\\sqrt{14}$",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "$6\\sqrt{28}$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "C",
+      "page_number": 8,
+      "marks": null
+    },
+    {
+      "id": "MCQ_24",
+      "number": "24",
+      "type": "mcq",
+      "content": {
+        "text": "The length of x equals",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_008.png",
+            "caption": "Trapezoid with parallel sides 5cm and 3cm, height 4cm, and slanted side x",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "6cm",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$\\sqrt{6}$cm",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$5\\sqrt{2}$cm",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$2\\sqrt{5}$cm",
+          "is_correct": true
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "D",
+      "page_number": 8,
+      "marks": null
+    },
+    {
+      "id": "MCQ_25",
+      "number": "25",
+      "type": "mcq",
+      "content": {
+        "text": "The rectangle box has dimensions as shown. What is the length $\\overline{AG}$?",
+        "latex": "$\\overline{AG}$",
+        "images": [
+          {
+            "filename": "test5_008.png",
+            "caption": "Rectangular prism with dimensions 8cm, 6cm, and 2cm",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$2\\sqrt{26}$",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "$4\\sqrt{6}$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$2\\sqrt{3}$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$\\sqrt{16}$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "A",
+      "page_number": 8,
+      "marks": null
+    },
+    {
+      "id": "MCQ_26",
+      "number": "26",
+      "type": "mcq",
+      "content": {
+        "text": "Sam bought a car valued at $7700. One year later the car’s value had decreased by $2/7$. What is the new value of the car?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$2200",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$5500",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "$9900",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$4400",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "B",
+      "page_number": 8,
+      "marks": null
+    },
+    {
+      "id": "MCQ_27",
+      "number": "27",
+      "type": "mcq",
+      "content": {
+        "text": "If Density = Mass $\\div$ Volume, what is the Mass of the solid in the diagram if its Density is $1.2gm/cm^3$?",
+        "latex": "$1.2gm/cm^3$",
+        "images": [
+          {
+            "filename": "test5_009.png",
+            "caption": "Rectangular prism with dimensions 2cm, 5cm, 6cm",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "50gm",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "60gm",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "72gm",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "38.4gm",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": true
+        }
+      ],
+      "sub_questions": null,
+      "answer": "E",
+      "page_number": 9,
+      "marks": null
+    },
+    {
+      "id": "MCQ_28",
+      "number": "28",
+      "type": "mcq",
+      "content": {
+        "text": "What is the speed in m/s of a car that travels 30km in 20 minutes?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "1500 m/s",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "150 m/s",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "90 m/s",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "540 m/s",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": true
+        }
+      ],
+      "sub_questions": null,
+      "answer": "E",
+      "page_number": 9,
+      "marks": null
+    },
+    {
+      "id": "MCQ_29",
+      "number": "29",
+      "type": "mcq",
+      "content": {
+        "text": "If $R = \\frac{(S + T)P}{3}$ then T equals",
+        "latex": "$R = \\frac{(S + T)P}{3}$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\frac{3R - S}{P}$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{PR}{3} - S$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{3R}{P} + S$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{3R + S}{P}$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "$\\frac{3R}{P} - S$",
+          "is_correct": true
+        }
+      ],
+      "sub_questions": null,
+      "answer": "E",
+      "page_number": 9,
+      "marks": null
+    },
+    {
+      "id": "MCQ_30",
+      "number": "30",
+      "type": "mcq",
+      "content": {
+        "text": "Solve the inequation for x: $\\frac{5(9 - x)}{3} + 1 < 11$",
+        "latex": "$\\frac{5(9 - x)}{3} + 1 < 11$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$x < 3$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$x > 3$",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "$x > -3$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$x > 1 \\frac{4}{5}$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "B",
+      "page_number": 9,
+      "marks": null
+    },
+    {
+      "id": "MCQ_31",
+      "number": "31",
+      "type": "mcq",
+      "content": {
+        "text": "Solve for x: $\\frac{4x - 3}{5} - \\frac{2x - 3}{2} = -2$",
+        "latex": "$\\frac{4x - 3}{5} - \\frac{2x - 3}{2} = -2$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$x = 1 \\frac{11}{18}$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$x = 5 \\frac{1}{2}$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$x = -5 \\frac{1}{2}$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$x = 14 \\frac{1}{2}$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "$x = -14 \\frac{1}{2}$",
+          "is_correct": true
+        }
+      ],
+      "sub_questions": null,
+      "answer": "E",
+      "page_number": 9,
+      "marks": null
+    },
+    {
+      "id": "MCQ_32",
+      "number": "32",
+      "type": "mcq",
+      "content": {
+        "text": "Which equation could only be the equation of the graph?",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_010.png",
+            "caption": "Linear graph with positive slope and negative y-intercept",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$y = 3x + 2$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$y = -3x - 2$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$y = 3x - 2$",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "$y = -3 + 2$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "$y = -x - 2$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "C",
+      "page_number": 10,
+      "marks": null
+    },
+    {
+      "id": "MCQ_33",
+      "number": "33",
+      "type": "mcq",
+      "content": {
+        "text": "Which set of coordinates lie outside the shaded area?",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_010.png",
+            "caption": "Shaded region below a line passing through (0,4) and (3,0)",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "(0,0)",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "(-1,-6)",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "(1,-50)",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "(1,1)",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "(4,1)",
+          "is_correct": true
+        }
+      ],
+      "sub_questions": null,
+      "answer": "E",
+      "page_number": 10,
+      "marks": null
+    },
+    {
+      "id": "MCQ_34",
+      "number": "34",
+      "type": "mcq",
+      "content": {
+        "text": "The equation of this graph is:",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_010.png",
+            "caption": "Line passing through (0,4) and (6,-1)",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$y = -\\frac{6x}{5} + 4$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$y = \\frac{5x}{6} + 4$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$y = 5x + 4$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$y = -\\frac{5x}{6} + 4$",
+          "is_correct": true
+        },
+        {
+          "label": "E",
+          "text": "$y = \\frac{-5x}{6} - 4$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "D",
+      "page_number": 10,
+      "marks": null
+    },
+    {
+      "id": "MCQ_35",
+      "number": "35",
+      "type": "mcq",
+      "content": {
+        "text": "The coordinates of the point of intersection for the two graphs could only be:",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_011.png",
+            "caption": "Two intersecting lines in the 2nd quadrant",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "(-1,2)",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "(-1,-2)",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "(1,2)",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "(1,-2)",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "(2,-1)",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "A",
+      "page_number": 11,
+      "marks": null
+    },
+    {
+      "id": "MCQ_36",
+      "number": "36",
+      "type": "mcq",
+      "content": {
+        "text": "$-(-3)^3 =$",
+        "latex": "$-(-3)^3 =$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "-9",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "27",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "9",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "-27",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "B",
+      "page_number": 11,
+      "marks": null
+    },
+    {
+      "id": "MCQ_37",
+      "number": "37",
+      "type": "mcq",
+      "content": {
+        "text": "$\\frac{10x^2}{4y} \\times \\frac{8y^3}{5x} =$",
+        "latex": "$\\frac{10x^2}{4y} \\times \\frac{8y^3}{5x} =$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$4x^2y$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{2y}{x}$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{2xy^5}{xy}$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$4xy^2$",
+          "is_correct": true
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "D",
+      "page_number": 11,
+      "marks": null
+    },
+    {
+      "id": "MCQ_38",
+      "number": "38",
+      "type": "mcq",
+      "content": {
+        "text": "$(3^0 y)^2 \\times 2(xy)^0$",
+        "latex": "$(3^0 y)^2 \\times 2(xy)^0$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$18y^2$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$36xy^3$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$2y^2$",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "$6xy^2$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "C",
+      "page_number": 11,
+      "marks": null
+    },
+    {
+      "id": "MCQ_39",
+      "number": "39",
+      "type": "mcq",
+      "content": {
+        "text": "$\\frac{3x^{-2}y^2}{6y^{-1}x^3} =$",
+        "latex": "$\\frac{3x^{-2}y^2}{6y^{-1}x^3} =$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\frac{y^3}{2x^5}$",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{y}{2x}$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{y}{3x}$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{3y}{x^5}$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "$\\frac{2y^3}{x}$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "A",
+      "page_number": 11,
+      "marks": null
+    },
+    {
+      "id": "MCQ_40",
+      "number": "40",
+      "type": "mcq",
+      "content": {
+        "text": "Which is not the same as $32^{3/5}$?",
+        "latex": "$32^{3/5}$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$(32^{1/5})^3$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$(32^3)^{1/5}$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$(\\sqrt[5]{32})^3$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$(32^{1/3})^5$",
+          "is_correct": true
+        },
+        {
+          "label": "E",
+          "text": "$\\sqrt[5]{32^3}$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "D",
+      "page_number": 11,
+      "marks": null
+    },
+    {
+      "id": "MCQ_41",
+      "number": "41",
+      "type": "mcq",
+      "content": {
+        "text": "What is the total number of students in the class?",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_012.png",
+            "caption": "Venn diagram with sets S and F. S contains 7, intersection contains 5, F contains 10, outside contains 6.",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "33",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "22",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "17",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "23",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "28",
+          "is_correct": true
+        }
+      ],
+      "sub_questions": null,
+      "answer": "E",
+      "page_number": 12,
+      "marks": null
+    },
+    {
+      "id": "MCQ_42",
+      "number": "42",
+      "type": "mcq",
+      "content": {
+        "text": "How many students learnt neither saxophone nor flute?",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_012.png",
+            "caption": "Venn diagram",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "5",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "6",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "7",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "10",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "B",
+      "page_number": 12,
+      "marks": null
+    },
+    {
+      "id": "MCQ_43",
+      "number": "43",
+      "type": "mcq",
+      "content": {
+        "text": "How many students learnt just the saxophone or the flute?",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_012.png",
+            "caption": "Venn diagram",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "12",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "22",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "17",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "15",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "C",
+      "page_number": 12,
+      "marks": null
+    },
+    {
+      "id": "MCQ_44",
+      "number": "44",
+      "type": "mcq",
+      "content": {
+        "text": "Which is the best cumulative frequency graph for the histogram?",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_012.png",
+            "caption": "Histogram and five cumulative frequency graph options",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "Graph A",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "Graph B",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Graph C",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Graph D",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "Graph E",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "A",
+      "page_number": 12,
+      "marks": null
+    },
+    {
+      "id": "MCQ_45",
+      "number": "45",
+      "type": "mcq",
+      "content": {
+        "text": "Jack’s Dad invested some money and for every $12 he invested he got a total of $15 back. If Jack’s Dad invested $300, how much in total did he get back?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$225",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$525",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$480",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$375",
+          "is_correct": true
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "D",
+      "page_number": 12,
+      "marks": null
+    },
+    {
+      "id": "MCQ_46",
+      "number": "46",
+      "type": "mcq",
+      "content": {
+        "text": "Expand the brackets and simplify: $(2\\sqrt{5} - \\sqrt{2})^2$",
+        "latex": "$(2\\sqrt{5} - \\sqrt{2})^2$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$4\\sqrt{5} + 2\\sqrt{2}$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$12 - 4\\sqrt{10}$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$22 - 4\\sqrt{10}$",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "$2\\sqrt{10} - 2$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "C",
+      "page_number": 13,
+      "marks": null
+    },
+    {
+      "id": "MCQ_47",
+      "number": "47",
+      "type": "mcq",
+      "content": {
+        "text": "Rationalise and simplify: $\\frac{4\\sqrt{5}}{\\sqrt{3}}$",
+        "latex": "$\\frac{4\\sqrt{5}}{\\sqrt{3}}$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\sqrt{2}$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$3\\sqrt{6}$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$\\sqrt{6}$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{\\sqrt{6}}{3}$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": true
+        }
+      ],
+      "sub_questions": null,
+      "answer": "E",
+      "page_number": 13,
+      "marks": null
+    },
+    {
+      "id": "MCQ_48",
+      "number": "48",
+      "type": "mcq",
+      "content": {
+        "text": "If $x = 1/2$, $y = 2/3$ and $z = 3/4$ evaluate $x \\div y + z$",
+        "latex": "$x = 1/2$, $y = 2/3$, $z = 3/4$, $x \\div y + z$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$1 \\frac{1}{2}$",
+          "is_correct": true
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{3}{7}$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$1 \\frac{1}{12}$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{3}{4}$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "A",
+      "page_number": 13,
+      "marks": null
+    },
+    {
+      "id": "MCQ_49",
+      "number": "49",
+      "type": "mcq",
+      "content": {
+        "text": "Expand and simplify: $(3a - 5b)(3a + 5b)$",
+        "latex": "$(3a - 5b)(3a + 5b)$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$9a - 25b$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$9a + 25b$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$9a^2 + 25b^2$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$9a^2 - 25b^2$",
+          "is_correct": true
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "D",
+      "page_number": 13,
+      "marks": null
+    },
+    {
+      "id": "MCQ_50",
+      "number": "50",
+      "type": "mcq",
+      "content": {
+        "text": "Factorise and simplify: $3a^2 + 3a - 18$",
+        "latex": "$3a^2 + 3a - 18$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$(a + 3)(a - 2)$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$3(a - 3)(a + 2)$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$3(a - 3)(a - 2)$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$3(a + 3)(a - 2)$",
+          "is_correct": true
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "D",
+      "page_number": 13,
+      "marks": null
+    },
+    {
+      "id": "MCQ_51",
+      "number": "51",
+      "type": "mcq",
+      "content": {
+        "text": "Simplify: $\\frac{x^2 - 9}{4x - 12} \\div \\frac{x + 3}{2}$",
+        "latex": "$\\frac{x^2 - 9}{4x - 12} \\div \\frac{x + 3}{2}$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\frac{x + 3}{4}$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{1}{2}$",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{x + 3}{2(x - 3)}$",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{2}{1}$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "B",
+      "page_number": 13,
+      "marks": null
+    },
+    {
+      "id": "MCQ_52",
+      "number": "52",
+      "type": "mcq",
+      "content": {
+        "text": "The correct ratio to find x is:",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_005.png",
+            "caption": "Right-angled triangle with hypotenuse 15, angle 72 degrees, and side x adjacent to 72 degrees",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "6 Cos 72°",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "6 Tan 72°",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "15 Sin 18°",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "15 Sin 72°",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "15 Cos 72°",
+          "is_correct": true
+        }
+      ],
+      "sub_questions": null,
+      "answer": "E",
+      "page_number": 14,
+      "marks": null
+    },
+    {
+      "id": "MCQ_53",
+      "number": "53",
+      "type": "mcq",
+      "content": {
+        "text": "The turning point of the graph could only be:",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_005.png",
+            "caption": "Parabola with vertex in the 3rd quadrant",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "(-3,3)",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "(4,-2)",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "(3,4)",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "(-2,3)",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "(-3,-2)",
+          "is_correct": true
+        }
+      ],
+      "sub_questions": null,
+      "answer": "E",
+      "page_number": 14,
+      "marks": null
+    },
+    {
+      "id": "MCQ_54",
+      "number": "54",
+      "type": "mcq",
+      "content": {
+        "text": "A number x is subtracted from two times its square and the result is 45. An equation to find the value of x would be:",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$x^2 - 2x = 45$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$2x - x^2 = 45$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$2x^2 - x = 45$",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "$2x^2 - 2x = 45$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "$x - 2x^2 = 45$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "C",
+      "page_number": 14,
+      "marks": null
+    },
+    {
+      "id": "MCQ_55",
+      "number": "55",
+      "type": "mcq",
+      "content": {
+        "text": "Find the points of intersection of the graphs of $y = x^2$ and $y = 3x - 2$.",
+        "latex": "$y = x^2$ and $y = 3x - 2$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "(1,1)(4,1)",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "(2,4)(1,1)",
+          "is_correct": true
+        },
+        {
+          "label": "C",
+          "text": "(1,-1)(2,4)",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "(-4,2)(1,1)",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "B",
+      "page_number": 14,
+      "marks": null
+    },
+    {
+      "id": "MCQ_56",
+      "number": "56",
+      "type": "mcq",
+      "content": {
+        "text": "Which shop gave the worst value for money?",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_005.png",
+            "caption": "Scatter plot of Price vs Weight for shops v, x, y, z, w",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "Shop z",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Shop y",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Shop x",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Shop w",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "Shop v",
+          "is_correct": true
+        }
+      ],
+      "sub_questions": null,
+      "answer": "E",
+      "page_number": 15,
+      "marks": null
+    },
+    {
+      "id": "MCQ_57",
+      "number": "57",
+      "type": "mcq",
+      "content": {
+        "text": "Which two shops charged the same price per kilogram?",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_005.png",
+            "caption": "Scatter plot",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "Shops z & x",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Shops z & v",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Shops y & z",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Shops v & w",
+          "is_correct": true
+        },
+        {
+          "label": "E",
+          "text": "Shops x & y",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "D",
+      "page_number": 15,
+      "marks": null
+    },
+    {
+      "id": "MCQ_58",
+      "number": "58",
+      "type": "mcq",
+      "content": {
+        "text": "At which shop would you get three times the amount of sugar for the same price as shop z?",
+        "latex": null,
+        "images": [
+          {
+            "filename": "test5_005.png",
+            "caption": "Scatter plot",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "Shop v",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "Shop x",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "Shop w",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "Shop y",
+          "is_correct": true
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "D",
+      "page_number": 15,
+      "marks": null
+    },
+    {
+      "id": "MCQ_59",
+      "number": "59",
+      "type": "mcq",
+      "content": {
+        "text": "Find x for the triangle shown.",
+        "latex": "x",
+        "images": [
+          {
+            "filename": "test5_005.png",
+            "caption": "Right-angled triangle with sides $x+3$, $x+1$, and hypotenuse $x+5$",
+            "bbox": null
+          }
+        ],
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "4",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "5",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "6",
+          "is_correct": false
+        },
+        {
+          "label": "D",
+          "text": "3",
+          "is_correct": true
+        },
+        {
+          "label": "E",
+          "text": "None of these",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "D",
+      "page_number": 16,
+      "marks": null
+    },
+    {
+      "id": "MCQ_60",
+      "number": "60",
+      "type": "mcq",
+      "content": {
+        "text": "Factorise $ab + b^2 - ac - bc$",
+        "latex": "$ab + b^2 - ac - bc$",
+        "images": null,
+        "table": null
+      },
+      "options": [
+        {
+          "label": "A",
+          "text": "$(b - c)(a - c)$",
+          "is_correct": false
+        },
+        {
+          "label": "B",
+          "text": "$(b + a)(b + c)$",
+          "is_correct": false
+        },
+        {
+          "label": "C",
+          "text": "$(b - c)(a + b)$",
+          "is_correct": true
+        },
+        {
+          "label": "D",
+          "text": "$(b + c)(a - b)$",
+          "is_correct": false
+        },
+        {
+          "label": "E",
+          "text": "$(b - c)(a + c)$",
+          "is_correct": false
+        }
+      ],
+      "sub_questions": null,
+      "answer": "C",
+      "page_number": 16,
+      "marks": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 9671,
+    "completion_tokens": 17899,
+    "total_tokens": 27570,
+    "estimated_cost_usd": 0.058533,
+    "generation_ids": [
+      "gen-1766574323-iqCJSba0wO1jDzphu72z"
+    ]
+  }
+}

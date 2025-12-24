@@ -1,0 +1,386 @@
+{
+  "source_pdf": "test2.pdf",
+  "metadata": {
+    "title": "1.01 – 1.05 Wrap-Up",
+    "subject": "Honors Precalculus",
+    "grade": "High School",
+    "total_pages": 3,
+    "extraction_timestamp": "2025-12-24T11:05:39.540152",
+    "processing_time_seconds": 17.982579946517944
+  },
+  "questions": [
+    {
+      "id": "MILD_1",
+      "number": "1",
+      "type": "numerical",
+      "content": {
+        "text": "Evaluate:",
+        "latex": "$\\sum_{k=0}^{4} \\frac{2k-1}{2k+1}$",
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "MILD_2",
+      "number": "2",
+      "type": "numerical",
+      "content": {
+        "text": "Evaluate:",
+        "latex": "$\\sum_{k=2}^{\\infty} \\frac{1}{3} \\left(-\\frac{1}{2}\\right)^k$",
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "MILD_3",
+      "number": "3",
+      "type": "numerical",
+      "content": {
+        "text": "Evaluate:",
+        "latex": "$\\sum_{k=9}^{582} \\left(\\frac{1}{2}k + 6\\right)$",
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "MILD_4",
+      "number": "4",
+      "type": "short_answer",
+      "content": {
+        "text": "Express the following in sigma notation and find the sum.",
+        "latex": "$7\\pi + \\frac{22}{3}\\pi + \\frac{23}{3}\\pi + 8\\pi + \\dots + \\frac{922}{3}\\pi$",
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "MILD_5",
+      "number": "5",
+      "type": "multi_part",
+      "content": {
+        "text": "Consider the sequence, $b_n$, defined recursively as follows: $b_1 = 3$, $b_2 = 2$, and $b_n = \\frac{b_{n-1}}{b_{n-2}}$",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": [
+        {
+          "id": "MILD_5_a",
+          "number": "a",
+          "type": "fill_in_blank",
+          "content": {
+            "text": "Complete the table below:",
+            "latex": null,
+            "images": null,
+            "table": {
+              "headers": [
+                "$b_1$",
+                "$b_2$",
+                "$b_3$",
+                "$b_4$",
+                "$b_5$",
+                "$b_6$",
+                "$b_7$",
+                "$b_8$",
+                "$b_9$"
+              ],
+              "rows": [
+                [
+                  "3",
+                  "2",
+                  "",
+                  "",
+                  "",
+                  "$\\frac{3}{2}$",
+                  "",
+                  "",
+                  ""
+                ]
+              ]
+            }
+          },
+          "options": null,
+          "sub_questions": null,
+          "answer": null,
+          "page_number": 1,
+          "marks": null
+        },
+        {
+          "id": "MILD_5_b",
+          "number": "b",
+          "type": "numerical",
+          "content": {
+            "text": "Using your work from part (a), evaluate the series below.",
+            "latex": "$\\sum_{n=7}^{73} b_n$",
+            "images": null,
+            "table": null
+          },
+          "options": null,
+          "sub_questions": null,
+          "answer": null,
+          "page_number": 1,
+          "marks": null
+        }
+      ],
+      "answer": null,
+      "page_number": 1,
+      "marks": null
+    },
+    {
+      "id": "MED_1",
+      "number": "1",
+      "type": "numerical",
+      "content": {
+        "text": "The fifth term of an arithmetic sequence is $-22$ and the fiftieth term of the sequence is $101$. Determine the eightieth partial sum of this sequence.",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MED_2",
+      "number": "2",
+      "type": "numerical",
+      "content": {
+        "text": "The third term of a geometric sequence is $2$ and the ninth term of the sequence is $54$. Determine the twentieth partial sum of this sequence.",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MED_3",
+      "number": "3",
+      "type": "numerical",
+      "content": {
+        "text": "An architect designs a theater with 15 seats in the first row, 18 seats in the second row, 21 seats in the third row, and so on. If the theater is to have a seating capacity of 870, how many rows must the architect use in her design?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MED_4",
+      "number": "4",
+      "type": "short_answer",
+      "content": {
+        "text": "Express the repeating decimal $0.123123123123 \\dots$ as a fraction by first writing it as the sum of an infinite geometric series and then evaluating what it converges to.",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "MED_5",
+      "number": "5",
+      "type": "numerical",
+      "content": {
+        "text": "A sequence has the property that each number in the sequence is 2 more than twice the previous number. The first four numbers in the sequence add up to 202. What is the $5^{th}$ number in this sequence?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 2,
+      "marks": null
+    },
+    {
+      "id": "SPICY_1",
+      "number": "1",
+      "type": "short_answer",
+      "content": {
+        "text": "The sum of the first eight terms in an arithmetic sequence, $a_n$, is 28, and the sum of the first twelve terms in $a_n$ is $-30$. Determine an explicit formula for the arithmetic sequence, $a_n$.",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 3,
+      "marks": null
+    },
+    {
+      "id": "SPICY_2",
+      "number": "2",
+      "type": "short_answer",
+      "content": {
+        "text": "The sum of the first five terms in a geometric sequence, $g_n$, is 1210, and the value of its infinite series is 1215. Determine an explicit formula for $g_n$.",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 3,
+      "marks": null
+    },
+    {
+      "id": "SPICY_3",
+      "number": "3",
+      "type": "multi_part",
+      "content": {
+        "text": "The $12^{th}$ term of an arithmetic sequence, $a_{12}$, is twice as large as the $4^{th}$ term in the sequence, $a_4$.",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": [
+        {
+          "id": "SPICY_3_a",
+          "number": "a",
+          "type": "numerical",
+          "content": {
+            "text": "Given $a_{14} = 27$, find the value of $a_1$.",
+            "latex": null,
+            "images": null,
+            "table": null
+          },
+          "options": null,
+          "sub_questions": null,
+          "answer": null,
+          "page_number": 3,
+          "marks": null
+        },
+        {
+          "id": "SPICY_3_b",
+          "number": "b",
+          "type": "numerical",
+          "content": {
+            "text": "Find the $20^{th}$ partial sum of this sequence.",
+            "latex": null,
+            "images": null,
+            "table": null
+          },
+          "options": null,
+          "sub_questions": null,
+          "answer": null,
+          "page_number": 3,
+          "marks": null
+        }
+      ],
+      "answer": null,
+      "page_number": 3,
+      "marks": null
+    },
+    {
+      "id": "SPICY_4",
+      "number": "4",
+      "type": "multi_part",
+      "content": {
+        "text": "The $20^{th}$ partial sum of an arithmetic sequence is 1070. The sum of its fifth term and its tenth term is 65.",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": [
+        {
+          "id": "SPICY_4_a",
+          "number": "a",
+          "type": "short_answer",
+          "content": {
+            "text": "Write an expression for the $n^{th}$ term of this sequence.",
+            "latex": null,
+            "images": null,
+            "table": null
+          },
+          "options": null,
+          "sub_questions": null,
+          "answer": null,
+          "page_number": 3,
+          "marks": null
+        },
+        {
+          "id": "SPICY_4_b",
+          "number": "b",
+          "type": "numerical",
+          "content": {
+            "text": "Find the $30^{th}$ partial sum of this sequence.",
+            "latex": null,
+            "images": null,
+            "table": null
+          },
+          "options": null,
+          "sub_questions": null,
+          "answer": null,
+          "page_number": 3,
+          "marks": null
+        }
+      ],
+      "answer": null,
+      "page_number": 3,
+      "marks": null
+    },
+    {
+      "id": "SPICY_5",
+      "number": "5",
+      "type": "numerical",
+      "content": {
+        "text": "An infinite geometric series has a sum of 2005. A new series, obtained by squaring each term of the original series, has 10 times the sum of the original series. What is the common ratio of the original series?",
+        "latex": null,
+        "images": null,
+        "table": null
+      },
+      "options": null,
+      "sub_questions": null,
+      "answer": null,
+      "page_number": 3,
+      "marks": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 2603,
+    "completion_tokens": 3048,
+    "total_tokens": 5651,
+    "estimated_cost_usd": 0.010445,
+    "generation_ids": [
+      "gen-1766574323-mDOiWjdKjNuWlgDwcet4"
+    ]
+  }
+}

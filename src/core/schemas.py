@@ -4,7 +4,7 @@ Defines the structure for questions, options, images, and tables.
 """
 
 from typing import Optional, List, Literal
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from datetime import datetime
 
 
@@ -154,8 +154,8 @@ class ExtractedDocument(BaseModel):
         None, description="Token usage statistics from extraction"
     )
 
-    class Config:
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra={
             "example": {
                 "source_pdf": "test3.pdf",
                 "metadata": {
@@ -213,6 +213,7 @@ class ExtractedDocument(BaseModel):
                 },
             }
         }
+    )
 
 
 # ============================================================================

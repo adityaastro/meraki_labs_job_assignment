@@ -165,7 +165,7 @@ print(f'Section III: {len(sec3)}')
 - Section II: 6
 - Section III: 16
 
-### 4.2 Edge Cases
+### 4.3 Edge Cases
 
 ```bash
 # Empty/corrupted PDF

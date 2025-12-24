@@ -28,11 +28,13 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# Project outputs (large files)
-outputs/
-*.png
-*.jpg
-*.jpeg
+# Project outputs - KEEP for submission (required by problem statement)
+# outputs/  # Uncommented to include outputs in submission
+
+# Large binary files (uncomment if needed)
+# *.png
+# *.jpg
+# *.jpeg
 
 # Test PDFs (optional - uncomment if you don't want to track)
 # test*.pdf

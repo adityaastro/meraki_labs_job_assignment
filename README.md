@@ -222,8 +222,8 @@ Total time: 43.38s
 │   ├── api/server.py           # FastAPI + SSE streaming
 │   ├── core/
 │   │   ├── config.py           # Configuration
-│   │   |── schemas.py          # Pydantic models
-│   |   └── schema.json         # JSON Schema
+│   │   ├── schemas.py          # Pydantic models
+│   │   └── schema.json         # JSON Schema
 │   ├── extractors/
 │   │   ├── pdf_converter.py    # PDF → Images (fallback)
 │   │   └── image_extractor.py  # Embedded images
@@ -232,12 +232,16 @@ Total time: 43.38s
 │   │   └── question_parser.py  # Post-processing
 │   ├── pipeline.py             # Orchestration
 │   └── cli.py                  # CLI interface
+├── docs/
+│   ├── NOTES.md                # Technical notes & approach
+│   ├── EVAL.md                 # Evaluation system design
+│   └── TECHNICAL.md            # Detailed architecture docs
 ├── outputs/                    # Generated outputs
-├── tests/                      # Unit Tests/Test PDFs
-├── run_eval.sh                 # Batch script
-├── README.md                   # This file
-├── NOTES.md                    # Technical notes
-└── EVAL.md                     # Evaluation design
+├── tests/                      # Unit tests & test PDFs
+├── Dockerfile                  # Container build
+├── docker-compose.yml          # Container orchestration
+├── run_eval.sh                 # Batch processing script
+└── README.md                   # This file
 ```
 
 ## Performance
