@@ -32,7 +32,7 @@ cp .env.example .env
 
 ### 2. Run Extraction
 
-**Option A: CLI (Recommended)**
+**Option A: CLI**
 ```bash
 # Single PDF
 python -m src.cli tests/test1.pdf -o outputs/
@@ -60,7 +60,7 @@ curl -N http://localhost:8000/extract/stream \
   -d '{"pdf_path": "/path/to/test1.pdf"}'
 ```
 
-**Option C: Docker**
+**Option C: Docker (Recommended)**
 ```bash
 # Configure API key
 cp .env.example .env
