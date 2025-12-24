@@ -4,7 +4,7 @@
 
 This document describes how to evaluate the PDF Questions Extractor system, including automated metrics, manual verification procedures, and quality assessment frameworks.
 
-The system uses **native PDF processing** via OpenRouter, sending entire PDFs directly to Gemini for extraction with full document context. This approach significantly improves accuracy compared to page-by-page processing.
+The system uses **native PDF processing** via OpenRouter, sending entire PDFs directly to Gemini for extraction with full document context. This approach ensures high accuracy and structural fidelity.
 
 ---
 
@@ -137,33 +137,9 @@ print(f"Tokens per question: {total_tokens / total_questions:.0f}")
 | test4.pdf | Surface Areas        | MCQs, formulas mixed with options        | 30                 |
 | test5.pdf | Practice Test        | Mixed types, varying layouts             | 63                 |
 
-### 4.2 Native PDF Processing Verification
+### 4.2 Large PDF Handling
 
-Compare native PDF vs page-by-page extraction:
-
-```bash
-# Run native extraction (default)
-python -m src.cli tests/test3.pdf -o outputs/test3_native/
-
-# Check results
-python -c "
-import json
-d = json.load(open('outputs/test3_native/test3/test3_questions.json'))
-print(f'Total questions: {len(d[\"questions\"])}')
-mcqs = [q for q in d['questions'] if q['id'].startswith('MCQ')]
-print(f'MCQs: {len(mcqs)}')
-sec2 = [q for q in d['questions'] if 'SEC_II' in q['id']]
-print(f'Section II: {len(sec2)}')
-sec3 = [q for q in d['questions'] if 'SEC_III' in q['id']]
-print(f'Section III: {len(sec3)}')
-"
-```
-
-**Expected output:**
-- Total questions: 42
-- MCQs: 20 (all MCQ_1 through MCQ_20)
-- Section II: 6
-- Section III: 16
+Verify the system handles larger PDFs by automatically using chunked processing when necessary.
 
 ### 4.3 Edge Cases
 

@@ -118,7 +118,7 @@ class ExtractionPipeline:
                     f"PDF has {total_pages} pages (>{config.MAX_PAGES_FOR_NATIVE}), "
                     "using chunked processing"
                 )
-                result, usage_stats = await self._process_pages_fallback(
+                result, usage_stats = await self._process_large_pdf(
                     pdf_path, pages_dir, extracted_images, total_pages
                 )
 
@@ -192,7 +192,7 @@ class ExtractionPipeline:
         logger.info(f"Native PDF extraction complete")
         return result, usage_stats
 
-    async def _process_pages_fallback(
+    async def _process_large_pdf(
         self,
         pdf_path: Path,
         pages_dir: Path,
@@ -200,7 +200,7 @@ class ExtractionPipeline:
         total_pages: int,
     ) -> Tuple[Dict[str, Any], Any]:
         """
-        Fallback: Process PDF page-by-page for very large documents.
+        Process very large documents using chunked page processing.
 
         Args:
             pdf_path: Path to PDF file
@@ -242,7 +242,7 @@ class ExtractionPipeline:
             "total_pages": total_pages,
             "questions": all_questions,
             "metadata_hints": metadata_hints,
-            "_from_fallback": True,
+            "_from_chunked": True,
         }
 
         return combined_result, usage_stats

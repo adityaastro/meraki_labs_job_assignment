@@ -210,8 +210,8 @@ async def extract_questions_stream(request: ExtractRequest):
                 )
                 batch_usage = usage_stats
             else:
-                # FALLBACK PAGE-BY-PAGE MODE
-                yield f"data: {json.dumps({'status': 'processing', 'step': 'fallback_mode', 'message': f'PDF too large (>{config.MAX_PAGES_FOR_NATIVE} pages), using fallback mode...'})}\n\n"
+                # CHUNKED MODE
+                yield f"data: {json.dumps({'status': 'processing', 'step': 'chunked_mode', 'message': f'Processing large document (>{config.MAX_PAGES_FOR_NATIVE} pages) in chunks...'})}\n\n"
                 
                 # Convert to images
                 yield f"data: {json.dumps({'status': 'processing', 'step': 'pdf_to_images', 'message': 'Converting PDF to images...'})}\n\n"
@@ -246,7 +246,7 @@ async def extract_questions_stream(request: ExtractRequest):
                     "total_pages": total_pages,
                     "questions": [q for pr in page_results for q in pr.get("questions", [])],
                     "metadata_hints": next((pr.get("metadata_hints", {}) for pr in page_results if pr.get("metadata_hints")), {}),
-                    "_from_fallback": True
+                    "_from_chunked": True
                 }
 
             # Step 4: Post-process

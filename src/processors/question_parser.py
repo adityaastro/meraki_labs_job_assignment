@@ -63,9 +63,9 @@ class QuestionParser:
         if result.get("error"):
             logger.error(f"Extraction had error: {result['error']}")
 
-        # Handle fallback mode (page-by-page results wrapped in single dict)
-        if result.get("_from_fallback"):
-            logger.info("Processing fallback (page-by-page) results")
+        # Handle chunked mode (page-by-page results wrapped in single dict)
+        if result.get("_from_chunked"):
+            logger.info("Processing chunked results")
 
         # Build image mapping for reference resolution
         image_mapping = self._build_image_mapping(extracted_images)
@@ -208,8 +208,7 @@ class QuestionParser:
         """
         Merge extraction results from all pages into a single document.
         
-        NOTE: This is the legacy method for page-by-page processing.
-        For new code, prefer process_extraction_result() with native PDF processing.
+        NOTE: This is the method for page-by-page processing.
 
         Args:
             page_results: List of per-page extraction results from Gemini

@@ -173,7 +173,7 @@ Before returning, verify:
 
 Extract ALL questions now."""
 
-# Legacy system prompt for page-by-page image extraction
+# System prompt for page-by-page image extraction
 EXTRACTION_SYSTEM_PROMPT = """You are an expert at extracting structured questions from educational documents.
 
 Your task is to analyze an image of a PDF page and extract all questions in a structured JSON format.

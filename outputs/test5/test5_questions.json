@@ -1,12 +1,12 @@
 {
   "source_pdf": "test5.pdf",
   "metadata": {
-    "title": "MATHEMATICS PRACTICE TEST",
+    "title": "Mathematics Practice Test",
     "subject": "Mathematics",
     "grade": "Year 8/9",
     "total_pages": 16,
-    "extraction_timestamp": "2025-12-24T11:06:50.099997",
-    "processing_time_seconds": 88.29400491714478
+    "extraction_timestamp": "2025-12-24T13:14:52.992457",
+    "processing_time_seconds": 88.30483198165894
   },
   "questions": [
     {
@@ -15,7 +15,7 @@
       "type": "mcq",
       "content": {
         "text": "$5 + 2 =$",
-        "latex": "$5 + 2 =$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -147,7 +147,7 @@
       "type": "mcq",
       "content": {
         "text": "$-10 + -3 - -4 + 5$",
-        "latex": "$-10 + -3 - -4 + 5$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -189,7 +189,7 @@
       "type": "mcq",
       "content": {
         "text": "$-96 \\div -6 \\div 8 =$",
-        "latex": "$-96 \\div -6 \\div 8 =$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -273,7 +273,7 @@
       "type": "mcq",
       "content": {
         "text": "$5 \\times -2 - (8 - 12) + 16 \\div -8 =$",
-        "latex": "$5 \\times -2 - (8 - 12) + 16 \\div -8 =$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -389,7 +389,7 @@
         }
       ],
       "sub_questions": null,
-      "answer": "E",
+      "answer": "C",
       "page_number": 2,
       "marks": null
     },
@@ -403,7 +403,7 @@
         "images": [
           {
             "filename": "test5_003.png",
-            "caption": "L-shaped polygon with dimensions 12cm, 25cm, and 10cm",
+            "caption": "L-shaped polygon with dimensions 12cm, 25cm, 10cm",
             "bbox": null
           }
         ],
@@ -418,7 +418,7 @@
         {
           "label": "B",
           "text": "72cm",
-          "is_correct": false
+          "is_correct": true
         },
         {
           "label": "C",
@@ -428,7 +428,7 @@
         {
           "label": "D",
           "text": "94cm",
-          "is_correct": true
+          "is_correct": false
         },
         {
           "label": "E",
@@ -437,7 +437,7 @@
         }
       ],
       "sub_questions": null,
-      "answer": "D",
+      "answer": "B",
       "page_number": 3,
       "marks": null
     },
@@ -447,11 +447,11 @@
       "type": "mcq",
       "content": {
         "text": "If the length of the shorter arc $\\overline{AB}$ is 22cm and C is the centre of the circle then the circumference of the circle is:",
-        "latex": "$\\overline{AB}$",
+        "latex": null,
         "images": [
           {
             "filename": "test5_003.png",
-            "caption": "Circle with sector ACB and angle 45 degrees",
+            "caption": "Circle with sector ACB, angle 45 degrees",
             "bbox": null
           }
         ],
@@ -537,7 +537,7 @@
       "type": "mcq",
       "content": {
         "text": "If $2 \\frac{1}{3} : 4 \\frac{1}{3}$ then $7 : \\square =$",
-        "latex": "$2 \\frac{1}{3} : 4 \\frac{1}{3}$ then $7 : \\square =$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -602,7 +602,7 @@
         {
           "label": "D",
           "text": "75 tonnes",
-          "is_correct": true
+          "is_correct": false
         },
         {
           "label": "E",
@@ -611,7 +611,7 @@
         }
       ],
       "sub_questions": null,
-      "answer": "D",
+      "answer": "E",
       "page_number": 4,
       "marks": null
     },
@@ -620,12 +620,12 @@
       "number": "12",
       "type": "mcq",
       "content": {
-        "text": "Find $a^\\circ$ in the triangle shown.",
-        "latex": "$a^\\circ$",
+        "text": "$a^\\circ =$",
+        "latex": null,
         "images": [
           {
             "filename": "test5_004.png",
-            "caption": "Triangle with angles $a^\\circ$, $87^\\circ$, and exterior angle $127^\\circ$",
+            "caption": "Triangle with angles a, 87, and exterior angle 127",
             "bbox": null
           }
         ],
@@ -669,11 +669,11 @@
       "type": "mcq",
       "content": {
         "text": "$x^\\circ =$",
-        "latex": "$x^\\circ =$",
+        "latex": null,
         "images": [
           {
             "filename": "test5_004.png",
-            "caption": "Parallel lines intersected by transversals showing angles $56^\\circ$ and $x^\\circ$",
+            "caption": "Parallel lines diagram with angles 56 and x",
             "bbox": null
           }
         ],
@@ -907,7 +907,7 @@
         "images": [
           {
             "filename": "test5_006.png",
-            "caption": "Linear graph with negative y-intercept and positive x-intercept",
+            "caption": "Graph of a line with negative y-intercept",
             "bbox": null
           }
         ],
@@ -993,7 +993,7 @@
       "type": "mcq",
       "content": {
         "text": "Expand and simplify: $-6(2x - 3) - 11$",
-        "latex": "$-6(2x - 3) - 11$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -1039,7 +1039,7 @@
         "images": [
           {
             "filename": "test5_007.png",
-            "caption": "3D triangular prism and four possible nets",
+            "caption": "3D triangular prism and four net options",
             "bbox": null
           }
         ],
@@ -1112,16 +1112,16 @@
         {
           "label": "D",
           "text": "150m",
-          "is_correct": false
+          "is_correct": true
         },
         {
           "label": "E",
           "text": "None of these",
-          "is_correct": true
+          "is_correct": false
         }
       ],
       "sub_questions": null,
-      "answer": "E",
+      "answer": "D",
       "page_number": 7,
       "marks": null
     },
@@ -1131,7 +1131,7 @@
       "type": "mcq",
       "content": {
         "text": "Simplify the surd $3\\sqrt{56}$ completely",
-        "latex": "$3\\sqrt{56}$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -1177,7 +1177,7 @@
         "images": [
           {
             "filename": "test5_008.png",
-            "caption": "Trapezoid with parallel sides 5cm and 3cm, height 4cm, and slanted side x",
+            "caption": "Trapezoid with sides 5cm, 4cm, 3cm and unknown x",
             "bbox": null
           }
         ],
@@ -1191,17 +1191,17 @@
         },
         {
           "label": "B",
-          "text": "$\\sqrt{6}$cm",
+          "text": "$\\sqrt{6}cm$",
           "is_correct": false
         },
         {
           "label": "C",
-          "text": "$5\\sqrt{2}$cm",
+          "text": "$5\\sqrt{2}cm$",
           "is_correct": false
         },
         {
           "label": "D",
-          "text": "$2\\sqrt{5}$cm",
+          "text": "$2\\sqrt{5}cm$",
           "is_correct": true
         },
         {
@@ -1221,11 +1221,11 @@
       "type": "mcq",
       "content": {
         "text": "The rectangle box has dimensions as shown. What is the length $\\overline{AG}$?",
-        "latex": "$\\overline{AG}$",
+        "latex": null,
         "images": [
           {
             "filename": "test5_008.png",
-            "caption": "Rectangular prism with dimensions 8cm, 6cm, and 2cm",
+            "caption": "Rectangular prism with dimensions 8cm, 2cm, 6cm",
             "bbox": null
           }
         ],
@@ -1311,11 +1311,11 @@
       "type": "mcq",
       "content": {
         "text": "If Density = Mass $\\div$ Volume, what is the Mass of the solid in the diagram if its Density is $1.2gm/cm^3$?",
-        "latex": "$1.2gm/cm^3$",
+        "latex": null,
         "images": [
           {
             "filename": "test5_009.png",
-            "caption": "Rectangular prism with dimensions 2cm, 5cm, 6cm",
+            "caption": "Rectangular prism 2cm x 5cm x 6cm",
             "bbox": null
           }
         ],
@@ -1335,7 +1335,7 @@
         {
           "label": "C",
           "text": "72gm",
-          "is_correct": false
+          "is_correct": true
         },
         {
           "label": "D",
@@ -1345,11 +1345,11 @@
         {
           "label": "E",
           "text": "None of these",
-          "is_correct": true
+          "is_correct": false
         }
       ],
       "sub_questions": null,
-      "answer": "E",
+      "answer": "C",
       "page_number": 9,
       "marks": null
     },
@@ -1401,7 +1401,7 @@
       "type": "mcq",
       "content": {
         "text": "If $R = \\frac{(S + T)P}{3}$ then T equals",
-        "latex": "$R = \\frac{(S + T)P}{3}$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -1443,7 +1443,7 @@
       "type": "mcq",
       "content": {
         "text": "Solve the inequation for x: $\\frac{5(9 - x)}{3} + 1 < 11$",
-        "latex": "$\\frac{5(9 - x)}{3} + 1 < 11$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -1485,7 +1485,7 @@
       "type": "mcq",
       "content": {
         "text": "Solve for x: $\\frac{4x - 3}{5} - \\frac{2x - 3}{2} = -2$",
-        "latex": "$\\frac{4x - 3}{5} - \\frac{2x - 3}{2} = -2$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -1508,16 +1508,16 @@
         {
           "label": "D",
           "text": "$x = 14 \\frac{1}{2}$",
-          "is_correct": false
+          "is_correct": true
         },
         {
           "label": "E",
           "text": "$x = -14 \\frac{1}{2}$",
-          "is_correct": true
+          "is_correct": false
         }
       ],
       "sub_questions": null,
-      "answer": "E",
+      "answer": "D",
       "page_number": 9,
       "marks": null
     },
@@ -1531,7 +1531,7 @@
         "images": [
           {
             "filename": "test5_010.png",
-            "caption": "Linear graph with positive slope and negative y-intercept",
+            "caption": "Line with positive slope and negative y-intercept",
             "bbox": null
           }
         ],
@@ -1579,7 +1579,7 @@
         "images": [
           {
             "filename": "test5_010.png",
-            "caption": "Shaded region below a line passing through (0,4) and (3,0)",
+            "caption": "Shaded region below a line through (0,4) and (3,0)",
             "bbox": null
           }
         ],
@@ -1627,7 +1627,7 @@
         "images": [
           {
             "filename": "test5_010.png",
-            "caption": "Line passing through (0,4) and (6,-1)",
+            "caption": "Line through (0,4) and (6,-1)",
             "bbox": null
           }
         ],
@@ -1675,7 +1675,7 @@
         "images": [
           {
             "filename": "test5_011.png",
-            "caption": "Two intersecting lines in the 2nd quadrant",
+            "caption": "Two intersecting lines in the second quadrant",
             "bbox": null
           }
         ],
@@ -1719,7 +1719,7 @@
       "type": "mcq",
       "content": {
         "text": "$-(-3)^3 =$",
-        "latex": "$-(-3)^3 =$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -1761,7 +1761,7 @@
       "type": "mcq",
       "content": {
         "text": "$\\frac{10x^2}{4y} \\times \\frac{8y^3}{5x} =$",
-        "latex": "$\\frac{10x^2}{4y} \\times \\frac{8y^3}{5x} =$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -1803,7 +1803,7 @@
       "type": "mcq",
       "content": {
         "text": "$(3^0 y)^2 \\times 2(xy)^0$",
-        "latex": "$(3^0 y)^2 \\times 2(xy)^0$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -1845,7 +1845,7 @@
       "type": "mcq",
       "content": {
         "text": "$\\frac{3x^{-2}y^2}{6y^{-1}x^3} =$",
-        "latex": "$\\frac{3x^{-2}y^2}{6y^{-1}x^3} =$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -1887,7 +1887,7 @@
       "type": "mcq",
       "content": {
         "text": "Which is not the same as $32^{3/5}$?",
-        "latex": "$32^{3/5}$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -1933,7 +1933,7 @@
         "images": [
           {
             "filename": "test5_012.png",
-            "caption": "Venn diagram with sets S and F. S contains 7, intersection contains 5, F contains 10, outside contains 6.",
+            "caption": "Venn diagram with S=7, F=10, Intersection=5, Outside=6",
             "bbox": null
           }
         ],
@@ -2163,7 +2163,7 @@
       "type": "mcq",
       "content": {
         "text": "Expand the brackets and simplify: $(2\\sqrt{5} - \\sqrt{2})^2$",
-        "latex": "$(2\\sqrt{5} - \\sqrt{2})^2$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -2205,7 +2205,7 @@
       "type": "mcq",
       "content": {
         "text": "Rationalise and simplify: $\\frac{4\\sqrt{5}}{\\sqrt{3}}$",
-        "latex": "$\\frac{4\\sqrt{5}}{\\sqrt{3}}$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -2247,7 +2247,7 @@
       "type": "mcq",
       "content": {
         "text": "If $x = 1/2$, $y = 2/3$ and $z = 3/4$ evaluate $x \\div y + z$",
-        "latex": "$x = 1/2$, $y = 2/3$, $z = 3/4$, $x \\div y + z$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -2255,7 +2255,7 @@
         {
           "label": "A",
           "text": "$1 \\frac{1}{2}$",
-          "is_correct": true
+          "is_correct": false
         },
         {
           "label": "B",
@@ -2275,11 +2275,11 @@
         {
           "label": "E",
           "text": "None of these",
-          "is_correct": false
+          "is_correct": true
         }
       ],
       "sub_questions": null,
-      "answer": "A",
+      "answer": "E",
       "page_number": 13,
       "marks": null
     },
@@ -2289,7 +2289,7 @@
       "type": "mcq",
       "content": {
         "text": "Expand and simplify: $(3a - 5b)(3a + 5b)$",
-        "latex": "$(3a - 5b)(3a + 5b)$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -2331,7 +2331,7 @@
       "type": "mcq",
       "content": {
         "text": "Factorise and simplify: $3a^2 + 3a - 18$",
-        "latex": "$3a^2 + 3a - 18$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -2373,7 +2373,7 @@
       "type": "mcq",
       "content": {
         "text": "Simplify: $\\frac{x^2 - 9}{4x - 12} \\div \\frac{x + 3}{2}$",
-        "latex": "$\\frac{x^2 - 9}{4x - 12} \\div \\frac{x + 3}{2}$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -2419,7 +2419,7 @@
         "images": [
           {
             "filename": "test5_005.png",
-            "caption": "Right-angled triangle with hypotenuse 15, angle 72 degrees, and side x adjacent to 72 degrees",
+            "caption": "Right triangle with angle 72, hypotenuse 15, adjacent x, opposite 6",
             "bbox": null
           }
         ],
@@ -2439,7 +2439,7 @@
         {
           "label": "C",
           "text": "15 Sin 18°",
-          "is_correct": false
+          "is_correct": true
         },
         {
           "label": "D",
@@ -2448,12 +2448,12 @@
         },
         {
           "label": "E",
-          "text": "15 Cos 72°",
-          "is_correct": true
+          "text": "15 Cos 18°",
+          "is_correct": false
         }
       ],
       "sub_questions": null,
-      "answer": "E",
+      "answer": "C",
       "page_number": 14,
       "marks": null
     },
@@ -2467,7 +2467,7 @@
         "images": [
           {
             "filename": "test5_005.png",
-            "caption": "Parabola with vertex in the 3rd quadrant",
+            "caption": "Parabola with vertex in the third quadrant",
             "bbox": null
           }
         ],
@@ -2553,14 +2553,14 @@
       "type": "mcq",
       "content": {
         "text": "Find the points of intersection of the graphs of $y = x^2$ and $y = 3x - 2$.",
-        "latex": "$y = x^2$ and $y = 3x - 2$",
+        "latex": null,
         "images": null,
         "table": null
       },
       "options": [
         {
           "label": "A",
-          "text": "(1,1)(4,1)",
+          "text": "(1,1)(1,4)",
           "is_correct": false
         },
         {
@@ -2575,7 +2575,7 @@
         },
         {
           "label": "D",
-          "text": "(-4,2)(1,1)",
+          "text": "(-2,4)(1,1)",
           "is_correct": false
         },
         {
@@ -2738,12 +2738,12 @@
       "number": "59",
       "type": "mcq",
       "content": {
-        "text": "Find x for the triangle shown.",
-        "latex": "x",
+        "text": "Find x in the right-angled triangle with sides $x+1$, $x+3$ and hypotenuse $x+5$.",
+        "latex": null,
         "images": [
           {
             "filename": "test5_005.png",
-            "caption": "Right-angled triangle with sides $x+3$, $x+1$, and hypotenuse $x+5$",
+            "caption": "Right triangle with sides x+1, x+3, x+5",
             "bbox": null
           }
         ],
@@ -2758,7 +2758,7 @@
         {
           "label": "B",
           "text": "5",
-          "is_correct": false
+          "is_correct": true
         },
         {
           "label": "C",
@@ -2768,7 +2768,7 @@
         {
           "label": "D",
           "text": "3",
-          "is_correct": true
+          "is_correct": false
         },
         {
           "label": "E",
@@ -2777,7 +2777,7 @@
         }
       ],
       "sub_questions": null,
-      "answer": "D",
+      "answer": "B",
       "page_number": 16,
       "marks": null
     },
@@ -2787,7 +2787,7 @@
       "type": "mcq",
       "content": {
         "text": "Factorise $ab + b^2 - ac - bc$",
-        "latex": "$ab + b^2 - ac - bc$",
+        "latex": null,
         "images": null,
         "table": null
       },
@@ -2826,11 +2826,11 @@
   ],
   "usage": {
     "prompt_tokens": 9671,
-    "completion_tokens": 17899,
-    "total_tokens": 27570,
-    "estimated_cost_usd": 0.058533,
+    "completion_tokens": 17455,
+    "total_tokens": 27126,
+    "estimated_cost_usd": 0.0572,
     "generation_ids": [
-      "gen-1766574323-iqCJSba0wO1jDzphu72z"
+      "gen-1766582005-ZJnCw8AacQpfkFWZGgG9"
     ]
   }
 }

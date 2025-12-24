@@ -5,8 +5,8 @@
     "subject": "Honors Precalculus",
     "grade": "High School",
     "total_pages": 3,
-    "extraction_timestamp": "2025-12-24T11:05:39.540152",
-    "processing_time_seconds": 17.982579946517944
+    "extraction_timestamp": "2025-12-24T13:13:41.848041",
+    "processing_time_seconds": 17.406127214431763
   },
   "questions": [
     {
@@ -376,11 +376,11 @@
   ],
   "usage": {
     "prompt_tokens": 2603,
-    "completion_tokens": 3048,
-    "total_tokens": 5651,
-    "estimated_cost_usd": 0.010445,
+    "completion_tokens": 3032,
+    "total_tokens": 5635,
+    "estimated_cost_usd": 0.010398,
     "generation_ids": [
-      "gen-1766574323-mDOiWjdKjNuWlgDwcet4"
+      "gen-1766582005-V6rBB6UqRQpLw4JQ3L0k"
     ]
   }
 }

@@ -43,7 +43,7 @@
 │  │                         (pipeline.py)                                 │  │
 │  │  ┌─────────────────────────────────────────────────────────────────┐  │  │
 │  │  │  • Orchestrates entire extraction workflow                      │  │  │
-│  │  │  • Decides between native PDF vs page-by-page mode              │  │  │
+│  │  │  • Decides between native PDF vs chunked mode                 │  │  │
 │  │  │  • Manages concurrency for batch processing                     │  │  │
 │  │  │  • Handles output generation and validation                     │  │  │
 │  │  └─────────────────────────────────────────────────────────────────┘  │  │
@@ -70,7 +70,7 @@
 │  │  │   ├── {pdf_name}_001.png                                         │    │
 │  │  │   ├── {pdf_name}_002.jpeg                                        │    │
 │  │  │   └── ...                                                        │    │
-│  │  └── pages/                      # Page images (fallback mode only) │    │
+│  │  └── pages/                      # Page images (chunked mode only)  │    │
 │  │      ├── page_001.png                                               │    │
 │  │      └── ...                                                        │    │
 │  └─────────────────────────────────────────────────────────────────────┘    │
@@ -130,7 +130,7 @@ The central orchestrator that manages the entire extraction workflow.
 class ExtractionPipeline:
     """
     Main responsibilities:
-    1. Determine processing mode (native PDF vs page-by-page)
+    1. Determine processing mode (native PDF vs chunked)
     2. Coordinate extractors and processors
     3. Manage output directories
     4. Handle batch processing with concurrency control
@@ -143,7 +143,7 @@ class ExtractionPipeline:
 |--------|---------|
 | `process_pdf()` | Main entry point for single PDF processing |
 | `_process_native_pdf()` | Send entire PDF to Gemini (≤30 pages) |
-| `_process_pages_fallback()` | Page-by-page processing for large PDFs |
+| `_process_large_pdf()` | Chunked processing for large PDFs |
 | `process_batch()` | Concurrent processing with semaphore |
 
 **Processing Decision Logic:**
@@ -251,7 +251,7 @@ self._seen_hashes.add(img_hash)
 
 ### 4. PDF Converter (`src/extractors/pdf_converter.py`)
 
-Converts PDF pages to images (used in fallback mode).
+Converts PDF pages to images (used in chunked mode).
 
 ```python
 class PDFConverter:
@@ -352,7 +352,7 @@ test3.pdf ──┐                                            ┌─── test
     │  │                                     │  │        │
     │  │ ELSE:                               │  │        │
     │  │   → Convert pages to images         │  │        │
-    │  │   → Process page-by-page            │  │        │
+    │  │   → Process by chunks               │  │        │
     │  └─────────────────────────────────────┘  │        │
     │                                           │        │
     │  Output: {questions: [...], metadata: {}} │        │
@@ -945,7 +945,7 @@ mapping = {
 
 ### 3. Cross-Page Question Detection
 
-When using page-by-page mode, questions may span pages:
+When using chunked mode, questions may span pages:
 
 ```python
 def _looks_like_continuation(self, text: str) -> bool:
@@ -1046,7 +1046,7 @@ outputs/
     │   ├── {pdf_name}_001.png
     │   ├── {pdf_name}_002.jpeg
     │   └── ...
-    └── pages/                      # Page images (fallback mode)
+    └── pages/                      # Page images (chunked mode)
         ├── page_001.png
         └── ...
 ```

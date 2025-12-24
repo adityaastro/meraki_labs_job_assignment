@@ -5,8 +5,8 @@
     "subject": "Mathematics",
     "grade": "IX CBSE",
     "total_pages": 3,
-    "extraction_timestamp": "2025-12-24T11:05:54.463917",
-    "processing_time_seconds": 32.70063781738281
+    "extraction_timestamp": "2025-12-24T13:13:58.139138",
+    "processing_time_seconds": 33.493956089019775
   },
   "questions": [
     {
@@ -274,7 +274,7 @@
       "type": "mcq",
       "content": {
         "text": "What is the total surface area of a cone having radius $\\frac{r}{2}$ and height $2l$?",
-        "latex": null,
+        "latex": "$\\pi r (l + \\frac{r}{4})$",
         "images": null,
         "table": null
       },
@@ -573,7 +573,7 @@
     {
       "id": "SEC_II_1",
       "number": "1",
-      "type": "short_answer",
+      "type": "numerical",
       "content": {
         "text": "A cube of side $4\\text{ cm}$ contains a sphere touching its sides. Find the volume of the gap in between.",
         "latex": null,
@@ -589,7 +589,7 @@
     {
       "id": "SEC_II_2",
       "number": "2",
-      "type": "short_answer",
+      "type": "numerical",
       "content": {
         "text": "A conical pit of top diameter $3.5\\text{ m}$ is $12\\text{ m}$ deep. What is its capacity in kiloliters?",
         "latex": null,
@@ -605,7 +605,7 @@
     {
       "id": "SEC_II_3",
       "number": "3",
-      "type": "short_answer",
+      "type": "numerical",
       "content": {
         "text": "What is the volume of the largest right circular cone that can be cut out of a cube of edge $7\\text{ cm}$?",
         "latex": null,
@@ -621,7 +621,7 @@
     {
       "id": "SEC_II_4",
       "number": "4",
-      "type": "short_answer",
+      "type": "numerical",
       "content": {
         "text": "Find the radius of the sphere whose surface area is $154\\text{ cm}^2$.",
         "latex": null,
@@ -637,7 +637,7 @@
     {
       "id": "SEC_II_5",
       "number": "5",
-      "type": "short_answer",
+      "type": "numerical",
       "content": {
         "text": "The surface area of a sphere is $24.64\\text{ cm}^2$. Find its volume.",
         "latex": null,
@@ -669,7 +669,7 @@
     {
       "id": "SEC_II_7",
       "number": "7",
-      "type": "short_answer",
+      "type": "numerical",
       "content": {
         "text": "The dome of a building is in the form of a hemisphere. Its radius is $63\\text{ dm}$. Find the cost of painting it at the rate of Rs 2 per sq.m.",
         "latex": null,
@@ -685,7 +685,7 @@
     {
       "id": "SEC_II_8",
       "number": "8",
-      "type": "short_answer",
+      "type": "numerical",
       "content": {
         "text": "A cone of radius $5\\text{ cm}$ is filled with water. If the water is poured in a cylinder of radius $10\\text{ cm}$, the height of water rises $2\\text{ cm}$, find the height of the cone.",
         "latex": null,
@@ -701,7 +701,7 @@
     {
       "id": "SEC_II_9",
       "number": "9",
-      "type": "short_answer",
+      "type": "numerical",
       "content": {
         "text": "A sweet shop has one spherical ladoo of radius $5\\text{ cm}$ with the same amount of material, how many ladoos of radius $2.5\\text{ cm}$ can be made?",
         "latex": null,
@@ -717,7 +717,7 @@
     {
       "id": "SEC_II_10",
       "number": "10",
-      "type": "short_answer",
+      "type": "numerical",
       "content": {
         "text": "A wooden toy is in the form of a cone surmounted on a hemisphere. The diameter of the base of the cone is $6\\text{ cm}$ and its height is $4\\text{ cm}$. Find the cost of painting the toy at the rate of Rs 5 per $1000\\text{ cm}^2$.",
         "latex": null,
@@ -733,7 +733,7 @@
     {
       "id": "SEC_II_11",
       "number": "11",
-      "type": "short_answer",
+      "type": "numerical",
       "content": {
         "text": "The volume of two spheres is in the ratio of $64:27$. Find the difference of their surface areas, if the sum of their radii is 7.",
         "latex": null,
@@ -749,7 +749,7 @@
     {
       "id": "SEC_II_12",
       "number": "12",
-      "type": "short_answer",
+      "type": "numerical",
       "content": {
         "text": "What length of tarpaulin $3\\text{ m}$ wide will be required to make conical tent of height $8\\text{ m}$ and base radius $6\\text{m}$? Assume that the extra length of material that will be required for stitching margins and wastage in cutting is approximately $20\\text{ cm}$.",
         "latex": null,
@@ -765,7 +765,7 @@
     {
       "id": "SEC_II_13",
       "number": "13",
-      "type": "short_answer",
+      "type": "numerical",
       "content": {
         "text": "An iron pillar has some part in the form of a right circular cylinder and remaining in the form of a right circular cone. The radius of the base of each of cone and cylinder is $8\\text{ cm}$. The cylindrical part is $240\\text{ cm}$ high and the conical part in $36\\text{ cm}$ high. Find the weight of the pillar if one cu. cm of iron weighs $7.8\\text{ grams}$.",
         "latex": null,
@@ -781,7 +781,7 @@
     {
       "id": "SEC_II_14",
       "number": "14",
-      "type": "short_answer",
+      "type": "multi_part",
       "content": {
         "text": "A solid toy is in the form of a hemisphere surmounted by a right circular cone. The height of the cone is $4\\text{ cm}$ and diameter of the base is $8\\text{ cm}$. Determine the volume of the toy. If the cube circumscribes the toy, then find the difference of the volumes of the cube and the toy. Also, find the total surface area of the toy.",
         "latex": null,
@@ -797,7 +797,7 @@
     {
       "id": "SEC_II_15",
       "number": "15",
-      "type": "short_answer",
+      "type": "numerical",
       "content": {
         "text": "In a flood hit area, the volunteers of NSS erected a conical tent made of tarpaulin. The vertical height of the conical tent is $4\\text{m}$ and the base diameter is $6\\text{m}$. If the width of tarpaulin is $4.5\\text{m}$ then. Find the length of the tarpaulin used, assuming that $10\\%$ extra material is required for stitching margins and wastage in cutting. (Take $\\pi = 3.14$)",
         "latex": null,
@@ -813,11 +813,11 @@
   ],
   "usage": {
     "prompt_tokens": 2664,
-    "completion_tokens": 6537,
-    "total_tokens": 9201,
-    "estimated_cost_usd": 0.020943,
+    "completion_tokens": 6524,
+    "total_tokens": 9188,
+    "estimated_cost_usd": 0.020904,
     "generation_ids": [
-      "gen-1766574322-RiRiaLjtzQtt5etPrJ3p"
+      "gen-1766582005-Xt4PcYpjnmtDYxd550D8"
     ]
   }
 }

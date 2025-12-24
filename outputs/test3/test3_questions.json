@@ -1,12 +1,12 @@
 {
   "source_pdf": "test3.pdf",
   "metadata": {
-    "title": "Triangles Assessment",
-    "subject": "Mathematics",
+    "title": "Triangles",
+    "subject": "MATHEMATICS",
     "grade": "IX CBSE",
     "total_pages": 7,
-    "extraction_timestamp": "2025-12-24T11:06:04.954958",
-    "processing_time_seconds": 43.38379216194153
+    "extraction_timestamp": "2025-12-24T13:14:11.391462",
+    "processing_time_seconds": 46.9347710609436
   },
   "questions": [
     {
@@ -1207,7 +1207,7 @@
         "latex": null,
         "images": [
           {
-            "filename": "test3_013.png",
+            "filename": "test3_010.jpeg",
             "caption": "Figure 10",
             "bbox": null
           }
@@ -1229,7 +1229,7 @@
         "latex": null,
         "images": [
           {
-            "filename": "test3_024.png",
+            "filename": "test3_011.jpeg",
             "caption": "Figure 11",
             "bbox": null
           }
@@ -1316,11 +1316,11 @@
   ],
   "usage": {
     "prompt_tokens": 5002,
-    "completion_tokens": 9525,
-    "total_tokens": 14527,
-    "estimated_cost_usd": 0.031076,
+    "completion_tokens": 9528,
+    "total_tokens": 14530,
+    "estimated_cost_usd": 0.031085,
     "generation_ids": [
-      "gen-1766574323-0HqIpma2xmPYRNqtRY7P"
+      "gen-1766582006-d70CaWFacOXRVptWv3PB"
     ]
   }
 }
