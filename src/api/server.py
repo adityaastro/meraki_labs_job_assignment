@@ -12,16 +12,12 @@ from pathlib import Path
 from typing import List, Optional, AsyncGenerator
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException, BackgroundTasks
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse, StreamingResponse
 
 from src.core.config import config
 from src.core.schemas import ExtractRequest, ExtractResponse, get_json_schema
 from src.pipeline import ExtractionPipeline
-from src.extractors.pdf_converter import PDFConverter
-from src.extractors.image_extractor import ImageExtractor
-from src.processors.gemini_client import GeminiClient, UsageStats
-from src.processors.question_parser import QuestionParser
 
 # Configure logging
 logging.basicConfig(
@@ -32,6 +28,47 @@ logger = logging.getLogger(__name__)
 
 # Global pipeline instance
 pipeline: Optional[ExtractionPipeline] = None
+
+
+def validate_pdf_path(pdf_path_str: str) -> tuple[Path, Optional[str]]:
+    """
+    Validate and resolve a PDF path, ensuring it's within INPUT_BASE_DIR.
+    
+    Args:
+        pdf_path_str: The requested PDF path (can be relative or absolute)
+        
+    Returns:
+        Tuple of (resolved_path, error_message). If error_message is not None,
+        the path is invalid and should not be used.
+    """
+    try:
+        # Resolve the path relative to INPUT_BASE_DIR
+        requested_path = Path(pdf_path_str)
+        
+        # If it's an absolute path, use it directly; otherwise resolve relative to INPUT_BASE_DIR
+        if requested_path.is_absolute():
+            resolved_path = requested_path.resolve()
+        else:
+            resolved_path = (config.INPUT_BASE_DIR / pdf_path_str).resolve()
+        
+        # Security check: ensure path is within INPUT_BASE_DIR
+        try:
+            resolved_path.relative_to(config.INPUT_BASE_DIR)
+        except ValueError:
+            return resolved_path, f"Invalid path: must be within {config.INPUT_BASE_DIR}"
+        
+        # Check file exists
+        if not resolved_path.exists():
+            return resolved_path, f"PDF file not found: {pdf_path_str}"
+        
+        # Check file extension
+        if resolved_path.suffix.lower() != ".pdf":
+            return resolved_path, f"Invalid file type. Expected PDF, got: {resolved_path.suffix}"
+        
+        return resolved_path, None
+        
+    except Exception as e:
+        return Path(pdf_path_str), f"Invalid path: {str(e)}"
 
 
 @asynccontextmanager
@@ -98,7 +135,7 @@ async def extract_questions(request: ExtractRequest) -> ExtractResponse:
     Extract questions from a PDF file.
 
     Args:
-        request: ExtractRequest with pdf_path
+        request: ExtractRequest with pdf_path (relative to INPUT_BASE_DIR or absolute within it)
 
     Returns:
         ExtractResponse with status and output paths
@@ -108,19 +145,10 @@ async def extract_questions(request: ExtractRequest) -> ExtractResponse:
     if not pipeline:
         raise HTTPException(status_code=503, detail="Pipeline not initialized")
 
-    pdf_path = Path(request.pdf_path)
-
-    # Validate PDF exists
-    if not pdf_path.exists():
-        return ExtractResponse(
-            status="error", error=f"PDF file not found: {request.pdf_path}"
-        )
-
-    if not pdf_path.suffix.lower() == ".pdf":
-        return ExtractResponse(
-            status="error",
-            error=f"Invalid file type. Expected PDF, got: {pdf_path.suffix}",
-        )
+    # Validate and resolve PDF path (security check)
+    pdf_path, error = validate_pdf_path(request.pdf_path)
+    if error:
+        return ExtractResponse(status="error", error=error)
 
     logger.info(f"Received extraction request for: {pdf_path.name}")
 
@@ -140,140 +168,89 @@ async def extract_questions_stream(request: ExtractRequest):
     Streams real-time progress as Server-Sent Events (SSE).
 
     Args:
-        request: ExtractRequest with pdf_path
+        request: ExtractRequest with pdf_path (relative to INPUT_BASE_DIR or absolute within it)
 
     Returns:
         StreamingResponse with SSE events
     """
-    pdf_path = Path(request.pdf_path)
-
-    # Validate PDF exists
-    if not pdf_path.exists():
-
+    # Validate and resolve PDF path (security check)
+    pdf_path, error = validate_pdf_path(request.pdf_path)
+    if error:
         async def error_stream():
-            yield f"data: {json.dumps({'status': 'error', 'error': f'PDF file not found: {request.pdf_path}'})}\n\n"
+            yield f"data: {json.dumps({'status': 'error', 'error': error})}\n\n"
 
         return StreamingResponse(error_stream(), media_type="text/event-stream")
 
-    if not pdf_path.suffix.lower() == ".pdf":
-
-        async def error_stream():
-            yield f"data: {json.dumps({'status': 'error', 'error': f'Invalid file type: {pdf_path.suffix}'})}\n\n"
-
-        return StreamingResponse(error_stream(), media_type="text/event-stream")
+    # Use a queue to collect progress events from the pipeline
+    progress_queue: asyncio.Queue = asyncio.Queue()
+    
+    async def progress_callback(event: dict) -> None:
+        """Callback to receive progress events from the pipeline."""
+        await progress_queue.put(event)
+    
+    async def run_pipeline() -> None:
+        """Run the pipeline and signal completion."""
+        try:
+            response = await pipeline.process_pdf(
+                str(pdf_path), progress_cb=progress_callback
+            )
+            await progress_queue.put({"_done": True, "response": response})
+        except Exception as e:
+            await progress_queue.put({"_error": True, "error": str(e)})
 
     async def event_stream() -> AsyncGenerator[str, None]:
         """Generate SSE events during PDF processing."""
-        start_time = time.time()
-        pdf_name = pdf_path.stem
+        global pipeline
+        
+        if not pipeline:
+            yield f"data: {json.dumps({'status': 'error', 'error': 'Pipeline not initialized'})}\n\n"
+            return
 
+        # Start the pipeline in a background task
+        pipeline_task = asyncio.create_task(run_pipeline())
+        
         try:
-            # Send start event
-            yield f"data: {json.dumps({'status': 'started', 'pdf': pdf_path.name, 'timestamp': time.time()})}\n\n"
-
-            # Initialize components
-            pdf_converter = PDFConverter(dpi=config.IMAGE_DPI)
-            image_extractor = ImageExtractor()
-            gemini_client = GeminiClient()
-            question_parser = QuestionParser()
-
-            # Create output directories
-            pdf_output_dir = config.OUTPUTS_DIR / pdf_name
-            pdf_output_dir.mkdir(parents=True, exist_ok=True)
-            assets_dir = pdf_output_dir / "assets"
-            assets_dir.mkdir(exist_ok=True)
-            pages_dir = pdf_output_dir / "pages"
-            pages_dir.mkdir(exist_ok=True)
-
-            # Step 1: Get page count
-            total_pages = pdf_converter.get_page_count(str(pdf_path))
-            yield f"data: {json.dumps({'status': 'processing', 'step': 'info', 'message': f'PDF has {total_pages} pages'})}\n\n"
-
-            # Step 2: Extract embedded images
-            yield f"data: {json.dumps({'status': 'processing', 'step': 'extract_images', 'message': 'Extracting embedded images...'})}\n\n"
-
-            extracted_images = image_extractor.extract_images(
-                str(pdf_path), str(assets_dir), prefix=pdf_name
-            )
-
-            yield f"data: {json.dumps({'status': 'processing', 'step': 'extract_images', 'message': f'Extracted {len(extracted_images)} images', 'images': len(extracted_images)})}\n\n"
-
-            # Step 3: Extract questions (choose mode)
-            if total_pages <= config.MAX_PAGES_FOR_NATIVE:
-                # NATIVE PDF MODE
-                yield f"data: {json.dumps({'status': 'processing', 'step': 'native_pdf', 'message': 'Sending entire PDF to Gemini (Native Mode)...'})}\n\n"
+            while True:
+                # Wait for progress events from the pipeline
+                event = await progress_queue.get()
                 
-                result, usage_stats = await gemini_client.extract_questions_from_pdf(
-                    str(pdf_path),
-                    extracted_images=extracted_images,
-                    total_pages=total_pages
-                )
-                batch_usage = usage_stats
-            else:
-                # CHUNKED MODE
-                yield f"data: {json.dumps({'status': 'processing', 'step': 'chunked_mode', 'message': f'Processing large document (>{config.MAX_PAGES_FOR_NATIVE} pages) in chunks...'})}\n\n"
+                # Check for completion
+                if event.get("_done"):
+                    response = event["response"]
+                    if response.status == "ok":
+                        # Read the output file to get usage stats
+                        try:
+                            with open(response.output_json_path) as f:
+                                output_data = json.load(f)
+                            usage = output_data.get("usage", {})
+                            questions_count = len(output_data.get("questions", []))
+                        except Exception:
+                            usage = {}
+                            questions_count = 0
+                        
+                        yield f"data: {json.dumps({'status': 'complete', 'pdf': pdf_path.name, 'output_json_path': response.output_json_path, 'assets_dir': response.assets_dir, 'questions_extracted': questions_count, 'processing_time_seconds': round(response.processing_time_seconds or 0, 2), 'usage': usage})}\n\n"
+                    else:
+                        yield f"data: {json.dumps({'status': 'error', 'error': response.error})}\n\n"
+                    break
                 
-                # Convert to images
-                yield f"data: {json.dumps({'status': 'processing', 'step': 'pdf_to_images', 'message': 'Converting PDF to images...'})}\n\n"
-                page_images = pdf_converter.convert_to_images(
-                    str(pdf_path), str(pages_dir), max_pages=config.MAX_PAGES_PER_PDF
-                )
+                # Check for error
+                if event.get("_error"):
+                    yield f"data: {json.dumps({'status': 'error', 'error': event['error']})}\n\n"
+                    break
                 
-                image_paths = [img_path for _, img_path in page_images]
-                page_results = []
-                batch_usage = UsageStats()
-
-                for i, image_path in enumerate(image_paths):
-                    page_num = i + 1
-                    yield f"data: {json.dumps({'status': 'processing', 'step': 'gemini_extraction', 'page': page_num, 'total_pages': len(image_paths), 'message': f'Processing page {page_num}/{len(image_paths)}...'})}\n\n"
-
-                    try:
-                        page_result = await gemini_client.extract_questions_from_image(
-                            image_path, page_num
-                        )
-                        page_results.append(page_result)
-
-                        if "_usage" in page_result:
-                            batch_usage.add(page_result["_usage"], page_result.get("_generation_id"))
-
-                        questions_on_page = len(page_result.get("questions", []))
-                        yield f"data: {json.dumps({'status': 'processing', 'step': 'gemini_extraction', 'page': page_num, 'total_pages': len(image_paths), 'questions_found': questions_on_page, 'message': f'Page {page_num} complete: {questions_on_page} questions'})}\n\n"
-                    except Exception as e:
-                        yield f"data: {json.dumps({'status': 'processing', 'step': 'gemini_extraction', 'page': page_num, 'error': str(e), 'message': f'Page {page_num} failed: {str(e)}'})}\n\n"
-                        page_results.append({"page_number": page_num, "questions": [], "error": str(e)})
-
-                result = {
-                    "total_pages": total_pages,
-                    "questions": [q for pr in page_results for q in pr.get("questions", [])],
-                    "metadata_hints": next((pr.get("metadata_hints", {}) for pr in page_results if pr.get("metadata_hints")), {}),
-                    "_from_chunked": True
-                }
-
-            # Step 4: Post-process
-            yield f"data: {json.dumps({'status': 'processing', 'step': 'post_process', 'message': 'Post-processing results...'})}\n\n"
-            
-            processing_time = time.time() - start_time
-            document = question_parser.process_extraction_result(
-                result=result,
-                source_pdf=pdf_path.name,
-                total_pages=total_pages,
-                processing_time=processing_time,
-                extracted_images=extracted_images,
-            )
-
-            # Step 5: Save output
-            output_json_path = pdf_output_dir / f"{pdf_name}_questions.json"
-            output_data = document.model_dump(mode="json")
-            output_data["usage"] = batch_usage.to_dict()
-
-            with open(output_json_path, "w", encoding="utf-8") as f:
-                json.dump(output_data, f, indent=2, ensure_ascii=False)
-
-            # Send completion event
-            yield f"data: {json.dumps({'status': 'complete', 'pdf': pdf_path.name, 'output_json_path': str(output_json_path), 'assets_dir': str(assets_dir), 'questions_extracted': len(document.questions), 'processing_time_seconds': round(processing_time, 2), 'usage': batch_usage.to_dict()})}\n\n"
-
+                # Emit progress event
+                yield f"data: {json.dumps({'status': 'processing', **event})}\n\n"
+                
         except Exception as e:
             yield f"data: {json.dumps({'status': 'error', 'error': str(e)})}\n\n"
+        finally:
+            # Ensure pipeline task is cleaned up
+            if not pipeline_task.done():
+                pipeline_task.cancel()
+                try:
+                    await pipeline_task
+                except asyncio.CancelledError:
+                    pass
 
     return StreamingResponse(
         event_stream(),

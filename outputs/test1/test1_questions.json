@@ -3,19 +3,19 @@
   "metadata": {
     "title": "Unit 1: Sequences and Series Review",
     "subject": "Mathematics",
-    "grade": null,
+    "grade": "High School / Early College",
     "total_pages": 8,
-    "extraction_timestamp": "2025-12-24T13:20:55.312917",
-    "processing_time_seconds": 26.012804746627808
+    "extraction_timestamp": "2026-01-03T22:14:25.981850",
+    "processing_time_seconds": 19.422667503356934
   },
   "questions": [
     {
       "id": "SEC_I_1_a",
-      "number": "1.a",
+      "number": "1a",
       "type": "short_answer",
       "content": {
         "text": "If for some arithmetic sequence $A_3 = 7$ and $A_4 = 4$, find $A_{11}$.",
-        "latex": "A_3 = 7, A_4 = 4, A_{11}",
+        "latex": "$A_3 = 7, A_4 = 4 \\implies A_{11}$",
         "images": null,
         "table": null
       },
@@ -27,11 +27,11 @@
     },
     {
       "id": "SEC_I_1_b",
-      "number": "1.b",
+      "number": "1b",
       "type": "short_answer",
       "content": {
         "text": "Again, if for some arithmetic sequence $A_3 = 7$ and $A_4 = 4$, evaluate $\\sum_{k=0}^{25} A_k$",
-        "latex": "\\sum_{k=0}^{25} A_k",
+        "latex": "$\\sum_{k=0}^{25} A_k$",
         "images": null,
         "table": null
       },
@@ -43,11 +43,11 @@
     },
     {
       "id": "SEC_I_1_c",
-      "number": "1.c",
+      "number": "1c",
       "type": "short_answer",
       "content": {
         "text": "Write the following sum in sigma notation: $\\frac{2}{7} - \\frac{4}{8} + \\frac{6}{9} - \\frac{8}{10} + \\dots + \\frac{22}{17}$",
-        "latex": "\\frac{2}{7} - \\frac{4}{8} + \\frac{6}{9} - \\frac{8}{10} + \\dots + \\frac{22}{17}",
+        "latex": "$\\frac{2}{7} - \\frac{4}{8} + \\frac{6}{9} - \\frac{8}{10} + \\dots + \\frac{22}{17}$",
         "images": null,
         "table": null
       },
@@ -59,7 +59,7 @@
     },
     {
       "id": "SEC_I_1_d",
-      "number": "1.d",
+      "number": "1d",
       "type": "short_answer",
       "content": {
         "text": "Find the term at position 0 of a geometric sequence whose $2^{nd}$ term is 3 and whose $6^{th}$ term is 75.",
@@ -75,11 +75,11 @@
     },
     {
       "id": "SEC_I_1_e",
-      "number": "1.e",
+      "number": "1e",
       "type": "short_answer",
       "content": {
         "text": "Find a rule that defines the sequence below. The rule must be an equation, but it may be in any form – recursive, explicit or “mixed”. $\\{ -8, -5, 1, 10, 22, \\dots \\}$",
-        "latex": "\\{ -8, -5, 1, 10, 22, \\dots \\}",
+        "latex": "$\\{ -8, -5, 1, 10, 22, \\dots \\}$",
         "images": null,
         "table": null
       },
@@ -91,11 +91,11 @@
     },
     {
       "id": "SEC_I_1_f",
-      "number": "1.f",
+      "number": "1f",
       "type": "short_answer",
       "content": {
         "text": "Recall that the partial sums of some sequence $t$ are given by $S_n = \\sum_{k=1}^{n} t_k$. If the first few partial sums of some sequence are $S_1 = 5, S_2 = 20, S_3 = 30, S_4 = 36$, what is the value of $t_3$? If you can’t find this value, explain why not.",
-        "latex": "S_n = \\sum_{k=1}^{n} t_k",
+        "latex": "$S_n = \\sum_{k=1}^{n} t_k$",
         "images": null,
         "table": null
       },
@@ -107,11 +107,11 @@
     },
     {
       "id": "SEC_II_2_a",
-      "number": "2.a",
+      "number": "2a",
       "type": "numerical",
       "content": {
-        "text": "Evaluate the following series: $\\sum_{k=3}^{17} (2(k+1)^2 + 3(\\frac{4}{3})^k) =$",
-        "latex": "\\sum_{k=3}^{17} (2(k+1)^2 + 3(\\frac{4}{3})^k)",
+        "text": "Evaluate the following series: $\\sum_{k=3}^{17} \\left( 2(k+1)^2 + 3\\left(\\frac{4}{3}\\right)^k \\right)$",
+        "latex": "$\\sum_{k=3}^{17} \\left( 2(k+1)^2 + 3\\left(\\frac{4}{3}\\right)^k \\right)$",
         "images": null,
         "table": null
       },
@@ -123,11 +123,11 @@
     },
     {
       "id": "SEC_II_2_b",
-      "number": "2.b",
+      "number": "2b",
       "type": "numerical",
       "content": {
-        "text": "Evaluate the following series: $[\\sum_{j=1}^{15} (j^5 - 7j)] - [\\sum_{m=1}^{15} (m^5 - 9)] =$",
-        "latex": "[\\sum_{j=1}^{15} (j^5 - 7j)] - [\\sum_{m=1}^{15} (m^5 - 9)]",
+        "text": "Evaluate the following series: $[\\sum_{j=1}^{15} (j^5 - 7j)] - [\\sum_{m=1}^{15} (m^5 - 9)]$",
+        "latex": "$[\\sum_{j=1}^{15} (j^5 - 7j)] - [\\sum_{m=1}^{15} (m^5 - 9)]$",
         "images": null,
         "table": null
       },
@@ -139,11 +139,11 @@
     },
     {
       "id": "SEC_II_2_c",
-      "number": "2.c",
+      "number": "2c",
       "type": "numerical",
       "content": {
         "text": "Evaluate the following series: $\\sum_{k=1}^{3} (\\sum_{m=k+1}^{k+4} (m+k))$",
-        "latex": "\\sum_{k=1}^{3} (\\sum_{m=k+1}^{k+4} (m+k))",
+        "latex": "$\\sum_{k=1}^{3} (\\sum_{m=k+1}^{k+4} (m+k))$",
         "images": null,
         "table": null
       },
@@ -158,12 +158,12 @@
       "number": "3",
       "type": "multi_part",
       "content": {
-        "text": "The Cantor Set. The Cantor middle-thirds set is obtained by starting with the closed interval $[0,1]$ and deleting the open middle third interval $(\\frac{1}{3}, \\frac{2}{3})$. This produces two closed intervals, so we can then remove the middle third of each of these, and so on. Let $C_0$ be the original interval $[0,1]$, $C_1$ the set obtained after one iteration (consisting of two closed intervals), and so on. The first few iterations are shown below:",
-        "latex": "[0,1], (\\frac{1}{3}, \\frac{2}{3})",
+        "text": "The Cantor Set. The Cantor middle-thirds set is obtained by starting with the closed interval [0,1] and deleting the open middle third interval $(\\frac{1}{3}, \\frac{2}{3})$. This produces two closed intervals, so we can then remove the middle third of each of these, and so on. Let $C_0$ be the original interval [0,1], $C_1$ the set obtained after one iteration (consisting of two closed intervals), and so on. The first few iterations are shown below:",
+        "latex": null,
         "images": [
           {
             "filename": "test1_001.png",
-            "caption": "First few iterations of the Cantor Set",
+            "caption": "Visual representation of the Cantor Set iterations",
             "bbox": null
           }
         ],
@@ -266,7 +266,7 @@
         "images": [
           {
             "filename": "test1_002.png",
-            "caption": "First 3 stages of the snowflake",
+            "caption": "First 3 stages of the square snowflake",
             "bbox": null
           }
         ],
@@ -313,11 +313,11 @@
     },
     {
       "id": "SEC_V_5_a",
-      "number": "5.a",
+      "number": "5a",
       "type": "numerical",
       "content": {
         "text": "Evaluate the series $36 + 64 + 100 + 144 + \\dots + 10,000$",
-        "latex": "36 + 64 + 100 + 144 + \\dots + 10,000",
+        "latex": "$36 + 64 + 100 + 144 + \\dots + 10,000$",
         "images": null,
         "table": null
       },
@@ -329,11 +329,11 @@
     },
     {
       "id": "SEC_V_5_b",
-      "number": "5.b",
+      "number": "5b",
       "type": "numerical",
       "content": {
-        "text": "Evaluate $\\sum_{j=2}^{\\infty} \\sum_{k=1}^{\\infty} (\\frac{1}{2})^j (\\frac{1}{3})^k$. If you rewrite this as a different, equivalent sigma expression, you must justify your reformulation.",
-        "latex": "\\sum_{j=2}^{\\infty} \\sum_{k=1}^{\\infty} (\\frac{1}{2})^j (\\frac{1}{3})^k",
+        "text": "Evaluate $\\sum_{j=2}^{\\infty} \\sum_{k=1}^{\\infty} \\left(\\frac{1}{2}\\right)^j \\left(\\frac{1}{3}\\right)^k$. If you rewrite this as a different, equivalent sigma expression, you must justify your reformulation.",
+        "latex": "$\\sum_{j=2}^{\\infty} \\sum_{k=1}^{\\infty} \\left(\\frac{1}{2}\\right)^j \\left(\\frac{1}{3}\\right)^k$",
         "images": null,
         "table": null
       },
@@ -346,11 +346,11 @@
   ],
   "usage": {
     "prompt_tokens": 5218,
-    "completion_tokens": 3464,
-    "total_tokens": 8682,
-    "estimated_cost_usd": 0.013001,
+    "completion_tokens": 3524,
+    "total_tokens": 8742,
+    "estimated_cost_usd": 0.013181,
     "generation_ids": [
-      "gen-1766582436-2lyjiG9lJDDCdLbe34jF"
+      "gen-1767478447-A1OjnZ3MzWoYKAfhipVu"
     ]
   }
 }

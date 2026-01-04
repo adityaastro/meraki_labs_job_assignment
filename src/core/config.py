@@ -41,6 +41,10 @@ class Config:
     # Paths
     BASE_DIR: Path = Path(__file__).parent.parent.parent
     OUTPUTS_DIR: Path = BASE_DIR / "outputs"
+    # Default to BASE_DIR for backwards compatibility; set INPUT_BASE_DIR env var to restrict
+    INPUT_BASE_DIR: Path = Path(
+        os.getenv("INPUT_BASE_DIR", str(BASE_DIR))
+    ).resolve()
 
     # Logging
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")

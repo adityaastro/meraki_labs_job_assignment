@@ -15,6 +15,9 @@ RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 # Final stage
 FROM python:3.11-slim
 
+# Ensure Python output is sent straight to terminal without buffering
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
 # Install runtime dependencies (e.g. for PyMuPDF if needed, but it usually comes with wheels)

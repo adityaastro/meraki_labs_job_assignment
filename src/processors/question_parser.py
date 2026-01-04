@@ -208,7 +208,9 @@ class QuestionParser:
         """
         Merge extraction results from all pages into a single document.
         
-        NOTE: This is the method for page-by-page processing.
+        NOTE: This is a legacy method for external/manual integration.
+        The main pipeline now uses process_extraction_result() instead.
+        Kept for backwards compatibility and potential external use.
 
         Args:
             page_results: List of per-page extraction results from Gemini
@@ -407,6 +409,9 @@ class QuestionParser:
     def _merge_cross_page_questions(self, questions: List[Question]) -> List[Question]:
         """
         Detect and merge questions that span multiple pages.
+
+        NOTE: This is a utility method for advanced post-processing.
+        Currently not used in the main pipeline but available for external use.
 
         A question might be continued on the next page if:
         - It ends with "..." or incomplete sentence

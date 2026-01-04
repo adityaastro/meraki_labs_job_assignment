@@ -137,6 +137,9 @@ class UsageData(BaseModel):
     generation_ids: Optional[List[str]] = Field(
         None, description="OpenRouter generation IDs for cost lookup"
     )
+    estimated_cost_usd: float = Field(
+        0.0, description="Estimated cost in USD for this extraction"
+    )
 
 
 class ExtractedDocument(BaseModel):

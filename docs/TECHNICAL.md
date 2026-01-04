@@ -25,97 +25,102 @@
 
 ### High-Level Architecture Diagram
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                         PDF QUESTIONS EXTRACTOR                             │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  ┌──────────────┐     ┌──────────────┐     ┌──────────────┐                 │
-│  │   CLI.py     │     │  API Server  │     │ Batch Script │                 │
-│  │ (argparse)   │     │  (FastAPI)   │     │ (run_eval.sh)│                 │
-│  └──────┬───────┘     └──────┬───────┘     └──────┬───────┘                 │
-│         │                    │                    │                         │
-│         └────────────────────┴────────────────────┘                         │
-│                              │                                              │
-│                              ▼                                              │
-│  ┌───────────────────────────────────────────────────────────────────────┐  │
-│  │                      EXTRACTION PIPELINE                              │  │
-│  │                         (pipeline.py)                                 │  │
-│  │  ┌─────────────────────────────────────────────────────────────────┐  │  │
-│  │  │  • Orchestrates entire extraction workflow                      │  │  │
-│  │  │  • Decides between native PDF vs chunked mode                 │  │  │
-│  │  │  • Manages concurrency for batch processing                     │  │  │
-│  │  │  • Handles output generation and validation                     │  │  │
-│  │  └─────────────────────────────────────────────────────────────────┘  │  │
-│  └───────────────────────────────────────────────────────────────────────┘  │
-│                              │                                              │
-│         ┌────────────────────┼────────────────────┐                         │
-│         ▼                    ▼                    ▼                         │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐              │
-│  │   EXTRACTORS    │  │   PROCESSORS    │  │     CORE        │              │
-│  ├─────────────────┤  ├─────────────────┤  ├─────────────────┤              │
-│  │ ImageExtractor  │  │ GeminiClient    │  │ Config          │              │
-│  │ (PyMuPDF)       │  │ (OpenRouter)    │  │ Schemas         │              │
-│  │                 │  │                 │  │ (Pydantic)      │              │
-│  │ PDFConverter    │  │ QuestionParser  │  │                 │              │
-│  │ (PyMuPDF)       │  │                 │  │                 │              │
-│  └────────┬────────┘  └────────┬────────┘  └────────┬────────┘              │
-│           │                    │                    │                       │
-│           ▼                    ▼                    ▼                       │
-│  ┌─────────────────────────────────────────────────────────────────────┐    │
-│  │                         OUTPUT                                      │    │
-│  │  outputs/{pdf_name}/                                                │    │
-│  │  ├── {pdf_name}_questions.json   # Structured questions + usage     │    │
-│  │  ├── assets/                     # Extracted embedded images        │    │
-│  │  │   ├── {pdf_name}_001.png                                         │    │
-│  │  │   ├── {pdf_name}_002.jpeg                                        │    │
-│  │  │   └── ...                                                        │    │
-│  │  └── pages/                      # Page images (chunked mode only)  │    │
-│  │      ├── page_001.png                                               │    │
-│  │      └── ...                                                        │    │
-│  └─────────────────────────────────────────────────────────────────────┘    │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph Entrypoints["Entry Points"]
+        CLI["CLI.py<br/>(argparse)"]
+        API["API Server<br/>(FastAPI)"]
+        Batch["Batch Script<br/>(run_eval.sh)"]
+    end
 
-                                   │
-                                   ▼
-                    ┌───────────────────────────────┐
-                    │        EXTERNAL SERVICES       │
-                    ├───────────────────────────────┤
-                    │  OpenRouter API                │
-                    │  └── google/gemini-3-flash     │
-                    │      (Native PDF Processing)   │
-                    └───────────────────────────────┘
+    subgraph Pipeline["EXTRACTION PIPELINE (pipeline.py)"]
+        direction TB
+        PipelineDesc["• Orchestrates entire extraction workflow<br/>• Decides between native PDF vs chunked mode<br/>• Manages concurrency for batch processing<br/>• Handles output generation and validation"]
+    end
+
+    subgraph Components["Core Components"]
+        direction LR
+        subgraph Extractors["EXTRACTORS"]
+            ImageExtractor["ImageExtractor<br/>(PyMuPDF)"]
+            PDFConverter["PDFConverter<br/>(PyMuPDF)"]
+        end
+        subgraph Processors["PROCESSORS"]
+            GeminiClient["GeminiClient<br/>(OpenRouter)"]
+            QuestionParser["QuestionParser"]
+        end
+        subgraph Core["CORE"]
+            Config["Config"]
+            Schemas["Schemas<br/>(Pydantic)"]
+        end
+    end
+
+    subgraph Output["OUTPUT: outputs/{pdf_name}/"]
+        QuestionsJSON["{pdf_name}_questions.json"]
+        Assets["assets/<br/>├── {pdf_name}_001.png<br/>├── {pdf_name}_002.jpeg"]
+        Pages["pages/<br/>├── page_001.png<br/>(chunked mode only)"]
+    end
+
+    subgraph External["EXTERNAL SERVICES"]
+        OpenRouter["OpenRouter API<br/>└── google/gemini-3-flash<br/>(Native PDF Processing)"]
+    end
+
+    CLI --> Pipeline
+    API --> Pipeline
+    Batch --> Pipeline
+    Pipeline --> Extractors
+    Pipeline --> Processors
+    Pipeline --> Core
+    Extractors --> Output
+    Processors --> Output
+    Core --> Output
+    Processors --> External
 ```
 
 ### Module Dependency Graph
 
-```
-                              ┌─────────────┐
-                              │   cli.py    │
-                              └──────┬──────┘
-                                     │
-                              ┌──────▼──────┐
-        ┌─────────────────────┤ pipeline.py ├─────────────────────┐
-        │                     └──────┬──────┘                     │
-        │                            │                            │
-        ▼                            ▼                            ▼
-┌───────────────┐          ┌─────────────────┐          ┌─────────────────┐
-│  extractors/  │          │   processors/   │          │     core/       │
-├───────────────┤          ├─────────────────┤          ├─────────────────┤
-│ image_        │          │ gemini_         │          │ config.py       │
-│ extractor.py  │◄────────►│ client.py       │◄────────►│ schemas.py      │
-│               │          │                 │          │                 │
-│ pdf_          │          │ question_       │          │                 │
-│ converter.py  │          │ parser.py       │          │                 │
-└───────────────┘          └─────────────────┘          └─────────────────┘
-        │                           │                           │
-        │                           │                           │
-        ▼                           ▼                           ▼
-┌─────────────┐           ┌───────────────┐           ┌───────────────┐
-│   PyMuPDF   │           │ httpx (async) │           │   Pydantic    │
-│   (fitz)    │           │ OpenRouter    │           │   dotenv      │
-└─────────────┘           └───────────────┘           └───────────────┘
+```mermaid
+flowchart TB
+    cli["cli.py"]
+    pipeline["pipeline.py"]
+    
+    subgraph extractors["extractors/"]
+        image_extractor["image_extractor.py"]
+        pdf_converter["pdf_converter.py"]
+    end
+    
+    subgraph processors["processors/"]
+        gemini_client["gemini_client.py"]
+        question_parser["question_parser.py"]
+    end
+    
+    subgraph core["core/"]
+        config["config.py"]
+        schemas["schemas.py"]
+    end
+    
+    subgraph deps1["External Dependencies"]
+        pymupdf["PyMuPDF (fitz)"]
+    end
+    
+    subgraph deps2["External Dependencies"]
+        httpx["httpx (async)<br/>OpenRouter"]
+    end
+    
+    subgraph deps3["External Dependencies"]
+        pydantic["Pydantic<br/>dotenv"]
+    end
+    
+    cli --> pipeline
+    pipeline --> extractors
+    pipeline --> processors
+    pipeline --> core
+    
+    extractors <--> processors
+    processors <--> core
+    
+    extractors --> pymupdf
+    processors --> httpx
+    core --> pydantic
 ```
 
 ---
@@ -148,23 +153,12 @@ class ExtractionPipeline:
 
 **Processing Decision Logic:**
 
-```
-PDF Input
-    │
-    ├── Get page count
-    │
-    ▼
-┌───────────────────────────────┐
-│   page_count <= 30 pages?     │
-└───────────────┬───────────────┘
-                │
-        ┌───────┴───────┐
-        │ YES           │ NO
-        ▼               ▼
-┌──────────────┐ ┌──────────────┐
-│ Native PDF   │ │ Page-by-page │
-│ Processing   │ │ Fallback     │
-└──────────────┘ └──────────────┘
+```mermaid
+flowchart TD
+    A[PDF Input] --> B[Get page count]
+    B --> C{page_count <= 30 pages?}
+    C -->|YES| D[Native PDF Processing]
+    C -->|NO| E[Page-by-page Fallback]
 ```
 
 ### 2. Gemini Client (`src/processors/gemini_client.py`)
@@ -219,24 +213,18 @@ Extracts embedded images from PDFs using PyMuPDF.
 
 **Extraction Process:**
 
-```
-PDF Document
-    │
-    ├── For each page:
-    │   └── Get all images (xref list)
-    │       │
-    │       ├── Extract image bytes
-    │       │
-    │       ├── Filter: width/height >= 50px
-    │       │   (Removes icons, bullets)
-    │       │
-    │       ├── Deduplicate via MD5 hash
-    │       │
-    │       └── Save with sequential naming
-    │           {prefix}_{001}.{ext}
-    │
-    └── Return metadata:
-        [{filename, page_number, width, height, bbox}]
+```mermaid
+flowchart TD
+    A[PDF Document] --> B[For each page]
+    B --> C[Get all images - xref list]
+    C --> D[Extract image bytes]
+    D --> E{width/height >= 50px?}
+    E -->|No| F[Skip - removes icons, bullets]
+    E -->|Yes| G[Deduplicate via MD5 hash]
+    G --> H{Already seen hash?}
+    H -->|Yes| I[Skip duplicate]
+    H -->|No| J["Save with sequential naming<br/>{prefix}_{001}.{ext}"]
+    J --> K["Return metadata:<br/>[{filename, page_number, width, height, bbox}]"]
 ```
 
 **Deduplication Logic:**
@@ -272,26 +260,14 @@ Post-processes extraction results with validation and enrichment.
 
 **Key Responsibilities:**
 
-```
-Raw Extraction Result
-        │
-        ├── ID Deduplication
-        │   (Ensure unique IDs: MCQ_1, SEC_II_1, etc.)
-        │
-        ├── Image Filename Resolution
-        │   ("figure_1" → "test3_001.png")
-        │
-        ├── Type Validation
-        │   (Ensure valid question types)
-        │
-        ├── Nested Sub-question Parsing
-        │   (Recursive structure building)
-        │
-        ├── Cross-page Question Merging
-        │   (Detect and merge continuations)
-        │
-        └── Pydantic Model Construction
-            (ExtractedDocument)
+```mermaid
+flowchart TD
+    A[Raw Extraction Result] --> B["ID Deduplication<br/>(Ensure unique IDs: MCQ_1, SEC_II_1, etc.)"]
+    B --> C["Image Filename Resolution<br/>(figure_1 → test3_001.png)"]
+    C --> D["Type Validation<br/>(Ensure valid question types)"]
+    D --> E["Nested Sub-question Parsing<br/>(Recursive structure building)"]
+    E --> F["Cross-page Question Merging<br/>(Detect and merge continuations)"]
+    F --> G["Pydantic Model Construction<br/>(ExtractedDocument)"]
 ```
 
 **Image Filename Mapping:**
@@ -314,115 +290,92 @@ mapping = {
 
 ### Complete Processing Flow
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                            DATA FLOW                                        │
-└─────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    subgraph Input
+        PDF[test3.pdf]
+    end
 
-INPUT                                                               OUTPUT
-─────                                                               ──────
+    subgraph Pipeline["Processing Pipeline"]
+        direction TB
+        Init[Pipeline Init]
+        
+        subgraph Step1["STEP 1: Image Extraction"]
+            S1_1["PyMuPDF extracts embedded images"]
+            S1_2["Filter small images < 50px"]
+            S1_3["Deduplicate via MD5 hash"]
+            S1_4["Save to assets/ directory"]
+            S1_1 --> S1_2 --> S1_3 --> S1_4
+        end
+        
+        subgraph Step2["STEP 2: Question Extraction"]
+            S2_Check{pages <= 30?}
+            S2_Native["Native PDF Processing<br/>Send base64 PDF to Gemini"]
+            S2_Chunked["Convert pages to images<br/>Process by chunks"]
+            S2_Check -->|Yes| S2_Native
+            S2_Check -->|No| S2_Chunked
+        end
+        
+        subgraph Step3["STEP 3: Post-Processing"]
+            S3_1["Parse raw JSON response"]
+            S3_2["Resolve image filenames"]
+            S3_3["Deduplicate question IDs"]
+            S3_4["Build Pydantic models"]
+            S3_5["Validate against schema"]
+        end
+        
+        subgraph Step4["STEP 4: Output Generation"]
+            S4_1["Serialize to JSON"]
+            S4_2["Add usage stats"]
+            S4_3["Save to output directory"]
+        end
+        
+        Init --> Step1
+        Step1 --> Step2
+        Step2 --> Step3
+        Step3 --> Step4
+    end
 
-test3.pdf ──┐                                            ┌─── test3_questions.json
-            │                                            │
-            ▼                                            │
-    ┌───────────────┐                                    │
-    │ Pipeline Init │                                    │
-    └───────┬───────┘                                    │
-            │                                            │
-            ▼                                            │
-    ┌───────────────────────────────────────────┐        │
-    │         STEP 1: Image Extraction          │        │
-    │  ┌─────────────────────────────────────┐  │        │
-    │  │ PyMuPDF extracts embedded images    │  │        │
-    │  │ - Filter small images (<50px)       │  │        │
-    │  │ - Deduplicate via MD5 hash          │  │        │
-    │  │ - Save to assets/ directory         │  │        │
-    │  └─────────────────────────────────────┘  │        │
-    │                                           │        │
-    │  Output: [{filename, page, width, ...}]   ├───────►├── assets/
-    └───────────────────┬───────────────────────┘        │   ├── test3_001.png
-                        │                                │   ├── test3_002.jpeg
-                        ▼                                │   └── ...
-    ┌───────────────────────────────────────────┐        │
-    │         STEP 2: Question Extraction       │        │
-    │  ┌─────────────────────────────────────┐  │        │
-    │  │ IF pages <= 30:                     │  │        │
-    │  │   → Native PDF Processing           │  │        │
-    │  │   → Send base64 PDF to Gemini       │  │        │
-    │  │                                     │  │        │
-    │  │ ELSE:                               │  │        │
-    │  │   → Convert pages to images         │  │        │
-    │  │   → Process by chunks               │  │        │
-    │  └─────────────────────────────────────┘  │        │
-    │                                           │        │
-    │  Output: {questions: [...], metadata: {}} │        │
-    └───────────────────┬───────────────────────┘        │
-                        │                                │
-                        ▼                                │
-    ┌───────────────────────────────────────────┐        │
-    │         STEP 3: Post-Processing           │        │
-    │  ┌─────────────────────────────────────┐  │        │
-    │  │ - Parse raw JSON response           │  │        │
-    │  │ - Resolve image filenames           │  │        │
-    │  │ - Deduplicate question IDs          │  │        │
-    │  │ - Build Pydantic models             │  │        │
-    │  │ - Validate against schema           │  │        │
-    │  └─────────────────────────────────────┘  │        │
-    │                                           │        │
-    │  Output: ExtractedDocument (Pydantic)     │        │
-    └───────────────────┬───────────────────────┘        │
-                        │                                │
-                        ▼                                │
-    ┌───────────────────────────────────────────┐        │
-    │         STEP 4: Output Generation         │        │
-    │  ┌─────────────────────────────────────┐  │        │
-    │  │ - Serialize to JSON                 │  │        │
-    │  │ - Add usage stats                   │  │        │
-    │  │ - Save to output directory          │  │        │
-    │  └─────────────────────────────────────┘  │        │
-    └───────────────────┬───────────────────────┘        │
-                        │                                │
-                        └────────────────────────────────┘
+    subgraph Output
+        JSON[test3_questions.json]
+        Assets["assets/<br/>├── test3_001.png<br/>├── test3_002.jpeg"]
+    end
+
+    PDF --> Init
+    Step1 --> Assets
+    Step4 --> JSON
 ```
 
 ### Data Transformations
 
-```
-Stage 1: PDF → Embedded Images
-──────────────────────────────
-PDF Binary
-    ↓
-[{xref, image_bytes, page}]
-    ↓
-[{filename: "test3_001.png", page: 1, width: 400, height: 300}]
+```mermaid
+flowchart TB
+    subgraph Stage1["Stage 1: PDF → Embedded Images"]
+        direction TB
+        S1A[PDF Binary]
+        S1B["[{xref, image_bytes, page}]"]
+        S1C["[{filename: 'test3_001.png', page: 1, width: 400, height: 300}]"]
+        S1A --> S1B --> S1C
+    end
 
+    subgraph Stage2["Stage 2: PDF → Raw Questions"]
+        direction TB
+        S2A["PDF Binary (base64)"]
+        S2B[OpenRouter API Request]
+        S2C["{ questions: [{ id: 'MCQ_1', content: {...} }] }"]
+        S2A --> S2B --> S2C
+    end
 
-Stage 2: PDF → Raw Questions
-────────────────────────────
-PDF Binary (base64)
-    ↓
-OpenRouter API Request
-    ↓
-{
-  "questions": [
-    {"id": "MCQ_1", "content": {"text": "...", "images": [{"filename": "figure_1"}]}}
-  ]
-}
+    subgraph Stage3["Stage 3: Raw → Validated Questions"]
+        direction TB
+        S3A[Raw API Response]
+        S3B["QuestionParser.process_extraction_result()"]
+        S3C["ExtractedDocument (Pydantic)<br/>{ source_pdf, metadata, questions, usage }"]
+        S3A --> S3B --> S3C
+    end
 
-
-Stage 3: Raw → Validated Questions
-──────────────────────────────────
-Raw API Response
-    ↓
-QuestionParser.process_extraction_result()
-    ↓
-ExtractedDocument (Pydantic)
-{
-  source_pdf: "test3.pdf",
-  metadata: {...},
-  questions: [Question, Question, ...],
-  usage: {...}
-}
+    Stage1 ~~~ Stage2
+    Stage2 ~~~ Stage3
 ```
 
 ---
@@ -433,61 +386,53 @@ ExtractedDocument (Pydantic)
 
 **When Used:** PDF has ≤30 pages
 
+```mermaid
+flowchart LR
+    A[PDF File] --> B[base64 encode] --> C[OpenRouter API] --> D[JSON Result]
 ```
-┌────────────────────────────────────────────────────────────────┐
-│                   NATIVE PDF PROCESSING                        │
-├────────────────────────────────────────────────────────────────┤
-│                                                                │
-│  PDF File ──► base64 encode ──► OpenRouter API ──► JSON Result │
-│                                                                │
-│  Advantages:                                                   │
-│  ✓ Full document context (model sees all pages at once)        │
-│  ✓ Better section understanding                                │
-│  ✓ No context loss between pages                               │
-│  ✓ Simpler pipeline (no image conversion needed)               │
-│  ✓ Cross-page questions handled naturally                      │
-│                                                                │
-│  Limitations:                                                  │
-│  ✗ Token limit constraints (large PDFs exceed limits)          │
-│  ✗ API cost scales with document size                          │
-│                                                                │
-└────────────────────────────────────────────────────────────────┘
-```
+
+**Advantages:**
+- ✓ Full document context (model sees all pages at once)
+- ✓ Better section understanding
+- ✓ No context loss between pages
+- ✓ Simpler pipeline (no image conversion needed)
+- ✓ Cross-page questions handled naturally
+
+**Limitations:**
+- ✗ Token limit constraints (large PDFs exceed limits)
+- ✗ API cost scales with document size
 
 ### Mode 2: Page-by-Page Fallback
 
 **When Used:** PDF has >30 pages
 
+```mermaid
+flowchart TD
+    A[PDF File] --> B["Convert to Images (300 DPI)"]
+    B --> C[page_001.png]
+    B --> D[page_002.png]
+    B --> E[page_003.png]
+    B --> F[...]
+    
+    C --> G[API Call] --> H["Questions (page 1)"]
+    D --> I[API Call] --> J["Questions (page 2)"]
+    E --> K[API Call] --> L["Questions (page 3)"]
+    
+    H --> M[Merge Results]
+    J --> M
+    L --> M
+    
+    M --> N[Detect Cross-page Questions]
 ```
-┌────────────────────────────────────────────────────────────────┐
-│                  PAGE-BY-PAGE FALLBACK                         │
-├────────────────────────────────────────────────────────────────┤
-│                                                                │
-│  PDF File                                                      │
-│      │                                                         │
-│      ▼                                                         │
-│  Convert to Images (300 DPI)                                   │
-│      │                                                         │
-│      ├── page_001.png ──► API Call ──► Questions (page 1)      │
-│      ├── page_002.png ──► API Call ──► Questions (page 2)      │
-│      ├── page_003.png ──► API Call ──► Questions (page 3)      │
-│      └── ...                                                   │
-│                     │                                          │
-│                     ▼                                          │
-│              Merge Results                                     │
-│              Detect Cross-page Questions                       │
-│                                                                │
-│  Advantages:                                                   │
-│  ✓ Handles any PDF size                                        │
-│  ✓ More granular progress tracking                             │
-│                                                                │
-│  Limitations:                                                  │
-│  ✗ Context loss between pages                                  │
-│  ✗ More API calls (higher latency)                             │
-│  ✗ Cross-page question detection is heuristic-based            │
-│                                                                │
-└────────────────────────────────────────────────────────────────┘
-```
+
+**Advantages:**
+- ✓ Handles any PDF size
+- ✓ More granular progress tracking
+
+**Limitations:**
+- ✗ Context loss between pages
+- ✗ More API calls (higher latency)
+- ✗ Cross-page question detection is heuristic-based
 
 ---
 
@@ -495,75 +440,105 @@ ExtractedDocument (Pydantic)
 
 ### Entity Relationship Diagram
 
-```
-┌────────────────────────────────────────────────────────────────────────────┐
-│                           SCHEMA STRUCTURE                                 │
-└────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+classDiagram
+    class ExtractedDocument {
+        +string source_pdf
+        +DocumentMetadata metadata
+        +List~Question~ questions
+        +UsageData usage
+    }
 
-ExtractedDocument (Root)
-├── source_pdf: string
-├── metadata: DocumentMetadata
-│   ├── title: string?
-│   ├── subject: string?
-│   ├── grade: string?
-│   ├── total_pages: int
-│   ├── extraction_timestamp: datetime
-│   └── processing_time_seconds: float?
-│
-├── questions: List[Question]
-│   ├── id: string                 # MCQ_1, SEC_II_1, SEC_III_1_i
-│   ├── number: string             # Original numbering: "1", "(a)", "(i)"
-│   ├── type: QuestionType         # mcq, short_answer, proof, multi_part...
-│   ├── content: QuestionContent
-│   │   ├── text: string           # Question text with inline LaTeX
-│   │   ├── latex: string?         # Pure LaTeX if separate
-│   │   ├── images: List[ImageRef]?
-│   │   │   ├── filename: string   # test3_001.png
-│   │   │   ├── caption: string?
-│   │   │   └── bbox: BoundingBox?
-│   │   │       ├── x, y: float
-│   │   │       └── width, height: float
-│   │   └── table: TableData?
-│   │       ├── headers: List[string]?
-│   │       └── rows: List[List[string]]
-│   │
-│   ├── options: List[MCQOption]?  # For MCQ questions
-│   │   ├── label: string          # A, B, C, D
-│   │   ├── text: string           # Option content
-│   │   └── is_correct: bool?      # True if correct answer
-│   │
-│   ├── sub_questions: List[Question]?  # Recursive for multi-part
-│   ├── answer: string?
-│   ├── page_number: int?
-│   └── marks: float?
-│
-└── usage: UsageData?
-    ├── prompt_tokens: int
-    ├── completion_tokens: int
-    ├── total_tokens: int
-    └── generation_ids: List[string]?
+    class DocumentMetadata {
+        +string title
+        +string subject
+        +string grade
+        +int total_pages
+        +datetime extraction_timestamp
+        +float processing_time_seconds
+    }
+
+    class Question {
+        +string id
+        +string number
+        +QuestionType type
+        +QuestionContent content
+        +List~MCQOption~ options
+        +List~Question~ sub_questions
+        +string answer
+        +int page_number
+        +float marks
+    }
+
+    class QuestionContent {
+        +string text
+        +string latex
+        +List~ImageRef~ images
+        +TableData table
+    }
+
+    class ImageRef {
+        +string filename
+        +string caption
+        +BoundingBox bbox
+    }
+
+    class BoundingBox {
+        +float x
+        +float y
+        +float width
+        +float height
+    }
+
+    class TableData {
+        +List~string~ headers
+        +List~List~string~~ rows
+    }
+
+    class MCQOption {
+        +string label
+        +string text
+        +bool is_correct
+    }
+
+    class UsageData {
+        +int prompt_tokens
+        +int completion_tokens
+        +int total_tokens
+        +List~string~ generation_ids
+    }
+
+    ExtractedDocument --> DocumentMetadata
+    ExtractedDocument --> Question
+    ExtractedDocument --> UsageData
+    Question --> QuestionContent
+    Question --> MCQOption
+    Question --> Question : sub_questions
+    QuestionContent --> ImageRef
+    QuestionContent --> TableData
+    ImageRef --> BoundingBox
 ```
 
 ### Question ID Naming Convention
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                     QUESTION ID STRUCTURE                       │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  Section I (MCQs):                                              │
-│  ├── MCQ_1, MCQ_2, ..., MCQ_20                                  │
-│                                                                 │
-│  Section II (Short Answer):                                     │
-│  ├── SEC_II_1, SEC_II_2, ...                                    │
-│                                                                 │
-│  Section III (Long Answer):                                     │
-│  ├── SEC_III_1, SEC_III_2, ...                                  │
-│  │   └── Sub-questions:                                         │
-│  │       ├── SEC_III_1_i, SEC_III_1_ii                          │
-│  │       └── SEC_III_2_a, SEC_III_2_b                           │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph SectionI["Section I (MCQs)"]
+        MCQ["MCQ_1, MCQ_2, ..., MCQ_20"]
+    end
+
+    subgraph SectionII["Section II (Short Answer)"]
+        SEC_II["SEC_II_1, SEC_II_2, ..."]
+    end
+
+    subgraph SectionIII["Section III (Long Answer)"]
+        SEC_III["SEC_III_1, SEC_III_2, ..."]
+        subgraph SubQuestions["Sub-questions"]
+            Sub1["SEC_III_1_i, SEC_III_1_ii"]
+            Sub2["SEC_III_2_a, SEC_III_2_b"]
+        end
+        SEC_III --> SubQuestions
+    end
 ```
 
 ### Question Types
@@ -589,52 +564,28 @@ QuestionType = Literal[
 
 ### Endpoint Overview
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                              API ENDPOINTS                                  │
-├────────────┬─────────┬──────────────────────────────────────────────────────┤
-│ Endpoint   │ Method  │ Description                                          │
-├────────────┼─────────┼──────────────────────────────────────────────────────┤
-│ /          │ GET     │ Health check                                         │
-│ /health    │ GET     │ Detailed health status with config                   │
-│ /extract   │ POST    │ Synchronous extraction (waits for completion)        │
-│ /extract/  │ POST    │ SSE streaming (real-time progress updates)           │
-│   stream   │         │                                                      │
-│ /extract/  │ POST    │ Batch extraction (multiple PDFs)                     │
-│   batch    │         │                                                      │
-│ /schema    │ GET     │ JSON Schema for output format                        │
-└────────────┴─────────┴──────────────────────────────────────────────────────┘
-```
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | Health check |
+| `/health` | GET | Detailed health status with config |
+| `/extract` | POST | Synchronous extraction (waits for completion) |
+| `/extract/stream` | POST | SSE streaming (real-time progress updates) |
+| `/extract/batch` | POST | Batch extraction (multiple PDFs) |
+| `/schema` | GET | JSON Schema for output format |
 
 ### SSE Streaming Protocol
 
-```
-Client                                          Server
-  │                                               │
-  │  POST /extract/stream                         │
-  │  {"pdf_path": "/path/to/test.pdf"}           │
-  │───────────────────────────────────────────►   │
-  │                                               │
-  │   data: {"status": "started", "pdf": "..."}  │
-  │◄───────────────────────────────────────────   │
-  │                                               │
-  │   data: {"status": "processing",             │
-  │          "step": "extract_images",           │
-  │          "message": "Extracted 24 images"}   │
-  │◄───────────────────────────────────────────   │
-  │                                               │
-  │   data: {"status": "processing",             │
-  │          "step": "gemini_extraction",        │
-  │          "page": 1, "total_pages": 7}        │
-  │◄───────────────────────────────────────────   │
-  │                                               │
-  │   ...progress events...                       │
-  │                                               │
-  │   data: {"status": "complete",               │
-  │          "questions_extracted": 42,          │
-  │          "usage": {...}}                     │
-  │◄───────────────────────────────────────────   │
-  │                                               │
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+
+    Client->>Server: POST /extract/stream<br/>{"pdf_path": "/path/to/test.pdf"}
+    Server-->>Client: data: {"status": "started", "pdf": "..."}
+    Server-->>Client: data: {"status": "processing",<br/>"step": "extract_images",<br/>"message": "Extracted 24 images"}
+    Server-->>Client: data: {"status": "processing",<br/>"step": "gemini_extraction",<br/>"page": 1, "total_pages": 7}
+    Note over Server,Client: ...progress events...
+    Server-->>Client: data: {"status": "complete",<br/>"questions_extracted": 42,<br/>"usage": {...}}
 ```
 
 ### Request/Response Examples
@@ -664,37 +615,19 @@ curl -X POST http://localhost:8000/extract \
 
 The system prompt is carefully engineered for reliable extraction:
 
-```
-┌────────────────────────────────────────────────────────────────────────────┐
-│                         SYSTEM PROMPT SECTIONS                             │
-├────────────────────────────────────────────────────────────────────────────┤
-│                                                                            │
-│  1. ROLE DEFINITION                                                        │
-│     "You are an expert at extracting structured questions..."               │
-│                                                                            │
-│  2. CRITICAL REQUIREMENTS                                                  │
-│     - Extract ALL questions from every page                                │
-│     - Use unique IDs with section prefixes                                 │
-│     - Preserve document structure                                          │
-│     - Preserve mathematical notation (LaTeX)                               │
-│                                                                            │
-│  3. MCQ HANDLING                                                           │
-│     - List all options with labels                                         │
-│     - Mark correct answers                                                 │
-│     - Preserve answer column values                                        │
-│                                                                            │
-│  4. MULTI-PART HANDLING                                                    │
-│     - Create parent with type="multi_part"                                 │
-│     - Include sub_questions array                                          │
-│                                                                            │
-│  5. OUTPUT FORMAT SPECIFICATION                                            │
-│     - Detailed JSON structure                                              │
-│     - Field types and requirements                                         │
-│                                                                            │
-│  6. FINAL CHECKLIST                                                        │
-│     - Verification steps before returning                                  │
-│                                                                            │
-└────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph Prompt["SYSTEM PROMPT SECTIONS"]
+        direction TB
+        S1["1. ROLE DEFINITION<br/>You are an expert at extracting structured questions..."]
+        S2["2. CRITICAL REQUIREMENTS<br/>• Extract ALL questions from every page<br/>• Use unique IDs with section prefixes<br/>• Preserve document structure<br/>• Preserve mathematical notation (LaTeX)"]
+        S3["3. MCQ HANDLING<br/>• List all options with labels<br/>• Mark correct answers<br/>• Preserve answer column values"]
+        S4["4. MULTI-PART HANDLING<br/>• Create parent with type='multi_part'<br/>• Include sub_questions array"]
+        S5["5. OUTPUT FORMAT SPECIFICATION<br/>• Detailed JSON structure<br/>• Field types and requirements"]
+        S6["6. FINAL CHECKLIST<br/>• Verification steps before returning"]
+        
+        S1 --> S2 --> S3 --> S4 --> S5 --> S6
+    end
 ```
 
 ### Dynamic Image Reference Instructions
@@ -730,30 +663,49 @@ Mathematical Notation Requirements:
 
 ### Batch Processing Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                         CONCURRENT BATCH PROCESSING                         │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  Input: [pdf1.pdf, pdf2.pdf, pdf3.pdf, pdf4.pdf, pdf5.pdf, pdf6.pdf]        │
-│                                                                             │
-│                    Semaphore (max_concurrent=5)                             │
-│                              │                                              │
-│         ┌──────┬──────┬──────┼──────┬──────┐                                │
-│         ▼      ▼      ▼      ▼      ▼      │                                │
-│      ┌─────┐┌─────┐┌─────┐┌─────┐┌─────┐   │  (waiting)                     │
-│      │PDF1 ││PDF2 ││PDF3 ││PDF4 ││PDF5 │   │  ┌─────┐                       │
-│      └──┬──┘└──┬──┘└──┬──┘└──┬──┘└──┬──┘   └──│PDF6 │                       │
-│         │      │      │      │      │         └─────┘                       │
-│         ▼      ▼      ▼      ▼      ▼                                       │
-│      Running concurrently (async)                                           │
-│         │      │      │      │      │                                       │
-│         ▼      ▼      ▼      ▼      ▼                                       │
-│      ┌─────┐┌─────┐┌─────┐┌─────┐┌─────┐                                    │
-│      │Done ││Done ││Done ││Done ││Done │───► PDF6 starts                    │
-│      └─────┘└─────┘└─────┘└─────┘└─────┘                                    │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph Input["Input PDFs"]
+        PDF1[pdf1.pdf]
+        PDF2[pdf2.pdf]
+        PDF3[pdf3.pdf]
+        PDF4[pdf4.pdf]
+        PDF5[pdf5.pdf]
+        PDF6[pdf6.pdf]
+    end
+
+    Semaphore["Semaphore (max_concurrent=5)"]
+    
+    subgraph Running["Running Concurrently (async)"]
+        P1[PDF1 Processing]
+        P2[PDF2 Processing]
+        P3[PDF3 Processing]
+        P4[PDF4 Processing]
+        P5[PDF5 Processing]
+    end
+    
+    Waiting["PDF6 (waiting)"]
+    
+    subgraph Complete["Completed"]
+        D1[Done]
+        D2[Done]
+        D3[Done]
+        D4[Done]
+        D5[Done]
+    end
+    
+    P6Start["PDF6 starts"]
+
+    PDF1 & PDF2 & PDF3 & PDF4 & PDF5 --> Semaphore
+    PDF6 --> Waiting
+    Semaphore --> Running
+    P1 --> D1
+    P2 --> D2
+    P3 --> D3
+    P4 --> D4
+    P5 --> D5
+    D5 --> P6Start
+    Waiting -.-> P6Start
 ```
 
 ### Implementation
@@ -777,25 +729,26 @@ async def process_batch(self, pdf_paths: List[str], max_concurrent: int = 5):
 
 ### Thread Safety Considerations
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                     THREAD SAFETY                               │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ✓ Each PDF gets its own:                                       │
-│    - Output directory (isolated write paths)                    │
-│    - GeminiClient instance (separate token tracking)            │
-│    - QuestionParser instance (separate ID deduplication set)    │
-│                                                                 │
-│  ✓ Shared resources:                                            │
-│    - API key (read-only)                                        │
-│    - Configuration (read-only)                                  │
-│                                                                 │
-│  ✓ Async/await model prevents race conditions                   │
-│    - Single-threaded event loop                                 │
-│    - Semaphore controls concurrent API calls                    │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph Isolated["✓ Each PDF gets its own:"]
+        direction TB
+        O1["Output directory (isolated write paths)"]
+        O2["GeminiClient instance (separate token tracking)"]
+        O3["QuestionParser instance (separate ID deduplication set)"]
+    end
+
+    subgraph Shared["✓ Shared resources (read-only):"]
+        direction TB
+        S1["API key"]
+        S2["Configuration"]
+    end
+
+    subgraph AsyncModel["✓ Async/await model prevents race conditions:"]
+        direction TB
+        A1["Single-threaded event loop"]
+        A2["Semaphore controls concurrent API calls"]
+    end
 ```
 
 ---
@@ -804,38 +757,11 @@ async def process_batch(self, pdf_paths: List[str], max_concurrent: int = 5):
 
 ### Token Tracking Flow
 
-```
-┌────────────────────────────────────────────────────────────────────────────┐
-│                         TOKEN TRACKING FLOW                                │
-├────────────────────────────────────────────────────────────────────────────┤
-│                                                                            │
-│  API Call                                                                  │
-│      │                                                                     │
-│      ▼                                                                     │
-│  OpenRouter Response                                                       │
-│  {                                                                         │
-│    "id": "gen-abc123",                                                     │
-│    "usage": {                                                              │
-│      "prompt_tokens": 5000,                                                │
-│      "completion_tokens": 9498,                                            │
-│      "total_tokens": 14498                                                 │
-│    },                                                                      │
-│    "choices": [...]                                                        │
-│  }                                                                         │
-│      │                                                                     │
-│      ▼                                                                     │
-│  UsageStats.add(usage, generation_id)                                      │
-│      │                                                                     │
-│      ▼                                                                     │
-│  Saved to output JSON:                                                     │
-│  "usage": {                                                                │
-│    "prompt_tokens": 5000,                                                  │
-│    "completion_tokens": 9498,                                              │
-│    "total_tokens": 14498,                                                  │
-│    "generation_ids": ["gen-abc123"]                                        │
-│  }                                                                         │
-│                                                                            │
-└────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    A[API Call] --> B["OpenRouter Response<br/>{id: 'gen-abc123', usage: {...}, choices: [...]}"]
+    B --> C["UsageStats.add(usage, generation_id)"]
+    C --> D["Saved to output JSON:<br/>{prompt_tokens: 5000, completion_tokens: 9498,<br/>total_tokens: 14498, generation_ids: ['gen-abc123']}"]
 ```
 
 ### Cost Estimation
@@ -861,32 +787,37 @@ estimated_cost = (
 
 ### Error Hierarchy
 
-```
-┌────────────────────────────────────────────────────────────────────────────┐
-│                           ERROR HANDLING                                   │
-├────────────────────────────────────────────────────────────────────────────┤
-│                                                                            │
-│  Layer 1: Pipeline Level                                                   │
-│  ├── PDF not found → ExtractResponse(status="error", error="...")          │
-│  ├── Invalid file type → ExtractResponse(status="error", error="...")      │
-│  └── Processing exception → Logged + wrapped in ExtractResponse            │
-│                                                                            │
-│  Layer 2: API Level                                                        │
-│  ├── HTTP Status Errors → Re-raised with context                           │
-│  ├── Timeout → Logged + re-raised                                          │
-│  └── JSON Parse Error → Return {questions: [], error: "..."}               │
-│                                                                            │
-│  Layer 3: Batch Level                                                      │
-│  ├── Individual failures don't stop batch                                  │
-│  ├── Exceptions caught per PDF                                             │
-│  └── Results include success/error status per file                         │
-│                                                                            │
-│  Layer 4: Server Level                                                     │
-│  ├── Generic exception handler → 500 response                              │
-│  ├── HTTPException → Proper HTTP status codes                              │
-│  └── All errors logged with traceback                                      │
-│                                                                            │
-└────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph Layer1["Layer 1: Pipeline Level"]
+        direction TB
+        L1A["PDF not found → ExtractResponse(status='error')"]
+        L1B["Invalid file type → ExtractResponse(status='error')"]
+        L1C["Processing exception → Logged + wrapped"]
+    end
+
+    subgraph Layer2["Layer 2: API Level"]
+        direction TB
+        L2A["HTTP Status Errors → Re-raised with context"]
+        L2B["Timeout → Logged + re-raised"]
+        L2C["JSON Parse Error → Return {questions: [], error}"]
+    end
+
+    subgraph Layer3["Layer 3: Batch Level"]
+        direction TB
+        L3A["Individual failures don't stop batch"]
+        L3B["Exceptions caught per PDF"]
+        L3C["Results include success/error status per file"]
+    end
+
+    subgraph Layer4["Layer 4: Server Level"]
+        direction TB
+        L4A["Generic exception handler → 500 response"]
+        L4B["HTTPException → Proper HTTP status codes"]
+        L4C["All errors logged with traceback"]
+    end
+
+    Layer1 --> Layer2 --> Layer3 --> Layer4
 ```
 
 ### Graceful Degradation

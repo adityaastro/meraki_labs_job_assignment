@@ -7,8 +7,9 @@ import asyncio
 import json
 import logging
 import time
+import traceback
 from pathlib import Path
-from typing import List, Dict, Any, Tuple, Optional
+from typing import List, Dict, Any, Tuple, Optional, Callable, Awaitable
 
 from src.core.config import config
 from src.core.schemas import ExtractedDocument, ExtractRequest, ExtractResponse
@@ -18,6 +19,9 @@ from src.processors.gemini_client import GeminiClient
 from src.processors.question_parser import QuestionParser
 
 logger = logging.getLogger(__name__)
+
+# Type alias for progress callback function
+ProgressCallback = Optional[Callable[[Dict[str, Any]], Awaitable[None]]]
 
 
 class ExtractionPipeline:
@@ -54,8 +58,18 @@ class ExtractionPipeline:
         )
         self.output_base_dir.mkdir(parents=True, exist_ok=True)
 
+    async def _emit_progress(
+        self, progress_cb: ProgressCallback, event: Dict[str, Any]
+    ) -> None:
+        """Helper to emit progress events if callback is provided."""
+        if progress_cb:
+            await progress_cb(event)
+
     async def process_pdf(
-        self, pdf_path: str, output_dir: Optional[str] = None
+        self,
+        pdf_path: str,
+        output_dir: Optional[str] = None,
+        progress_cb: ProgressCallback = None,
     ) -> ExtractResponse:
         """
         Process a single PDF and extract questions.
@@ -67,6 +81,7 @@ class ExtractionPipeline:
         Args:
             pdf_path: Path to the PDF file
             output_dir: Optional specific output directory
+            progress_cb: Optional async callback for progress updates
 
         Returns:
             ExtractResponse with status and output paths
@@ -93,22 +108,45 @@ class ExtractionPipeline:
         pages_dir.mkdir(exist_ok=True)
 
         logger.info(f"Processing PDF: {pdf_path.name}")
+        await self._emit_progress(progress_cb, {
+            "step": "started",
+            "pdf": pdf_path.name,
+            "timestamp": time.time()
+        })
 
         try:
             # Step 1: Get page count to decide processing method
             total_pages = self.pdf_converter.get_page_count(str(pdf_path))
             logger.info(f"PDF has {total_pages} pages")
+            await self._emit_progress(progress_cb, {
+                "step": "info",
+                "message": f"PDF has {total_pages} pages",
+                "total_pages": total_pages
+            })
 
             # Step 2: Extract embedded images (needed for both methods)
             logger.info("Step 1: Extracting embedded images...")
+            await self._emit_progress(progress_cb, {
+                "step": "extract_images",
+                "message": "Extracting embedded images..."
+            })
             extracted_images = self.image_extractor.extract_images(
                 str(pdf_path), str(assets_dir), prefix=pdf_name
             )
             logger.info(f"Extracted {len(extracted_images)} embedded images")
+            await self._emit_progress(progress_cb, {
+                "step": "extract_images",
+                "message": f"Extracted {len(extracted_images)} images",
+                "images": len(extracted_images)
+            })
 
             # Step 3: Choose processing method based on page count
             if self.use_native_pdf and total_pages <= config.MAX_PAGES_FOR_NATIVE:
                 # Use native PDF processing for full document context
+                await self._emit_progress(progress_cb, {
+                    "step": "native_pdf",
+                    "message": "Sending entire PDF to Gemini (Native Mode)..."
+                })
                 result, usage_stats = await self._process_native_pdf(
                     pdf_path, extracted_images, total_pages
                 )
@@ -118,12 +156,20 @@ class ExtractionPipeline:
                     f"PDF has {total_pages} pages (>{config.MAX_PAGES_FOR_NATIVE}), "
                     "using chunked processing"
                 )
+                await self._emit_progress(progress_cb, {
+                    "step": "chunked_mode",
+                    "message": f"Processing large document (>{config.MAX_PAGES_FOR_NATIVE} pages) in chunks..."
+                })
                 result, usage_stats = await self._process_large_pdf(
-                    pdf_path, pages_dir, extracted_images, total_pages
+                    pdf_path, pages_dir, extracted_images, total_pages, progress_cb
                 )
 
             # Step 4: Post-process and build document
             logger.info("Step 3: Post-processing results...")
+            await self._emit_progress(progress_cb, {
+                "step": "post_process",
+                "message": "Post-processing results..."
+            })
             processing_time = time.time() - start_time
 
             document = self.question_parser.process_extraction_result(
@@ -158,7 +204,6 @@ class ExtractionPipeline:
         except Exception as e:
             processing_time = time.time() - start_time
             logger.error(f"Pipeline failed for {pdf_path.name}: {e}")
-            import traceback
             logger.error(traceback.format_exc())
             return ExtractResponse(
                 status="error", error=str(e), processing_time_seconds=processing_time
@@ -198,6 +243,7 @@ class ExtractionPipeline:
         pages_dir: Path,
         extracted_images: List[Dict[str, Any]],
         total_pages: int,
+        progress_cb: ProgressCallback = None,
     ) -> Tuple[Dict[str, Any], Any]:
         """
         Process very large documents using chunked page processing.
@@ -207,21 +253,78 @@ class ExtractionPipeline:
             pages_dir: Directory to save page images
             extracted_images: List of extracted image metadata
             total_pages: Total number of pages
+            progress_cb: Optional async callback for progress updates
 
         Returns:
             Tuple of (combined result dict, usage stats)
         """
         logger.info("Step 2a: Converting PDF to images (fallback mode)...")
+        await self._emit_progress(progress_cb, {
+            "step": "pdf_to_images",
+            "message": "Converting PDF to images..."
+        })
         page_images = self.pdf_converter.convert_to_images(
             str(pdf_path), str(pages_dir), max_pages=config.MAX_PAGES_PER_PDF
         )
-        logger.info(f"Converted {len(page_images)} pages to images")
+        actual_pages = len(page_images)
+        logger.info(f"Converted {actual_pages} pages to images")
+
+        # Log warning if pages were truncated
+        if actual_pages < total_pages:
+            logger.warning(
+                f"Processed only first {actual_pages} pages out of {total_pages} "
+                f"due to MAX_PAGES_PER_PDF={config.MAX_PAGES_PER_PDF}"
+            )
+            await self._emit_progress(progress_cb, {
+                "step": "truncation_warning",
+                "message": f"Warning: Only processing first {actual_pages} of {total_pages} pages (limit: {config.MAX_PAGES_PER_PDF})",
+                "processed_pages": actual_pages,
+                "total_pages": total_pages
+            })
 
         logger.info("Step 2b: Extracting questions page-by-page...")
         image_paths = [img_path for _, img_path in page_images]
-        page_results, usage_stats = await self.gemini_client.extract_questions_batch(
-            image_paths, start_page=1
-        )
+        
+        # Process pages with progress updates
+        page_results = []
+        usage_stats = self.gemini_client.usage_stats.__class__()  # Create fresh UsageStats
+        
+        for i, image_path in enumerate(image_paths):
+            page_num = i + 1
+            await self._emit_progress(progress_cb, {
+                "step": "gemini_extraction",
+                "page": page_num,
+                "total_pages": actual_pages,
+                "message": f"Processing page {page_num}/{actual_pages}..."
+            })
+            
+            try:
+                page_result = await self.gemini_client.extract_questions_from_image(
+                    image_path, page_num
+                )
+                page_results.append(page_result)
+                
+                if "_usage" in page_result:
+                    usage_stats.add(page_result["_usage"], page_result.get("_generation_id"))
+                
+                questions_on_page = len(page_result.get("questions", []))
+                await self._emit_progress(progress_cb, {
+                    "step": "gemini_extraction",
+                    "page": page_num,
+                    "total_pages": actual_pages,
+                    "questions_found": questions_on_page,
+                    "message": f"Page {page_num} complete: {questions_on_page} questions"
+                })
+            except Exception as e:
+                logger.error(f"Failed to process page {page_num}: {e}")
+                await self._emit_progress(progress_cb, {
+                    "step": "gemini_extraction",
+                    "page": page_num,
+                    "error": str(e),
+                    "message": f"Page {page_num} failed: {str(e)}"
+                })
+                page_results.append({"page_number": page_num, "questions": [], "error": str(e)})
+        
         logger.info(f"Processed {len(page_results)} pages")
 
         # Combine page results into a single result format
@@ -240,6 +343,7 @@ class ExtractionPipeline:
 
         combined_result = {
             "total_pages": total_pages,
+            "processed_pages": actual_pages,
             "questions": all_questions,
             "metadata_hints": metadata_hints,
             "_from_chunked": True,

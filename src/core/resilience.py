@@ -5,6 +5,7 @@ Resilience utilities including retry logic and circuit breakers.
 import logging
 import asyncio
 import functools
+import time
 from typing import Any, Callable, Dict, Optional, Type, TypeVar
 from dataclasses import dataclass
 
@@ -43,7 +44,7 @@ class CircuitBreaker:
 
     def record_failure(self):
         self.failure_count += 1
-        self.last_failure_time = asyncio.get_event_loop().time()
+        self.last_failure_time = time.monotonic()
         if self.failure_count >= self.failure_threshold:
             self.state = "OPEN"
             logger.error(f"Circuit breaker opened after {self.failure_count} failures")
@@ -53,11 +54,10 @@ class CircuitBreaker:
         self.state = "CLOSED"
 
     def can_call(self) -> bool:
-        import time
         if self.state == "CLOSED":
             return True
 
-        now = time.monotonic()  # Better for timing
+        now = time.monotonic()
         if now - self.last_failure_time > self.recovery_timeout:
             self.state = "HALF_OPEN"
             return True
@@ -77,13 +77,12 @@ def with_resilience(
     def decorator(func: Callable[..., T]) -> Callable[..., T]:
         
         # Define the retry wrapper using tenacity
+        # Only retry on transport-level errors (timeouts, connection issues)
+        # Do NOT retry on HTTP status errors (4xx, 5xx) - let caller handle those
         tenacity_retry = retry(
             stop=stop_after_attempt(retry_config.max_attempts),
             wait=wait_exponential(multiplier=retry_config.backoff_base),
-            retry=(
-                retry_if_exception_type((httpx.TimeoutException, httpx.NetworkError)) |
-                retry_if_exception_type(httpx.HTTPStatusError)
-            ),
+            retry=retry_if_exception_type((httpx.TimeoutException, httpx.ConnectError)),
             before_sleep=before_sleep_log(logger, logging.WARNING),
             reraise=True
         )
